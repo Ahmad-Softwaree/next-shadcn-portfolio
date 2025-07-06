@@ -1,10 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Download } from "lucide-react";
+import { Download, Github } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { HTMLAttributes } from "react";
-import { GithubLogo } from "./icons";
 
 const About = () => {
   return (
@@ -23,22 +23,26 @@ const About = () => {
               Passionate about creating impactful web experiences
             </h2>
             <p className="text-muted-foreground mb-6 text-justify">
-              With over 5 years of experience in full-stack development, I
+              With over 4 years of experience in full-stack development, I
               specialize in building scalable web applications using modern
-              technologies. My expertise includes React, Node.js, and cloud
-              architecture. I&apos;m passionate about creating elegant solutions
-              to complex problems and sharing knowledge with the developer
-              community.
+              technologies. My expertise includes Next.js, Node.js, and Nest.js.
+              I&apos;m passionate about creating elegant solutions to complex
+              problems and sharing knowledge with the developer community.
             </p>
             <div className="flex flex-wrap gap-4 justify-start">
-              <Button className="rounded-full">
-                <GithubLogo />
-                View Github
-              </Button>
-              <Button variant="outline" className="rounded-full">
-                <Download />
-                Download CV
-              </Button>
+              <Link target="_blank" href={`https://github.com/Ahmad-Softwaree`}>
+                <Button className="rounded-full">
+                  <Github />
+                  View Github
+                </Button>{" "}
+              </Link>
+
+              <a href="/pdf/nest-js-backend-developer.pdf" download>
+                <Button variant="outline" className="rounded-full">
+                  <Download className="mr-2" />
+                  Download CV
+                </Button>
+              </a>
             </div>
           </div>
         </div>
@@ -53,7 +57,7 @@ const ProfileImage = ({
 }: HTMLAttributes<HTMLDivElement>) => (
   <div className={cn("mt-10 w-48 h-48 md:w-64 md:h-64", className)} {...props}>
     <div className="relative w-full h-full rounded-2xl overflow-hidden bg-accent">
-      <Image src="/placeholder.svg" alt="" className="object-cover" fill />
+      <Image src="/ahmad.jpg" alt="" className="object-cover" fill />
     </div>
   </div>
 );

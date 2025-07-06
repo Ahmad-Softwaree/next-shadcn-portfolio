@@ -41,7 +41,7 @@ const ExperienceItem = ({
         <p className="text-muted-foreground">{description}</p>
         <div className="flex flex-wrap gap-2">
           {technologies.map((tech) => (
-            <Badge key={tech} variant="secondary" className="rounded-full">
+            <Badge key={tech} variant="default" className="rounded-full">
               {tech}
             </Badge>
           ))}
@@ -54,28 +54,45 @@ const ExperienceItem = ({
 const Experience = () => {
   const experiences = [
     {
-      title: "Senior Full Stack Developer",
-      company: "TechCorp Solutions",
+      title: "Junior Full Stack Developer",
+      company: "Bester Group",
       period: "2021 - Present",
       description:
-        "Led the development of enterprise-scale web applications, mentored junior developers, and implemented best practices for code quality and performance optimization.",
-      technologies: ["React", "Node.js", "TypeScript", "AWS", "MongoDB"],
+        "Contributed to the full development lifecycle of enterprise web systems by building scalable APIs, designing reusable frontend components, and maintaining databases. Collaborated closely with senior engineers to improve performance and security across the stack.",
+      technologies: [
+        "React",
+        "Next.js",
+        "Express.js",
+        "Nest.js",
+        "TypeScript",
+        "Mysql",
+        "MongoDB",
+        "Postgresql",
+      ],
     },
     {
       title: "Full Stack Developer",
-      company: "Digital Innovations Inc",
-      period: "2019 - 2021",
+      company: "AP Soft",
+      period: "2023 - Present",
       description:
-        "Developed and maintained multiple client projects, implemented responsive designs, and integrated third-party APIs for enhanced functionality.",
-      technologies: ["React", "Express.js", "PostgreSQL", "Docker", "Redis"],
+        "Led development on multi-tenant client platforms using modern full stack tools. Architected backend services with NestJS, developed dynamic interfaces in Next.js, and integrated real-time features and external APIs to deliver robust business solutions.",
+      technologies: [
+        "React",
+        "Next.js",
+        "Nest.js",
+        "TypeScript",
+        "Mysql",
+        "MongoDB",
+        "Postgresql",
+      ],
     },
     {
-      title: "Frontend Developer",
-      company: "WebTech Studios",
-      period: "2018 - 2019",
+      title: "Backend Developer",
+      company: "Avana Soft",
+      period: "2025 - Present",
       description:
-        "Created responsive and interactive user interfaces, collaborated with designers, and optimized application performance.",
-      technologies: ["React", "JavaScript", "SASS", "Webpack", "Jest"],
+        "Focused on designing and optimizing backend architecture for performance-critical applications. Built secure RESTful APIs, implemented data modeling best practices, and ensured reliable system integration with external services and databases.",
+      technologies: ["Nest.js", "TypeScript", "Mysql"],
     },
   ];
 

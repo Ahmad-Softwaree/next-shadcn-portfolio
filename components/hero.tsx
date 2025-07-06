@@ -3,8 +3,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CircleArrowDown, Zap } from "lucide-react";
-
+import { FlipWords } from "@/components/ui/flip-words";
 const Hero = () => {
+  const words = ["React.js", "Next.js", "Nest.js"];
+
   return (
     <div className="relative min-h-screen flex items-center justify-center px-6 pt-6 overflow-hidden">
       <AnimatedGridPattern
@@ -22,19 +24,21 @@ const Hero = () => {
           Fullstack Web Developer
         </Badge>
         <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-bold !leading-[1.2] tracking-tight">
-          Building Scalable & Engaging Web Experiences
+          Building Scalable & Engaging Web Experiences With{" "}
+          <FlipWords words={words} /> <br />
         </h1>
         <p className="mt-6 text-[17px] md:text-lg">
-          Hey there! I&apos;m a John Doe, a Full Stack Developer who loves
-          building cool and scalable web experiences. From crafting beautiful
-          frontends to powering robust backends, I bring ideas to life with
-          clean code and great design. Let&apos;s create something amazing
-          together! 🚀
+          Hey there! I&apos;m a Ahmad, a Full Stack Developer who loves building
+          cool and scalable web experiences. From crafting beautiful frontends
+          to powering robust backends, I bring ideas to life with clean code and
+          great design. Let&apos;s create something amazing together! 🚀
         </p>
         <div className="mt-12 flex items-center justify-center gap-4">
-          <Button size="lg" className="rounded-full text-base">
-            See What I Do <CircleArrowDown className="ml-2 !h-5.5 !w-5.5" />
-          </Button>
+          <a href="#projects">
+            <Button size="lg" className="rounded-full text-base">
+              See What I Do <CircleArrowDown className="ml-2 !h-5.5 !w-5.5" />
+            </Button>
+          </a>
         </div>
       </div>
     </div>
