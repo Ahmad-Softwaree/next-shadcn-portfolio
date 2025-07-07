@@ -129,3 +129,7 @@ html {
     @apply bg-background text-foreground;
   }
 }
+
+section {
+  @apply mt-20;
+}

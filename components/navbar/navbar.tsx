@@ -10,10 +10,13 @@ const Navbar = () => {
   return (
     <nav className="fixed z-10 top-6 inset-x-4 h-14 bg-background border dark:border-slate-700/70 max-w-screen-md mx-auto rounded-full">
       <div className="h-full flex items-center justify-between mx-auto px-3">
-        <div className="flex flex-row justify-center items-center gap-2">
+        <Link
+          href={`/`}
+          className="flex flex-row justify-center items-center gap-2"
+        >
           <Logo />
           <h2 className="font-bold">Ahmad Software</h2>
-        </div>
+        </Link>
 
         {/* Desktop Menu */}
         <NavMenu className="hidden md:block" />
