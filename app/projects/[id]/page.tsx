@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ExternalLink, Github, Star } from "lucide-react";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-const ProjectPage = () => {
+const page = () => {
   const params = useParams();
   const projectId = Number(params?.id);
 
@@ -170,4 +170,4 @@ const ProjectPage = () => {
   );
 };
 
-export default ProjectPage;
+export default page;

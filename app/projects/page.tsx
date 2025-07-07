@@ -102,7 +102,7 @@ const page = () => {
 
       return true;
     });
-  }, [filters, projects]);
+  }, [filters]);
   const isFilterActive = useMemo(() => {
     return (
       filters.starredOnly ||
