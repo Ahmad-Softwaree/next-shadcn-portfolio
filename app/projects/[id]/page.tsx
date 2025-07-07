@@ -86,7 +86,7 @@ const ProjectPage = () => {
         </div>
         {(project.clients?.length || project.contributor) && (
           <div className="grid gap-4 md:grid-cols-2 mt-8">
-            {project.clients?.length > 0 && (
+            {Array.isArray(project.clients) && project.clients.length > 0 && (
               <Card>
                 <CardHeader>
                   <CardTitle>Clients</CardTitle>

@@ -11,10 +11,9 @@ import {
   SheetDescription,
   SheetClose,
 } from "@/components/ui/sheet";
-import { ExternalLink, FilterIcon, Github, Star } from "lucide-react";
-import Image from "next/image";
+import { FilterIcon } from "lucide-react";
 import { useState, useMemo } from "react";
-import { ProjectCardProps, projects } from "@/lib/data/projects";
+import { projects } from "@/lib/data/projects";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";

@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { ProjectCardProps, projects } from "@/lib/data/projects";
+import { projects } from "@/lib/data/projects";
 import ProjectCard from "./cards/project-card";
 import Link from "next/link";
 
