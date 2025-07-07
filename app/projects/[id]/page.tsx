@@ -40,7 +40,7 @@ const page = () => {
     <section className="py-20 px-6 max-w-4xl mx-auto">
       <div className="space-y-6">
         <div className="relative h-72 w-full rounded-xl overflow-hidden border border-muted">
-          <Image src={image} alt={title} fill className="object-cover" />
+          <Image src={image} alt={title} fill className="object-contain" />
         </div>
 
         <div className="flex flex-col gap-2">
