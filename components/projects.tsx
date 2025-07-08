@@ -9,7 +9,7 @@ const ProjectsPreview = () => {
   const topProjects = projects.slice(0, 10);
 
   return (
-    <section id="projects-preview" className="relative py-20 px-6">
+    <section id="projects" className="relative py-20 px-6">
       <div className="max-w-screen-md mx-auto">
         {/* Header */}
         <div className="text-center mb-8 flex flex-col items-center gap-4">
@@ -34,7 +34,7 @@ const ProjectsPreview = () => {
         <div className="flex justify-center mt-10">
           <Link href="/projects">
             <Badge
-              className="text-sm px-4 py-2 rounded-full cursor-pointer hover:bg-primary hover:text-white transition-colors"
+              className="text-sm px-4 py-2 rounded-full cursor-pointer transition-colors"
               variant="outline"
             >
               See all projects →
