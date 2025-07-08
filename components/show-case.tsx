@@ -3,10 +3,14 @@ import {
   Terminal,
   TypingAnimation,
 } from "@/components/magicui/terminal";
+import { Badge } from "./ui/badge";
 
 export function ShowCase() {
   return (
-    <div className="flex items-center justify-center  px-4">
+    <div className="flex flex-col items-center justify-center  px-4">
+      <Badge variant="secondary" className="mb-4">
+        Welcome
+      </Badge>
       <Terminal>
         <TypingAnimation>&gt; pnpm dlx shadcn@latest init</TypingAnimation>
 

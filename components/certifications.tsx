@@ -5,10 +5,14 @@ import { Marquee } from "./magicui/marquee";
 import { certificates } from "@/lib/data/certifications";
 import { Link2 } from "lucide-react";
 import Image from "next/image"; // Make sure you're importing this
+import { Badge } from "./ui/badge";
 
 const Certifications = () => (
   <div id="testimonials" className="flex justify-center items-center py-20">
-    <div className="h-full w-full">
+    <div className="h-full w-full flex flex-col items-center justify-center">
+      <Badge variant="secondary" className="mb-4">
+        Certifications
+      </Badge>
       <h2 className="mb-12 text-4xl md:text-5xl font-bold text-center tracking-tight px-6">
         Official Achievements
       </h2>

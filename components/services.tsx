@@ -1,9 +1,16 @@
 import { services } from "@/lib/data/services";
 import React from "react";
+import { Badge } from "./ui/badge";
 
 const Services = () => {
   return (
-    <div id="service" className="w-full py-12 xs:py-20 px-6">
+    <div
+      id="service"
+      className="w-full flex flex-col items-center justify-center py-12 xs:py-20 px-6"
+    >
+      <Badge variant="secondary" className="mb-4">
+        Services
+      </Badge>
       <h2 className="text-3xl xs:text-4xl sm:text-5xl font-bold tracking-tight text-center">
         You Dream It, I Build It
       </h2>
