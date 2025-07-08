@@ -29,7 +29,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main>{children}</main>
+          <main className="overflow-hidden">{children}</main>
           <Analytics />
           <Footer />
         </ThemeProvider>
