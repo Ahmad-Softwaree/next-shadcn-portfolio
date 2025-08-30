@@ -97,7 +97,7 @@ const Experience = () => {
     {
       title: "Frontend Developer",
       company: "Kitn Company",
-      period: "2025 - Present",
+      period: "2025 - 2025",
       description:
         "Specialized in building responsive and user-friendly interfaces. Developed reusable components, optimized performance for modern web applications, and collaborated closely with designers to deliver seamless user experiences across devices.",
       technologies: ["React", "Next.js", "TypeScript", "Tailwindcss"],
