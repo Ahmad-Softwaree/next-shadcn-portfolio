@@ -96,7 +96,7 @@ const Experience = () => {
     },
     {
       title: "Frontend Developer",
-      company: "Kitn Soft",
+      company: "Kitn Company",
       period: "2025 - Present",
       description:
         "Specialized in building responsive and user-friendly interfaces. Developed reusable components, optimized performance for modern web applications, and collaborated closely with designers to deliver seamless user experiences across devices.",
