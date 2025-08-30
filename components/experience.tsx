@@ -94,6 +94,14 @@ const Experience = () => {
         "Focused on designing and optimizing backend architecture for performance-critical applications. Built secure RESTful APIs, implemented data modeling best practices, and ensured reliable system integration with external services and databases.",
       technologies: ["Nest.js", "TypeScript", "Mysql"],
     },
+    {
+      title: "Frontend Developer",
+      company: "Kitn Soft",
+      period: "2025 - Present",
+      description:
+        "Specialized in building responsive and user-friendly interfaces. Developed reusable components, optimized performance for modern web applications, and collaborated closely with designers to deliver seamless user experiences across devices.",
+      technologies: ["React", "Next.js", "TypeScript", "Tailwindcss"],
+    },
   ];
 
   return (

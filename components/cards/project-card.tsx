@@ -22,7 +22,7 @@ const ProjectCard = ({
       {/* Project Image */}
       <div className="relative h-64 overflow-hidden bg-accent">
         <Image
-          src={image}
+          src={image || "/placeholder.svg"}
           alt={title}
           className="object-cover transition-transform duration-300 group-hover:scale-105"
           fill
@@ -39,19 +39,17 @@ const ProjectCard = ({
                 tag == "down"
                   ? "destructive"
                   : tag == "production"
-                  ? "default"
-                  : "outline"
+                    ? "default"
+                    : "outline"
               }
-              className="text-xs px-2 py-0.5 rounded-full"
-            >
+              className="text-xs px-2 py-0.5 rounded-full">
               {tag}
             </Badge>
           )}
           {starred && <Star className="ml-2 h-5 w-5 text-yellow-400" />}
           <Link
             href={`/projects/${id}`}
-            className="inline-flex ml-auto items-center gap-1 text-muted-foreground text-sm hover:underline"
-          >
+            className="inline-flex ml-auto items-center gap-1 text-muted-foreground text-sm hover:underline">
             <Eye className="w-4 h-4" />
             Details
           </Link>
@@ -64,8 +62,7 @@ const ProjectCard = ({
               <Badge
                 key={type}
                 variant="outline"
-                className="text-xs px-2 py-0.5 rounded-full"
-              >
+                className="text-xs px-2 py-0.5 rounded-full">
                 {type}
               </Badge>
             ))}
@@ -97,8 +94,7 @@ const ProjectCard = ({
             <Button
               variant="default"
               className="rounded-full cursor-not-allowed opacity-50"
-              disabled
-            >
+              disabled>
               Private Project
             </Button>
           )}
@@ -110,8 +106,7 @@ const ProjectCard = ({
                 key={i}
                 variant="outline"
                 className="rounded-full shadow-none"
-                asChild
-              >
+                asChild>
                 <a href={url} target="_blank" rel="noopener noreferrer">
                   <Github className="mr-1 h-4 w-4" />
                   View {name} Code
@@ -122,8 +117,7 @@ const ProjectCard = ({
             <Button
               variant="outline"
               className="rounded-full shadow-none cursor-not-allowed opacity-50"
-              disabled
-            >
+              disabled>
               Private Git
             </Button>
           )}

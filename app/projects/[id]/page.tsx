@@ -35,12 +35,17 @@ const page = () => {
     starred,
     types,
   } = project;
-
+  console.log(image);
   return (
     <section className="py-20 px-6 max-w-4xl mx-auto">
       <div className="space-y-6">
         <div className="relative h-72 w-full rounded-xl overflow-hidden border border-muted">
-          <Image src={image} alt={title} fill className="object-contain" />
+          <Image
+            src={image || "/placeholder.svg"}
+            alt={title}
+            fill
+            className="object-contain"
+          />
         </div>
 
         <div className="flex flex-col gap-2">
@@ -53,10 +58,9 @@ const page = () => {
                   tag === "down"
                     ? "destructive"
                     : tag === "production"
-                    ? "default"
-                    : "outline"
-                }
-              >
+                      ? "default"
+                      : "outline"
+                }>
                 {tag}
               </Badge>
             )}
@@ -100,8 +104,7 @@ const page = () => {
                             href={client.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-primary hover:underline"
-                          >
+                            className="text-primary hover:underline">
                             {client.name}
                           </a>
                         ) : (
@@ -125,8 +128,7 @@ const page = () => {
                       href={project.contributor.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline"
-                    >
+                      className="text-primary hover:underline">
                       {project.contributor.name}
                     </a>
                   ) : (

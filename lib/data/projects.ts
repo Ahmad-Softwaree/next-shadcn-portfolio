@@ -129,6 +129,34 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     contributor: { name: "Avana Soft", url: "https://avanasoft.com/" },
   },
   {
+    title: "Mallsat",
+    description: "A full-stack rael estate management platform.",
+    image: "",
+    technologies: ["Next.js", "TypeScript"],
+    liveUrl: "",
+    gits: [],
+    tag: "production",
+    types: ["system"],
+    client_specific: true,
+    clients: [],
+    contributor: { name: "Mallsat", url: "" },
+    starred: true,
+  },
+  {
+    title: "IQ Bids",
+    description:
+      "A full-stack car bids management platform, plus mobile apps for Android and iOS.",
+    image: "",
+    technologies: ["Nest.js", "MySQL", "Knex.js", "Firebase"],
+    liveUrl: "",
+    gits: [],
+    tag: "production",
+    types: ["complex dashboard", "app"],
+    client_specific: true,
+    clients: [{ name: "IQ Bids", url: "" }],
+    starred: true,
+  },
+  {
     title: "Restaurant System",
     description:
       "A modern restaurant management system built with React.js and Nest.js using ShadCN UI. Designed for large-scale operations, it features multi-printer support, live order tracking, table management, and a sleek admin dashboard for streamlined restaurant workflows.",
@@ -142,6 +170,27 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     types: ["system"],
     client_specific: false,
     clients: [],
+    contributor: { name: "Ap Soft", url: "https://apsoft.tech/" },
+  },
+  {
+    title: "Carwash System",
+    description:
+      "A modern restaurant management system built with React.js and Nest.js using ShadCN UI. Designed for large-scale operations, it features multi-printer support, live order tracking, table management, and a sleek admin dashboard for streamlined restaurant workflows.",
+
+    image: "/projects/ap_carwash.png",
+    technologies: ["React", "Nest.js", "Mysql", "TypeScript"],
+    liveUrl: "https://demo.apsoft.tech",
+    gits: [],
+    tag: "production",
+    starred: true,
+    types: ["system"],
+    client_specific: false,
+    clients: [
+      {
+        name: "Raha Carwash",
+        url: "",
+      },
+    ],
     contributor: { name: "Ap Soft", url: "https://apsoft.tech/" },
   },
   {
