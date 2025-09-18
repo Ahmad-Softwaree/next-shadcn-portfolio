@@ -89,10 +89,10 @@ const Experience = () => {
     {
       title: "Backend Developer",
       company: "Avana Soft",
-      period: "2025 - Present",
+      period: "2025 - 2025",
       description:
         "Focused on designing and optimizing backend architecture for performance-critical applications. Built secure RESTful APIs, implemented data modeling best practices, and ensured reliable system integration with external services and databases.",
-      technologies: ["Nest.js", "TypeScript", "Mysql"],
+      technologies: ["Nest.js", "TypeScript", "Mysql", "Express.js"],
     },
     {
       title: "Frontend Developer",
