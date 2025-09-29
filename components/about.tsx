@@ -11,14 +11,11 @@ const About = () => {
     <section id="about" className="relative py-20 px-6">
       <div className="max-w-screen-md mx-auto">
         <div className="flex flex-col md:flex-row-reverse gap-12">
-          <ProfileImage className="hidden md:block" />
-
           {/* Content */}
           <div className="flex-1 md:text-left">
             <Badge variant="secondary" className="mb-4">
               About Me
             </Badge>
-            <ProfileImage className="mt-3 mb-8 block md:hidden" />
             <h2 className="text-4xl font-bold mb-4 tracking-tight">
               Passionate about creating impactful web experiences
             </h2>
