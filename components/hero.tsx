@@ -20,7 +20,7 @@ const Hero = () => {
             "inset-x-0 h-full skew-y-12"
           )}
         />
-        <div className="relative z-[1] text-center max-w-screen-md">
+        <div className="relative z-[1] text-center max-w-screen-lg">
           <Badge className="rounded-full border-none">
             <Zap className="fill-current" />
             Fullstack Web Developer
