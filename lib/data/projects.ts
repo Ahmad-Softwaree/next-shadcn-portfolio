@@ -23,6 +23,44 @@ export interface ProjectCardProps {
 
 export const rawProjects: Partial<ProjectCardProps>[] = [
   {
+    title: "Yari Mndalan Website",
+    description:
+      "A Website for online shopping of clothing and accessories, featuring product listings, shopping cart, and secure checkout.",
+    image: "/projects/yarimndalan_web.png",
+    technologies: ["React", "Nest.js", "MySQL", "Prisma", "Typescript"],
+    liveUrl: "https://yarimndalan.com",
+    gits: [],
+    tag: "production",
+    types: ["web"],
+    starred: true,
+  },
+  {
+    title: "Ekleelz",
+    description:
+      "A Website verification platform for Ekleelz company, allowing users to verify the authenticity of their products through unique codes.",
+    image: "/projects/ekleelz.png",
+    technologies: ["React", "Nest.js", "MySQL", "Prisma", "Typescript"],
+    liveUrl: "https://verify.ekleelz.com",
+    gits: [],
+    tag: "production",
+    types: ["simple dashboard", "web"],
+    client_specific: true,
+    clients: [{ name: "Ekleelz", url: "https://ekleelz.com/" }],
+    starred: true,
+  },
+  {
+    title: "Yari Mndalan System",
+    description:
+      "A System for online shopping of clothing and accessories, featuring product listings, shopping cart, and secure checkout.",
+    image: "/projects/yarimndalan_system.png",
+    technologies: ["React", "Nest.js", "MySQL", "Prisma", "Typescript"],
+    gits: [],
+    tag: "production",
+    types: ["web", "complex dashboard", "system"],
+    starred: true,
+  },
+
+  {
     title: "Kallapost",
     description:
       "A full-stack delivery and post management platform with roles for customers, drivers, and managers, plus mobile apps for Android and iOS.",
@@ -76,7 +114,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     technologies: [
       "React",
       "Nest.js",
-      "Mysql",
+      "MySQL",
       "TypeScript",
       "Prisma",
       "TailwindCSS",
@@ -176,7 +214,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     technologies: [
       "React",
       "Nest.js",
-      "Mysql",
+      "MySQL",
       "TypeScript",
       "Prisma",
       "TailwindCSS",
@@ -203,7 +241,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     technologies: [
       "React",
       "Nest.js",
-      "Mysql",
+      "MySQL",
       "TypeScript",
       "Prisma",
       "TailwindCSS",
@@ -230,7 +268,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     technologies: [
       "React",
       "Nest.js",
-      "Mysql",
+      "MySQL",
       "TypeScript",
       "Prisma",
       "TailwindCSS",
