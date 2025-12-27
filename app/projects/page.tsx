@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sheet";
 import { FilterIcon } from "lucide-react";
 import { useState, useMemo } from "react";
-import { projects } from "@/lib/data/projects";
+import { projects, Technology } from "@/lib/data/projects";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
@@ -34,7 +34,7 @@ interface FilterState {
   )[];
   tags: ("production" | "learning" | "university" | "down")[];
   starredOnly: boolean;
-  techs: string[];
+  techs: Technology[];
   hasPublicGit: boolean | null; // null = no filter, true/false = filter
   hasLiveUrl: boolean | null;
 }
@@ -53,7 +53,7 @@ const page = () => {
   const [sheetOpen, setSheetOpen] = useState(false);
 
   const allTechs = useMemo(() => {
-    const techSet = new Set<string>();
+    const techSet = new Set<Technology>();
     projects.forEach((p) => p.technologies.forEach((t) => techSet.add(t)));
     return Array.from(techSet).sort();
   }, [projects]);
@@ -116,8 +116,7 @@ const page = () => {
   return (
     <section
       id="projects"
-      className="relative py-20 px-6 space-y-10 sm:space-y-1"
-    >
+      className="relative py-20 px-6 space-y-10 sm:space-y-1">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8 flex flex-col items-center gap-4">
@@ -133,8 +132,7 @@ const page = () => {
               <SheetTrigger asChild>
                 <Button
                   variant="outline"
-                  className="relative flex items-center gap-2"
-                >
+                  className="relative flex items-center gap-2">
                   <FilterIcon className="h-5 w-5" />
                   Filters
                   {isFilterActive && (
@@ -174,14 +172,13 @@ const page = () => {
                             filters.hasPublicGit === null
                               ? "outline"
                               : "default"
-                          }
-                        >
+                          }>
                           Public Git:{" "}
                           {filters.hasPublicGit === null
                             ? "All"
                             : filters.hasPublicGit
-                            ? "Yes"
-                            : "No"}
+                              ? "Yes"
+                              : "No"}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-40 p-2">
@@ -191,8 +188,7 @@ const page = () => {
                             size="sm"
                             onClick={() =>
                               setFilters((f) => ({ ...f, hasPublicGit: null }))
-                            }
-                          >
+                            }>
                             All
                           </Button>
                           <Button
@@ -200,8 +196,7 @@ const page = () => {
                             size="sm"
                             onClick={() =>
                               setFilters((f) => ({ ...f, hasPublicGit: true }))
-                            }
-                          >
+                            }>
                             Yes
                           </Button>
                           <Button
@@ -209,8 +204,7 @@ const page = () => {
                             size="sm"
                             onClick={() =>
                               setFilters((f) => ({ ...f, hasPublicGit: false }))
-                            }
-                          >
+                            }>
                             No
                           </Button>
                         </div>
@@ -222,14 +216,13 @@ const page = () => {
                         <Button
                           variant={
                             filters.hasLiveUrl === null ? "outline" : "default"
-                          }
-                        >
+                          }>
                           Has Live URL:{" "}
                           {filters.hasLiveUrl === null
                             ? "All"
                             : filters.hasLiveUrl
-                            ? "Yes"
-                            : "No"}
+                              ? "Yes"
+                              : "No"}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-40 p-2">
@@ -239,8 +232,7 @@ const page = () => {
                             size="sm"
                             onClick={() =>
                               setFilters((f) => ({ ...f, hasLiveUrl: null }))
-                            }
-                          >
+                            }>
                             All
                           </Button>
                           <Button
@@ -248,8 +240,7 @@ const page = () => {
                             size="sm"
                             onClick={() =>
                               setFilters((f) => ({ ...f, hasLiveUrl: true }))
-                            }
-                          >
+                            }>
                             Yes
                           </Button>
                           <Button
@@ -257,8 +248,7 @@ const page = () => {
                             size="sm"
                             onClick={() =>
                               setFilters((f) => ({ ...f, hasLiveUrl: false }))
-                            }
-                          >
+                            }>
                             No
                           </Button>
                         </div>
@@ -287,8 +277,7 @@ const page = () => {
                               })
                             }
                             size="sm"
-                            className="rounded-full"
-                          >
+                            className="rounded-full">
                             {type}
                           </Button>
                         );
@@ -316,8 +305,7 @@ const page = () => {
                               })
                             }
                             size="sm"
-                            className="rounded-full"
-                          >
+                            className="rounded-full">
                             {tag}
                           </Button>
                         );
@@ -347,8 +335,7 @@ const page = () => {
                                   : [...f.techs, tech];
                                 return { ...f, techs: newTechs };
                               })
-                            }
-                          >
+                            }>
                             {tech}
                           </Button>
                         );
@@ -374,8 +361,7 @@ const page = () => {
                           hasPublicGit: null,
                           hasLiveUrl: null,
                         })
-                      }
-                    >
+                      }>
                       Clear Filters
                     </Button>
                   </div>
@@ -394,8 +380,7 @@ const page = () => {
                     hasPublicGit: null,
                     hasLiveUrl: null,
                   })
-                }
-              >
+                }>
                 Clear Filters
               </Button>
             )}
