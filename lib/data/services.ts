@@ -11,9 +11,10 @@ export type Service = {
   title: string;
   description: string;
   icon: LucideIcon;
+  id: number;
 };
 
-export const services: Service[] = [
+const data: Partial<Service>[] = [
   {
     title: "Development",
     description:
@@ -53,3 +54,15 @@ export const services: Service[] = [
     icon: FolderCode,
   },
 ];
+
+const services: Service[] = data.map(
+  (item, index) =>
+    ({
+      id: index,
+      title: item.title,
+      description: item.description,
+      icon: item.icon,
+    }) as Service
+);
+
+export default services;

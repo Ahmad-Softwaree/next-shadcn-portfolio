@@ -6,7 +6,7 @@ import ProjectCard from "./cards/project-card";
 import Link from "next/link";
 
 const ProjectsPreview = () => {
-  const topProjects = projects.slice(0, 10);
+  const topProjects = projects.filter((project) => project.showInHome);
 
   return (
     <section id="projects" className="relative py-20 px-6">
@@ -35,8 +35,7 @@ const ProjectsPreview = () => {
           <Link href="/projects">
             <Badge
               className="text-sm px-4 py-2 rounded-full cursor-pointer transition-colors"
-              variant="outline"
-            >
+              variant="outline">
               See all projects →
             </Badge>
           </Link>

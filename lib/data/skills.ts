@@ -1,4 +1,10 @@
-export const skills = [
+export type Skill = {
+  id: number;
+  name: string;
+  image: string;
+};
+
+const data = [
   {
     name: "React",
     image: "/skills/react.png",
@@ -90,3 +96,14 @@ export const skills = [
     image: "/skills/next.png",
   },
 ];
+
+const skills: Skill[] = data.map(
+  (item, index) =>
+    ({
+      id: index + 1,
+      name: item.name,
+      image: item.image,
+    }) as Skill
+);
+
+export default skills;

@@ -1,5 +1,5 @@
 import { IconCloud } from "@/components/magicui/icon-cloud";
-import { skills } from "@/lib/data/skills"; // Adjust path if needed
+import skills from "@/lib/data/skills";
 
 export function Cloud() {
   const images = skills.map((skill) => skill.image);

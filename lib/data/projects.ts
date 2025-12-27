@@ -1,14 +1,40 @@
-export interface GitRepo {
+export type GitRepo = {
   name: string;
   url: string;
-}
+};
 
-export interface ProjectCardProps {
+export type Technology =
+  | "MySQL"
+  | "PostgreSQL"
+  | "MongoDB"
+  | "SQLite"
+  | "Firebase"
+  | "React"
+  | "Next.js"
+  | "Nest.js"
+  | "Typescript"
+  | "Prisma"
+  | "Javascript"
+  | "Express.js"
+  | "Knex.js"
+  | "TailwindCSS"
+  | "Shadcn UI"
+  | "Zod"
+  | "Zustand"
+  | "React Query"
+  | "Redux"
+  | "Vue.js"
+  | "GSAP Animation"
+  | "Socket.io"
+  | "Unity"
+  | "C#";
+
+export type Project = {
   id: number;
   title: string;
   description: string;
   image: string;
-  technologies: string[];
+  technologies: Technology[];
   liveUrl?: string;
   gits?: GitRepo[];
   tag?: "production" | "learning" | "university" | "down";
@@ -19,9 +45,10 @@ export interface ProjectCardProps {
   client_specific: boolean;
   clients?: { name: string; url: string }[];
   contributor?: { name: string; url: string };
-}
+  showInHome: boolean;
+};
 
-export const rawProjects: Partial<ProjectCardProps>[] = [
+export const data: Partial<Project>[] = [
   {
     title: "Yari Mndalan Website",
     description:
@@ -33,6 +60,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     tag: "production",
     types: ["web"],
     starred: true,
+    showInHome: true,
   },
   {
     title: "Ekleelz",
@@ -47,6 +75,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     client_specific: true,
     clients: [{ name: "Ekleelz", url: "https://ekleelz.com/" }],
     starred: true,
+    showInHome: true,
   },
   {
     title: "Ekleelz Dashboard",
@@ -60,6 +89,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     client_specific: true,
     clients: [{ name: "Ekleelz", url: "https://ekleelz.com/" }],
     starred: true,
+    showInHome: true,
   },
   {
     title: "Yari Mndalan System",
@@ -71,6 +101,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     tag: "production",
     types: ["web", "complex dashboard", "system"],
     starred: true,
+    showInHome: true,
   },
 
   {
@@ -84,7 +115,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
       "PostgreSQL",
       "Knex.js",
       "Firebase",
-      "JavaScript",
+      "Javascript",
     ],
     liveUrl:
       "https://play.google.com/store/apps/details?id=com.kalla.kallapost",
@@ -108,7 +139,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
       "MongoDB",
       "Express.js",
       "Firebase",
-      "JavaScript",
+      "Javascript",
       "Redux",
     ],
     gits: [],
@@ -128,10 +159,10 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
       "React",
       "Nest.js",
       "MySQL",
-      "TypeScript",
+      "Typescript",
       "Prisma",
       "TailwindCSS",
-      "ShadCN UI",
+      "Shadcn UI",
       "Zod",
       "Zustand",
       "React Query",
@@ -150,7 +181,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     description:
       "An online food delivery application developed using Express.js. Features include customer order placement, delivery status tracking, and admin dashboard for restaurant management.",
     image: "/projects/benabazar.png",
-    technologies: ["Express.js", "MySQL", "Firebase", "JavaScript"],
+    technologies: ["Express.js", "MySQL", "Firebase", "Javascript"],
     liveUrl: "https://apps.apple.com/us/app/bena-bazar/id6743659036?uo=2",
     gits: [],
     tag: "production",
@@ -159,13 +190,14 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     client_specific: true,
     clients: [{ name: "Avana Soft", url: "https://avanasoft.com/" }],
     contributor: { name: "Avana Soft", url: "https://avanasoft.com/" },
+    showInHome: true,
   },
   {
     title: "Belt World",
     description:
       "Storage and inventory management system designed for managing product entries, stock updates, and supplier tracking.",
     image: "/projects/beltworld.png",
-    technologies: ["Express.js", "MySQL", "Firebase", "JavaScript"],
+    technologies: ["Express.js", "MySQL", "Firebase", "Javascript"],
     liveUrl: "",
     gits: [],
     tag: "production",
@@ -180,7 +212,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     description:
       "A hotel and resort booking platform with features like property listing, availability tracking, discounts, and online payment integration.",
     image: "/projects/iqbooking.png",
-    technologies: ["Nest.js", "MySQL", "Firebase", "TypeScript"],
+    technologies: ["Nest.js", "MySQL", "Firebase", "Typescript"],
     liveUrl: "https://apps.apple.com/us/app/iq-booking/id6746382861",
     gits: [],
     tag: "production",
@@ -189,12 +221,13 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     client_specific: true,
     clients: [{ name: "Avana Soft", url: "https://avanasoft.com/" }],
     contributor: { name: "Avana Soft", url: "https://avanasoft.com/" },
+    showInHome: true,
   },
   {
     title: "Mallsat",
     description: "A full-stack rael estate management platform.",
     image: "",
-    technologies: ["Next.js", "TypeScript"],
+    technologies: ["Next.js", "Typescript"],
     liveUrl: "",
     gits: [],
     tag: "production",
@@ -221,17 +254,17 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
   {
     title: "Restaurant System",
     description:
-      "A modern restaurant management system built with React.js and Nest.js using ShadCN UI. Designed for large-scale operations, it features multi-printer support, live order tracking, table management, and a sleek admin dashboard for streamlined restaurant workflows.",
+      "A modern restaurant management system built with React.js and Nest.js using Shadcn UI. Designed for large-scale operations, it features multi-printer support, live order tracking, table management, and a sleek admin dashboard for streamlined restaurant workflows.",
 
     image: "/projects/restaurant_system.png",
     technologies: [
       "React",
       "Nest.js",
       "MySQL",
-      "TypeScript",
+      "Typescript",
       "Prisma",
       "TailwindCSS",
-      "ShadCN UI",
+      "Shadcn UI",
       "Zod",
       "Zustand",
       "React Query",
@@ -248,17 +281,17 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
   {
     title: "Expense System",
     description:
-      "A comprehensive expense management system built with React.js and Nest.js using ShadCN UI. It includes features for tracking expenses, generating reports, managing budgets, and user role management for efficient financial oversight.",
+      "A comprehensive expense management system built with React.js and Nest.js using Shadcn UI. It includes features for tracking expenses, generating reports, managing budgets, and user role management for efficient financial oversight.",
 
     image: "/projects/expense_system.png",
     technologies: [
       "React",
       "Nest.js",
       "MySQL",
-      "TypeScript",
+      "Typescript",
       "Prisma",
       "TailwindCSS",
-      "ShadCN UI",
+      "Shadcn UI",
       "Zod",
       "Zustand",
       "React Query",
@@ -275,17 +308,17 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
   {
     title: "Carwash System",
     description:
-      "A modern restaurant management system built with React.js and Nest.js using ShadCN UI. Designed for large-scale operations, it features multi-printer support, live order tracking, table management, and a sleek admin dashboard for streamlined restaurant workflows.",
+      "A modern restaurant management system built with React.js and Nest.js using Shadcn UI. Designed for large-scale operations, it features multi-printer support, live order tracking, table management, and a sleek admin dashboard for streamlined restaurant workflows.",
 
     image: "/projects/ap_carwash.png",
     technologies: [
       "React",
       "Nest.js",
       "MySQL",
-      "TypeScript",
+      "Typescript",
       "Prisma",
       "TailwindCSS",
-      "ShadCN UI",
+      "Shadcn UI",
       "Zod",
       "Zustand",
       "React Query",
@@ -309,7 +342,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     description:
       "Company website for a solar tech business. Includes service descriptions, contact info, and a modern UI/UX design for a professional look.",
     image: "/projects/bazian_solar.png",
-    technologies: ["React", "Express.js", "MySQL", "Firebase", "TypeScript"],
+    technologies: ["React", "Express.js", "MySQL", "Firebase", "Typescript"],
     tag: "production",
     starred: true,
     liveUrl: "https://baziansolar.com/",
@@ -324,7 +357,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     description:
       "Company website for a solar tech business. Includes service descriptions, contact info, and a modern UI/UX design for a professional look.",
     image: "/projects/golden_paper.png",
-    technologies: ["Vue.js", "TypeScript"],
+    technologies: ["Vue.js", "Typescript"],
     tag: "production",
     starred: true,
     liveUrl: "https://golden-paper.net/",
@@ -339,7 +372,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     description:
       "An intuitive web platform offering digital menu access via QR codes, designed with a sleek modern interface to enhance customer experience and streamline ordering processes.",
     image: "/projects/ominu.png",
-    technologies: ["React", "TypeScript", "GSAP Animation"],
+    technologies: ["React", "Typescript", "GSAP Animation"],
     tag: "production",
     starred: true,
     liveUrl: "https://ominu.net/",
@@ -354,7 +387,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     description:
       "An intuitive web platform offering digital menu access via QR codes, designed with a sleek modern interface to enhance customer experience and streamline ordering processes.",
     image: "/projects/simple_menu.png",
-    technologies: ["React", "Nest.js", "Postgresql", "TypeScript"],
+    technologies: ["React", "Nest.js", "PostgreSQL", "Typescript"],
     tag: "production",
     starred: true,
     liveUrl: "https://demo.ominu.net/",
@@ -375,7 +408,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     description:
       "Product showcase website for a Kurdish notebook brand with product listings, contact form, and ordering via social media.",
     image: "/projects/janan.png",
-    technologies: ["Vue.js", "Express.js", "MongoDB", "Firebase", "JavaScript"],
+    technologies: ["Vue.js", "Express.js", "MongoDB", "Firebase", "Javascript"],
     liveUrl: "https://janan-group.com/",
     gits: [],
     tag: "down",
@@ -398,7 +431,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
       "React",
       "Express.js",
       "MongoDB",
-      "Socket",
+      "Socket.io",
       "Firebase",
       "Redux",
     ],
@@ -417,7 +450,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     description:
       "A sleek and modern company profile site showcasing services and portfolio with interactive elements and responsive design.",
     image: "/projects/bester.png",
-    technologies: ["React", "JavaScript"],
+    technologies: ["React", "Javascript"],
     liveUrl: "https://bester-group.com/",
     gits: [],
     tag: "down",
@@ -442,7 +475,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     description:
       "A community-driven Kurdish-English idiom translation and explanation platform with user submission, admin review, and moderation.",
     image: "/projects/idiom.png",
-    technologies: ["React", "Firebase", "JavaScript", "Redux"],
+    technologies: ["React", "Firebase", "Javascript", "Redux"],
     liveUrl: "https://idoim.bester-group.com",
     gits: [],
     tag: "down",
@@ -461,7 +494,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
       "PostgreSQL",
       "Knex.js",
       "Firebase",
-      "JavaScript",
+      "Javascript",
     ],
     gits: [
       {
@@ -484,7 +517,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
       "PostgreSQL",
       "Knex.js",
       "Firebase",
-      "JavaScript",
+      "Javascript",
     ],
     gits: [
       {
@@ -507,7 +540,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
       "PostgreSQL",
       "Knex.js",
       "Firebase",
-      "JavaScript",
+      "Javascript",
     ],
     gits: [
       {
@@ -541,7 +574,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
       "Express.js",
       "MongoDB",
       "Firebase",
-      "JavaScript",
+      "Javascript",
       "Redux",
     ],
     gits: [
@@ -564,7 +597,7 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
       "Express.js",
       "MongoDB",
       "Firebase",
-      "JavaScript",
+      "Javascript",
       "Redux",
     ],
     gits: [],
@@ -578,16 +611,14 @@ export const rawProjects: Partial<ProjectCardProps>[] = [
     description:
       "A robust e-commerce application developed using React and Laravel. It offers a secure, feature-rich shopping experience and admin control.",
     image: "/projects/gcommerce.png",
-    technologies: ["React", "JavaScript"],
+    technologies: ["React", "Javascript"],
     gits: [],
     tag: "learning",
     types: ["complex dashboard", "app", "web"],
     client_specific: false,
   },
 ];
-export const projects: ProjectCardProps[] = rawProjects.map(
-  (project, index) => ({
-    ...(project as ProjectCardProps),
-    id: index + 1,
-  })
-);
+export const projects: Project[] = data.map((project, index) => ({
+  ...(project as Project),
+  id: index + 1,
+}));

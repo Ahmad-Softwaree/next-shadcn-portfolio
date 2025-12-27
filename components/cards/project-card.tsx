@@ -1,4 +1,4 @@
-import { ProjectCardProps } from "@/lib/data/projects";
+import { Project } from "@/lib/data/projects";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { ExternalLink, Eye, Github, Star } from "lucide-react";
@@ -16,7 +16,7 @@ const ProjectCard = ({
   starred,
   types,
   id,
-}: ProjectCardProps) => {
+}: Project) => {
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-xl border border-accent transition-all hover:border-primary/50">
       {/* Project Image */}

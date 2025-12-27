@@ -1,13 +1,12 @@
-import { services } from "@/lib/data/services";
 import React from "react";
 import { Badge } from "./ui/badge";
+import services from "@/lib/data/services";
 
 const Services = () => {
   return (
     <div
       id="service"
-      className="w-full flex flex-col items-center justify-center py-12 xs:py-20 px-6"
-    >
+      className="w-full flex flex-col items-center justify-center py-12 xs:py-20 px-6">
       <Badge variant="secondary" className="mb-4">
         Services
       </Badge>
@@ -17,9 +16,8 @@ const Services = () => {
       <div className="w-full max-w-screen-lg mx-auto mt-10 sm:mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {services.map((service) => (
           <div
-            key={service.title}
-            className="flex flex-col bg-background border rounded-xl py-6 px-5"
-          >
+            key={service.id}
+            className="flex flex-col bg-background border rounded-xl py-6 px-5">
             <div className="mb-3 h-10 w-10 flex items-center justify-center bg-muted rounded-full">
               <service.icon className="h-6 w-6" />
             </div>
