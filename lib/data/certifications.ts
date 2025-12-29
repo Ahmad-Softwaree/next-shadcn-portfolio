@@ -123,7 +123,7 @@ const data: Partial<Certificate>[] = [
   {
     title: "Notion 101: Organize your personal & work life with ease (Udemy) ",
     url: "https://www.udemy.com/course/notion-masterclass/",
-    image: "/certificates/notion.png",
+    image: "/certificates/notion.jpg",
     starred: true,
     type: "udemy",
   },
