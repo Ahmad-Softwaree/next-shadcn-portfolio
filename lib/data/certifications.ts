@@ -120,6 +120,13 @@ const data: Partial<Certificate>[] = [
     starred: false,
     type: "linkedin",
   },
+  {
+    title: "Notion 101: Organize your personal & work life with ease (Udemy)",
+    url: "https://www.udemy.com/course/notion-masterclass/",
+    image: "/certificates/notion.png",
+    starred: true,
+    type: "udemy",
+  },
 ];
 
 const certificates: Certificate[] = data.map(
