@@ -121,7 +121,7 @@ const data: Partial<Certificate>[] = [
     type: "linkedin",
   },
   {
-    title: "Notion 101: Organize your personal & work life with ease (Udemy)",
+    title: "Notion 101: Organize your personal & work life with ease (Udemy) ",
     url: "https://www.udemy.com/course/notion-masterclass/",
     image: "/certificates/notion.png",
     starred: true,
