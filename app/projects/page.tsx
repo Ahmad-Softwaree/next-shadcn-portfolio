@@ -13,7 +13,14 @@ import {
 } from "@/components/ui/sheet";
 import { FilterIcon } from "lucide-react";
 import { useState, useMemo } from "react";
-import { projects, Technology } from "@/lib/data/projects";
+import {
+  allTags,
+  allTypes,
+  projects,
+  ProjectTag,
+  ProjectType,
+  Technology,
+} from "@/lib/data/projects";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
@@ -23,31 +30,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import ProjectCard from "@/components/cards/project-card";
-interface FilterState {
-  types: (
-    | "web"
-    | "app"
-    | "system"
-    | "simple dashboard"
-    | "complex dashboard"
-    | "game"
-  )[];
-  tags: ("production" | "learning" | "university" | "down")[];
+type FilterState = {
+  types: ProjectType[];
+  tags: ProjectTag[];
   starredOnly: boolean;
   techs: Technology[];
-  hasPublicGit: boolean | null; // null = no filter, true/false = filter
+  hasPublicGit: boolean | null;
   hasLiveUrl: boolean | null;
-}
-
-const allTypes = [
-  "web",
-  "app",
-  "system",
-  "simple dashboard",
-  "complex dashboard",
-  "game",
-] as const;
-const allTags = ["production", "learning", "university", "down"] as const;
+};
 
 const page = () => {
   const [sheetOpen, setSheetOpen] = useState(false);

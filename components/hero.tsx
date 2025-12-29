@@ -6,7 +6,13 @@ import { CircleArrowDown, Zap } from "lucide-react";
 import { FlipWords } from "@/components/ui/flip-words";
 
 const Hero = () => {
-  const words = ["React.js", "Next.js", "Nest.js", "React Native"];
+  const words = [
+    "React.js",
+    "Next.js",
+    "Nest.js",
+    "Express.js",
+    "React Native",
+  ];
 
   return (
     <>
@@ -23,7 +29,7 @@ const Hero = () => {
         <div className="relative z-[1] text-center max-w-screen-lg">
           <Badge className="rounded-full border-none">
             <Zap className="fill-current" />
-            Fullstack Developer
+            Mid-Senior Software Engineer
           </Badge>
           <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-bold !leading-[1.2] tracking-tight">
             Building Scalable & Engaging Web & App Experiences With{" "}

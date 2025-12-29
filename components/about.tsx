@@ -21,11 +21,11 @@ const About = () => {
             </h2>
             <p className="text-muted-foreground mb-6 text-justify">
               With over 5 years of experience in full-stack development, I
-              specialize in building scalable web & app applications using
-              modern technologies. My expertise includes React Native, Next.js,
-              Node.js, and Nest.js. I&apos;m passionate about creating elegant
-              solutions to complex problems and sharing knowledge with the
-              developer community.
+              specialize in building scalable webs & apps using modern
+              technologies. My expertise includes React Native, Next.js,
+              Node.js, Express.js, React Native, and Nest.js. I&apos;m
+              passionate about creating elegant solutions to complex problems
+              and sharing knowledge with the developer community.
             </p>
             <div className="flex flex-wrap gap-4 justify-start">
               <Link target="_blank" href={`https://github.com/Ahmad-Softwaree`}>

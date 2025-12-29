@@ -29,6 +29,29 @@ export type Technology =
   | "Unity"
   | "C#";
 
+export type ProjectTag = "production" | "learning" | "university" | "down";
+export type ProjectType =
+  | "web"
+  | "app"
+  | "system"
+  | "simple dashboard"
+  | "complex dashboard"
+  | "game";
+export const allTypes = [
+  "web",
+  "app",
+  "system",
+  "simple dashboard",
+  "complex dashboard",
+  "game",
+] as const;
+export const allTags = [
+  "production",
+  "learning",
+  "university",
+  "down",
+] as const;
+
 export type Project = {
   id: number;
   title: string;
@@ -37,11 +60,9 @@ export type Project = {
   technologies: Technology[];
   liveUrl?: string;
   gits?: GitRepo[];
-  tag?: "production" | "learning" | "university" | "down";
+  tag?: ProjectTag;
   starred?: boolean;
-  types?: Array<
-    "web" | "app" | "system" | "simple dashboard" | "complex dashboard" | "game"
-  >;
+  types?: Array<ProjectType>;
   client_specific: boolean;
   clients?: { name: string; url: string }[];
   contributor?: { name: string; url: string };
