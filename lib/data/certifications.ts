@@ -121,9 +121,17 @@ const data: Partial<Certificate>[] = [
     type: "linkedin",
   },
   {
-    title: "Notion 101: Organize your personal & work life with ease (Udemy) ",
+    title: "Notion 101: Organize your personal & work life with ease (Udemy)",
     url: "https://www.udemy.com/course/notion-masterclass/",
     image: "/certificates/notion.jpg",
+    starred: true,
+    type: "udemy",
+  },
+  {
+    title:
+      "Full Stack Telegram Bot from Scratch(Python + PSQL + Heroku) (Udemy)",
+    url: "https://www.udemy.com/course/full-stack-telegram-bot-from-scratch-python-psql-heroku/",
+    image: "/certificates/telegram_bot.jpg",
     starred: true,
     type: "udemy",
   },
