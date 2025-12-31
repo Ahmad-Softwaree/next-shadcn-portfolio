@@ -21,9 +21,8 @@ const CertificationCard = (val: Certificate) => {
             onClick={() => setOpenImage(true)}
             src={val.image}
             alt={val.title}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-md"
+            fill
+            className="rounded-md object-cover"
           />
         </div>
 

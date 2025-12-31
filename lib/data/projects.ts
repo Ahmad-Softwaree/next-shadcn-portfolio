@@ -1,42 +1,43 @@
-export type GitRepo = {
-  name: string;
-  url: string;
-};
+export const allTechs = [
+  "MySQL",
+  "PostgreSQL",
+  "MongoDB",
+  "SQLite",
+  "Firebase",
+  "React",
+  "Next.js",
+  "Nest.js",
+  "Typescript",
+  "Prisma",
+  "Javascript",
+  "Express.js",
+  "Knex.js",
+  "TailwindCSS",
+  "Shadcn UI",
+  "Zod",
+  "Zustand",
+  "React Query",
+  "Redux",
+  "Vue.js",
+  "GSAP Animation",
+  "Socket.io",
+  "Unity",
+  "C#",
+  "Python",
+  "Telegram API",
+] as const;
 
-export type Technology =
-  | "MySQL"
-  | "PostgreSQL"
-  | "MongoDB"
-  | "SQLite"
-  | "Firebase"
-  | "React"
-  | "Next.js"
-  | "Nest.js"
-  | "Typescript"
-  | "Prisma"
-  | "Javascript"
-  | "Express.js"
-  | "Knex.js"
-  | "TailwindCSS"
-  | "Shadcn UI"
-  | "Zod"
-  | "Zustand"
-  | "React Query"
-  | "Redux"
-  | "Vue.js"
-  | "GSAP Animation"
-  | "Socket.io"
-  | "Unity"
-  | "C#";
+export type Technology = (typeof allTechs)[number];
 
-export type ProjectTag = "production" | "learning" | "university" | "down";
-export type ProjectType =
-  | "web"
-  | "app"
-  | "system"
-  | "simple dashboard"
-  | "complex dashboard"
-  | "game";
+export const allTags = [
+  "production",
+  "learning",
+  "university",
+  "down",
+] as const;
+
+export type ProjectTag = (typeof allTags)[number];
+
 export const allTypes = [
   "web",
   "app",
@@ -44,13 +45,92 @@ export const allTypes = [
   "simple dashboard",
   "complex dashboard",
   "game",
+  "telegram bot",
 ] as const;
-export const allTags = [
-  "production",
-  "learning",
-  "university",
-  "down",
-] as const;
+
+export type ProjectType = (typeof allTypes)[number];
+
+export type RepoType = "Frontend" | "Backend" | "Bot" | "Socket";
+export type GitName =
+  | "facebook-frontend"
+  | "facebook-api"
+  | "facebook-socket"
+  | "refinery_system_front"
+  | "refinery_system_server"
+  | "pet-system-front"
+  | "pet-system-server"
+  | "absence_system_front"
+  | "absence_system_server"
+  | "React-todo-front"
+  | "React-todo-api"
+  | "reminder_bot";
+
+export type GitRepo = {
+  name: RepoType;
+  url: string;
+};
+
+export const myGithubLink = "https://github.com/Ahmad-Softwaree";
+
+export const getGithubLink = (name: GitName) =>
+  `https://github.com/Ahmad-Softwaree/${name}`;
+
+export type Person = {
+  name: string;
+  url: string;
+};
+
+export const persons = {
+  ekleelz: { name: "Ekleelz", url: "https://ekleelz.com/" },
+  yari: { name: "Yari Mndalan", url: "https://yarimndalan.com" },
+  kallapost: { name: "Kallapost", url: "https://www.facebook.com/KallaPost/" },
+  meeraPost: { name: "Meera Post", url: "" },
+  goldenPaper: { name: "Golden Paper", url: "https://golden-paper.net/" },
+  avanaSoft: { name: "Avana Soft", url: "https://avanasoft.com/" },
+  iqBids: { name: "IQ Bids", url: "" },
+  bazianSolar: { name: "Bazian Solar", url: "https://baziansolar.com/" },
+  jananGroup: { name: "Janan Group", url: "https://janan-group.com/" },
+  fancyRest: {
+    name: "Fancy Rest",
+    url: "https://www.facebook.com/fancy.rest.cafe/",
+  },
+  fancy: { name: "Fancy", url: "https://www.facebook.com/fancy.rest.cafe/" },
+  rahaCarwash: { name: "Raha Carwash", url: "" },
+  kitnCompany: { name: "Kitn Company", url: "https://kitn.net/" },
+  ahmad: { name: "Ahmad", url: "https://github.com/Ahmad-Softwaree" },
+  bester: { name: "Bester", url: "https://bester-group.com/" },
+  apSoft: { name: "AP Soft", url: "https://apsoft.tech/" },
+};
+
+export const clients = {
+  ekleelz: persons.ekleelz,
+  yari: persons.yari,
+  kallapost: persons.kallapost,
+  meeraPost: persons.meeraPost,
+  goldenPaper: persons.goldenPaper,
+  avanaSoft: persons.avanaSoft,
+  iqBids: persons.iqBids,
+  bazianSolar: persons.bazianSolar,
+  jananGroup: persons.jananGroup,
+  fancyRest: persons.fancyRest,
+  rahaCarwash: persons.rahaCarwash,
+  kitnCompany: persons.kitnCompany,
+  fancy: persons.fancy,
+} as const;
+
+export const contributors = {
+  ahmad: persons.ahmad,
+  bester: persons.bester,
+  apSoft: persons.apSoft,
+  avanaSoft: persons.avanaSoft,
+  kitnCompany: persons.kitnCompany,
+} as const;
+
+export type ClientKey = keyof typeof clients;
+export type ContributorKey = keyof typeof contributors;
+
+export type Client = (typeof clients)[ClientKey];
+export type Contributor = (typeof contributors)[ContributorKey];
 
 export type Project = {
   id: number;
@@ -62,14 +142,28 @@ export type Project = {
   gits?: GitRepo[];
   tag?: ProjectTag;
   starred?: boolean;
-  types?: Array<ProjectType>;
+  types?: ProjectType[];
   client_specific: boolean;
-  clients?: { name: string; url: string }[];
-  contributor?: { name: string; url: string };
+  clients?: Client[];
+  contributor?: Contributor;
   showInHome: boolean;
 };
-
 export const data: Partial<Project>[] = [
+  {
+    title: "Reminder Bot",
+    description: "A Telegram bot that sends reminders to users.",
+    image: "/projects/reminder_bot.png",
+    technologies: ["Python", "Telegram API"],
+    gits: [
+      {
+        name: "Bot",
+        url: getGithubLink("reminder_bot"),
+      },
+    ],
+    tag: "learning",
+    types: ["telegram bot"],
+    client_specific: false,
+  },
   {
     title: "Yari Mndalan Website",
     description:
@@ -94,7 +188,7 @@ export const data: Partial<Project>[] = [
     tag: "production",
     types: ["web"],
     client_specific: true,
-    clients: [{ name: "Ekleelz", url: "https://ekleelz.com/" }],
+    clients: [clients.ekleelz],
     starred: true,
     showInHome: true,
   },
@@ -108,7 +202,7 @@ export const data: Partial<Project>[] = [
     tag: "production",
     types: ["simple dashboard"],
     client_specific: true,
-    clients: [{ name: "Ekleelz", url: "https://ekleelz.com/" }],
+    clients: [clients.ekleelz],
     starred: true,
     showInHome: true,
   },
@@ -144,10 +238,8 @@ export const data: Partial<Project>[] = [
     tag: "production",
     types: ["complex dashboard", "app"],
     client_specific: true,
-    clients: [
-      { name: "Kallapost", url: "https://www.facebook.com/KallaPost/" },
-    ],
-    contributor: { name: "Bester", url: "https://bester-group.com/" },
+    clients: [clients.kallapost],
+    contributor: contributors.bester,
     starred: true,
   },
   {
@@ -167,8 +259,8 @@ export const data: Partial<Project>[] = [
     tag: "production",
     types: ["system"],
     client_specific: true,
-    clients: [{ name: "Meera post", url: "" }],
-    contributor: { name: "Bester", url: "https://bester-group.com/" },
+    clients: [clients.meeraPost],
+    contributor: contributors.bester,
     starred: true,
   },
   {
@@ -194,8 +286,8 @@ export const data: Partial<Project>[] = [
     starred: true,
     types: ["system"],
     client_specific: true,
-    clients: [{ name: "Golden Paper", url: "https://golden-paper.net/" }],
-    contributor: { name: "Bester", url: "https://bester-group.com/" },
+    clients: [clients.goldenPaper],
+    contributor: contributors.bester,
   },
   {
     title: "Benabzar",
@@ -209,8 +301,8 @@ export const data: Partial<Project>[] = [
     starred: true,
     types: ["app", "complex dashboard"],
     client_specific: true,
-    clients: [{ name: "Avana Soft", url: "https://avanasoft.com/" }],
-    contributor: { name: "Avana Soft", url: "https://avanasoft.com/" },
+    clients: [clients.avanaSoft],
+    contributor: contributors.avanaSoft,
     showInHome: true,
   },
   {
@@ -225,8 +317,8 @@ export const data: Partial<Project>[] = [
     starred: true,
     types: ["system"],
     client_specific: true,
-    clients: [{ name: "Avana Soft", url: "https://avanasoft.com/" }],
-    contributor: { name: "Avana Soft", url: "https://avanasoft.com/" },
+    clients: [clients.avanaSoft],
+    contributor: contributors.avanaSoft,
   },
   {
     title: "IQ Booking",
@@ -240,13 +332,13 @@ export const data: Partial<Project>[] = [
     starred: true,
     types: ["complex dashboard", "app"],
     client_specific: true,
-    clients: [{ name: "Avana Soft", url: "https://avanasoft.com/" }],
-    contributor: { name: "Avana Soft", url: "https://avanasoft.com/" },
+    clients: [clients.avanaSoft],
+    contributor: contributors.avanaSoft,
     showInHome: true,
   },
   {
     title: "Mallsat",
-    description: "A full-stack rael estate management platform.",
+    description: "A full-stack real estate management platform.",
     image: "",
     technologies: ["Next.js", "Typescript"],
     liveUrl: "",
@@ -254,8 +346,8 @@ export const data: Partial<Project>[] = [
     tag: "production",
     types: ["system"],
     client_specific: true,
-    clients: [],
-    contributor: { name: "Mallsat", url: "" },
+    clients: [clients.kitnCompany],
+    contributor: contributors.kitnCompany,
     starred: true,
   },
   {
@@ -264,12 +356,12 @@ export const data: Partial<Project>[] = [
       "A full-stack car bids management platform, plus mobile apps for Android and iOS.",
     image: "",
     technologies: ["Nest.js", "MySQL", "Knex.js", "Firebase"],
-    liveUrl: "",
+    liveUrl: "https://apps.apple.com/iq/app/iqbid/id6751471543?l=ar",
     gits: [],
     tag: "production",
     types: ["complex dashboard", "app"],
     client_specific: true,
-    clients: [{ name: "IQ Bids", url: "" }],
+    clients: [clients.iqBids],
     starred: true,
   },
   {
@@ -297,7 +389,7 @@ export const data: Partial<Project>[] = [
     types: ["system"],
     client_specific: false,
     clients: [],
-    contributor: { name: "Ap Soft", url: "https://apsoft.tech/" },
+    contributor: contributors.apSoft,
   },
   {
     title: "Expense System",
@@ -324,7 +416,7 @@ export const data: Partial<Project>[] = [
     types: ["system"],
     client_specific: false,
     clients: [],
-    contributor: { name: "Ap Soft", url: "https://apsoft.tech/" },
+    contributor: contributors.apSoft,
   },
   {
     title: "Carwash System",
@@ -350,13 +442,8 @@ export const data: Partial<Project>[] = [
     starred: true,
     types: ["system"],
     client_specific: false,
-    clients: [
-      {
-        name: "Raha Carwash",
-        url: "",
-      },
-    ],
-    contributor: { name: "Ap Soft", url: "https://apsoft.tech/" },
+    clients: [clients.rahaCarwash],
+    contributor: contributors.apSoft,
   },
   {
     title: "Bazian Solar",
@@ -370,8 +457,8 @@ export const data: Partial<Project>[] = [
     gits: [],
     types: ["web", "simple dashboard"],
     client_specific: true,
-    clients: [{ name: "Bazian Solar", url: "https://baziansolar.com/" }],
-    contributor: { name: "Bester", url: "https://bester-group.com/" },
+    clients: [clients.bazianSolar],
+    contributor: contributors.bester,
   },
   {
     title: "Golden Paper",
@@ -385,8 +472,8 @@ export const data: Partial<Project>[] = [
     gits: [],
     types: ["web"],
     client_specific: true,
-    clients: [{ name: "Golden Paper", url: "https://golden-paper.net/" }],
-    contributor: { name: "Bester", url: "https://bester-group.com/" },
+    clients: [clients.goldenPaper],
+    contributor: contributors.bester,
   },
   {
     title: "Digital Menu Website",
@@ -401,7 +488,7 @@ export const data: Partial<Project>[] = [
     types: ["web"],
     client_specific: false,
     clients: [],
-    contributor: { name: "AP Soft", url: "https://apsoft.tech/" },
+    contributor: contributors.apSoft,
   },
   {
     title: "Simple Menu QRCode",
@@ -415,14 +502,8 @@ export const data: Partial<Project>[] = [
     gits: [],
     types: ["web", "simple dashboard"],
     client_specific: false,
-    clients: [
-      {
-        name: "Fancy Rest",
-        url: "https://www.facebook.com/fancy.rest.cafe/",
-      },
-      { name: "Fancy", url: "https://www.facebook.com/fancy.rest.cafe/" },
-    ],
-    contributor: { name: "AP Soft", url: "https://apsoft.tech/" },
+    clients: [clients.fancyRest, clients.fancy],
+    contributor: contributors.apSoft,
   },
   {
     title: "Janan Group",
@@ -435,13 +516,8 @@ export const data: Partial<Project>[] = [
     tag: "down",
     types: ["web"],
     client_specific: true,
-    clients: [
-      {
-        name: "Janan Group",
-        url: "https://janan-group.com/",
-      },
-    ],
-    contributor: { name: "Bester", url: "https://bester-group.com/" },
+    clients: [clients.jananGroup],
+    contributor: contributors.bester,
   },
   {
     title: "Kurdface",
@@ -459,7 +535,15 @@ export const data: Partial<Project>[] = [
     gits: [
       {
         name: "Frontend",
-        url: "https://github.com/Ahmad-Softwaree/facebook-frontend",
+        url: getGithubLink("facebook-frontend"),
+      },
+      {
+        name: "Backend",
+        url: getGithubLink("facebook-api"),
+      },
+      {
+        name: "Socket",
+        url: getGithubLink("facebook-socket"),
       },
     ],
     tag: "learning",
@@ -520,7 +604,11 @@ export const data: Partial<Project>[] = [
     gits: [
       {
         name: "Frontend",
-        url: "https://github.com/Ahmad-Softwaree/refinery_system_front",
+        url: getGithubLink("refinery_system_front"),
+      },
+      {
+        name: "Backend",
+        url: getGithubLink("refinery_system_server"),
       },
     ],
     tag: "university",
@@ -543,7 +631,11 @@ export const data: Partial<Project>[] = [
     gits: [
       {
         name: "Frontend",
-        url: "https://github.com/Ahmad-Softwaree/pet_system_front",
+        url: getGithubLink("pet-system-front"),
+      },
+      {
+        name: "Backend",
+        url: getGithubLink("pet-system-server"),
       },
     ],
     tag: "university",
@@ -566,7 +658,11 @@ export const data: Partial<Project>[] = [
     gits: [
       {
         name: "Frontend",
-        url: "https://github.com/Ahmad-Softwaree/absence_system_front",
+        url: getGithubLink("absence_system_front"),
+      },
+      {
+        name: "Backend",
+        url: getGithubLink("absence_system_server"),
       },
     ],
     tag: "university",
@@ -601,7 +697,11 @@ export const data: Partial<Project>[] = [
     gits: [
       {
         name: "Frontend",
-        url: "https://github.com/Ahmad-Softwaree/React-todo-front",
+        url: getGithubLink("React-todo-front"),
+      },
+      {
+        name: "Backend",
+        url: getGithubLink("React-todo-api"),
       },
     ],
     tag: "learning",

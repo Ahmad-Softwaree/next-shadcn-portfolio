@@ -15,6 +15,7 @@ import { FilterIcon } from "lucide-react";
 import { useState, useMemo } from "react";
 import {
   allTags,
+  allTechs,
   allTypes,
   projects,
   ProjectTag,
@@ -41,12 +42,6 @@ type FilterState = {
 
 const page = () => {
   const [sheetOpen, setSheetOpen] = useState(false);
-
-  const allTechs = useMemo(() => {
-    const techSet = new Set<Technology>();
-    projects.forEach((p) => p.technologies.forEach((t) => techSet.add(t)));
-    return Array.from(techSet).sort();
-  }, [projects]);
 
   const [filters, setFilters] = useState<FilterState>({
     types: [],
