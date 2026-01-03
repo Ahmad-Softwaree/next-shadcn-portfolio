@@ -135,6 +135,14 @@ const data: Partial<Certificate>[] = [
     starred: true,
     type: "udemy",
   },
+  {
+    title:
+      "NLP Power: Boost Your Personal Development & Mental Clarity (Udemy)",
+    url: "https://www.udemy.com/course/nlp-power-boost-your-personal-development-mental-clarity/",
+    image: "/certificates/NLP.png",
+    starred: true,
+    type: "udemy",
+  },
 ];
 
 const certificates: Certificate[] = data.map(
