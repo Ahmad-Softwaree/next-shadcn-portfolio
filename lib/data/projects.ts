@@ -22,6 +22,7 @@ export const allTechs = [
   "GSAP Animation",
   "Socket.io",
   "Unity",
+  "Jest",
   "C#",
   "Python",
   "Telegram API",
@@ -63,7 +64,8 @@ export type GitName =
   | "absence_system_server"
   | "React-todo-front"
   | "React-todo-api"
-  | "reminder_bot";
+  | "reminder_bot"
+  | "bucks-to-bar-copilot";
 
 export type GitRepo = {
   name: RepoType;
@@ -736,6 +738,23 @@ export const data: Partial<Project>[] = [
     gits: [],
     tag: "learning",
     types: ["complex dashboard", "app", "web"],
+    client_specific: false,
+  },
+
+  {
+    title: "Bucks To Bar Copilot",
+    description:
+      "A tool to assist users in converting their bucks to bars seamlessly. This project for learning how to use Github Copilot In the best way for developing in JS",
+    image: "/projects/bucks_to_bar_copilot.png",
+    technologies: ["Javascript", "Jest"],
+    gits: [
+      {
+        name: "Frontend",
+        url: getGithubLink("bucks-to-bar-copilot"),
+      },
+    ],
+    tag: "learning",
+    types: ["web"],
     client_specific: false,
   },
 ];
