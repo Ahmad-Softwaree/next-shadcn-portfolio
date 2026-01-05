@@ -143,6 +143,14 @@ const data: Partial<Certificate>[] = [
     starred: true,
     type: "udemy",
   },
+  {
+    title:
+      "GitHub Copilot Beginner to Pro - AI for Coding & Development (Udemy)",
+    url: "https://www.udemy.com/course/github-copilot/",
+    image: "/certificates/github_copilot.png",
+    starred: true,
+    type: "udemy",
+  },
 ];
 
 const certificates: Certificate[] = data.map(
