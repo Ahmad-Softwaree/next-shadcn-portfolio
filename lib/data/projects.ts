@@ -181,6 +181,7 @@ export const data: Partial<Project>[] = [
     tag: "learning",
     types: ["web", "simple dashboard"],
     client_specific: false,
+    showInHome: true,
   },
   {
     title: "Link Shortener",
@@ -206,6 +207,7 @@ export const data: Partial<Project>[] = [
     tag: "learning",
     types: ["web", "simple dashboard"],
     client_specific: false,
+    showInHome: true,
   },
   {
     title: "Reminder Bot",
@@ -362,7 +364,6 @@ export const data: Partial<Project>[] = [
     client_specific: true,
     clients: [clients.avanaSoft],
     contributor: contributors.avanaSoft,
-    showInHome: true,
   },
   {
     title: "Belt World",
@@ -393,7 +394,6 @@ export const data: Partial<Project>[] = [
     client_specific: true,
     clients: [clients.avanaSoft],
     contributor: contributors.avanaSoft,
-    showInHome: true,
   },
   {
     title: "Mallsat",
