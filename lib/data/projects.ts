@@ -168,6 +168,7 @@ export const data: Partial<Project>[] = [
       "Zod",
       "Shadcn UI",
     ],
+    liveUrl: "https://linkshortner.ahmad-software.com/",
     gits: [
       {
         name: "Fullstack",
@@ -189,6 +190,7 @@ export const data: Partial<Project>[] = [
         url: getGithubLink("reminder_bot"),
       },
     ],
+    liveUrl: "https://t.me/ahmad_reminder_bot",
     tag: "learning",
     types: ["telegram bot"],
     client_specific: false,
