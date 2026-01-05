@@ -26,6 +26,8 @@ export const allTechs = [
   "C#",
   "Python",
   "Telegram API",
+  "Clerk",
+  "Neon",
 ] as const;
 
 export type Technology = (typeof allTechs)[number];
@@ -51,7 +53,7 @@ export const allTypes = [
 
 export type ProjectType = (typeof allTypes)[number];
 
-export type RepoType = "Frontend" | "Backend" | "Bot" | "Socket";
+export type RepoType = "Frontend" | "Backend" | "Bot" | "Socket" | "Fullstack";
 export type GitName =
   | "facebook-frontend"
   | "facebook-api"
@@ -65,7 +67,8 @@ export type GitName =
   | "React-todo-front"
   | "React-todo-api"
   | "reminder_bot"
-  | "bucks-to-bar-copilot";
+  | "bucks-to-bar-copilot"
+  | "Link-Shortener";
 
 export type GitRepo = {
   name: RepoType;
@@ -151,6 +154,30 @@ export type Project = {
   showInHome: boolean;
 };
 export const data: Partial<Project>[] = [
+  {
+    title: "Link Shortener",
+    description:
+      "A simple link shortener application that allows users to create shortened URLs for easier sharing and tracking.",
+    image: "/projects/link_shortener.png",
+    technologies: [
+      "Next.js",
+      "Typescript",
+      "Clerk",
+      "Neon",
+      "PostgreSQL",
+      "Zod",
+      "Shadcn UI",
+    ],
+    gits: [
+      {
+        name: "Fullstack",
+        url: getGithubLink("Link-Shortener"),
+      },
+    ],
+    tag: "learning",
+    types: ["web", "simple dashboard"],
+    client_specific: false,
+  },
   {
     title: "Reminder Bot",
     description: "A Telegram bot that sends reminders to users.",
