@@ -26,6 +26,7 @@ export const allTechs = [
   "C#",
   "Python",
   "Telegram API",
+  "UploadThings",
   "Clerk",
   "Neon",
 ] as const;
@@ -68,6 +69,7 @@ export type GitName =
   | "React-todo-api"
   | "reminder_bot"
   | "bucks-to-bar-copilot"
+  | "bots"
   | "Link-Shortener";
 
 export type GitRepo = {
@@ -154,6 +156,32 @@ export type Project = {
   showInHome: boolean;
 };
 export const data: Partial<Project>[] = [
+  {
+    title: "Bot Website",
+    description:
+      "A Website for Telegram Bots showcasing features, commands, and user guides.",
+    image: "/projects/bots.png",
+    technologies: [
+      "Next.js",
+      "Typescript",
+      "Clerk",
+      "Neon",
+      "PostgreSQL",
+      "Zod",
+      "Shadcn UI",
+      "UploadThings",
+    ],
+    liveUrl: "https://bot.ahmad-software.com/",
+    gits: [
+      {
+        name: "Fullstack",
+        url: getGithubLink("bots"),
+      },
+    ],
+    tag: "learning",
+    types: ["web", "simple dashboard"],
+    client_specific: false,
+  },
   {
     title: "Link Shortener",
     description:
