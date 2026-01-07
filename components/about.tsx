@@ -1,62 +1,58 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { Download, Github } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import { HTMLAttributes } from "react";
+import { useTranslation } from "react-i18next";
+import { AnimateOnScroll } from "@/components/shared/animate";
 
 const About = () => {
-  return (
-    <section id="about" className="relative py-20 px-6">
-      <div className="max-w-screen-md mx-auto">
-        <div className="flex flex-col md:flex-row-reverse gap-12">
-          {/* Content */}
-          <div className="flex-1 md:text-left">
-            <Badge variant="secondary" className="mb-4">
-              About Me
-            </Badge>
-            <h2 className="text-4xl font-bold mb-4 tracking-tight">
-              Passionate about creating impactful web & app experiences
-            </h2>
-            <p className="text-muted-foreground mb-6 text-justify">
-              With over 5 years of experience in full-stack development, I
-              specialize in building scalable webs & apps using modern
-              technologies. My expertise includes React Native, Next.js,
-              Node.js, Express.js, React Native, and Nest.js. I&apos;m
-              passionate about creating elegant solutions to complex problems
-              and sharing knowledge with the developer community.
-            </p>
-            <div className="flex flex-wrap gap-4 justify-start">
-              <Link target="_blank" href={`https://github.com/Ahmad-Softwaree`}>
-                <Button className="rounded-full">
-                  <Github />
-                  View Github
-                </Button>{" "}
-              </Link>
+  const { t } = useTranslation();
 
-              <a href="/pdf/nest-js-backend-developer.pdf" download>
-                <Button variant="outline" className="rounded-full">
-                  <Download className="mr-2" />
-                  Download CV
-                </Button>
-              </a>
+  return (
+    <AnimateOnScroll animation="fade-up">
+      <section id="about" className="relative py-20 px-6">
+        <div>
+          <div className="flex flex-col items-center text-center gap-8">
+            {/* Content */}
+            <div className="max-w-3xl">
+              <Badge
+                variant="secondary"
+                className="mb-4 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-950 dark:to-blue-950 text-purple-700 dark:text-purple-300 border-none">
+                {String(t("about.badge" as any))}
+              </Badge>
+              <h2 className="text-4xl sm:text-5xl font-bold mb-6 tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">
+                {String(t("about.title" as any))}
+              </h2>
+              <p className="text-muted-foreground mb-8 text-lg leading-relaxed">
+                {String(t("about.description" as any))}
+              </p>
+              <div className="flex flex-wrap gap-4 justify-center">
+                <Link
+                  target="_blank"
+                  href={`https://github.com/Ahmad-Softwaree`}>
+                  <Button className="rounded-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 dark:from-purple-500 dark:to-blue-500 dark:hover:from-purple-600 dark:hover:to-blue-600 text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 transition-all duration-300">
+                    <Github />
+                    {String(t("about.view_github" as any))}
+                  </Button>
+                </Link>
+
+                <a href="/pdf/nest-js-backend-developer.pdf" download>
+                  <Button
+                    variant="outline"
+                    className="rounded-full border-2 hover:bg-accent transition-all duration-300">
+                    <Download className="mr-2" />
+                    {String(t("about.download_cv" as any))}
+                  </Button>
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </AnimateOnScroll>
   );
 };
 
-const ProfileImage = ({
-  className,
-  ...props
-}: HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn("mt-10 w-48 h-48 md:w-64 md:h-64", className)} {...props}>
-    <div className="relative w-full h-full rounded-2xl overflow-hidden bg-accent">
-      <Image src="/ahmad.jpg" alt="" className="object-cover" fill />
-    </div>
-  </div>
-);
 export default About;

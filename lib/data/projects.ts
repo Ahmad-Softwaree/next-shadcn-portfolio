@@ -141,8 +141,8 @@ export type Contributor = (typeof contributors)[ContributorKey];
 
 export type Project = {
   id: number;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
   image: string;
   technologies: Technology[];
   liveUrl?: string;
@@ -157,9 +157,8 @@ export type Project = {
 };
 export const data: Partial<Project>[] = [
   {
-    title: "Bot Website",
-    description:
-      "A Website for Telegram Bots showcasing features, commands, and user guides.",
+    titleKey: "projects.bot_website.title",
+    descriptionKey: "projects.bot_website.description",
     image: "/projects/bots.png",
     technologies: [
       "Next.js",
@@ -181,12 +180,12 @@ export const data: Partial<Project>[] = [
     tag: "learning",
     types: ["web", "simple dashboard"],
     client_specific: false,
+    starred: true,
     showInHome: true,
   },
   {
-    title: "Link Shortener",
-    description:
-      "A simple link shortener application that allows users to create shortened URLs for easier sharing and tracking.",
+    titleKey: "projects.link_shortener.title",
+    descriptionKey: "projects.link_shortener.description",
     image: "/projects/link_shortener.png",
     technologies: [
       "Next.js",
@@ -207,11 +206,13 @@ export const data: Partial<Project>[] = [
     tag: "learning",
     types: ["web", "simple dashboard"],
     client_specific: false,
+    starred: true,
+
     showInHome: true,
   },
   {
-    title: "Reminder Bot",
-    description: "A Telegram bot that sends reminders to users.",
+    titleKey: "projects.reminder_bot.title",
+    descriptionKey: "projects.reminder_bot.description",
     image: "/projects/reminder_bot.png",
     technologies: ["Python", "Telegram API"],
     gits: [
@@ -223,15 +224,16 @@ export const data: Partial<Project>[] = [
     liveUrl: "https://t.me/ahmad_reminder_bot",
     tag: "learning",
     types: ["telegram bot"],
+    starred: true,
+
     client_specific: false,
   },
   {
-    title: "Yari Mndalan Website",
-    description:
-      "A Website for online shopping of clothing and accessories, featuring product listings, shopping cart, and secure checkout.",
+    titleKey: "projects.yari_mndalan_website.title",
+    descriptionKey: "projects.yari_mndalan_website.description",
     image: "/projects/yarimndalan_web.png",
     technologies: ["React", "Nest.js", "MySQL", "Prisma", "Typescript"],
-    liveUrl: "https://yarimndalan.com",
+    liveUrl: "",
     gits: [],
     tag: "production",
     types: ["web"],
@@ -239,9 +241,8 @@ export const data: Partial<Project>[] = [
     showInHome: true,
   },
   {
-    title: "Ekleelz",
-    description:
-      "A Website verification platform for Ekleelz company, allowing users to verify the authenticity of their products through unique codes.",
+    titleKey: "projects.ekleelz.title",
+    descriptionKey: "projects.ekleelz.description",
     image: "/projects/ekleelz.png",
     technologies: ["React", "Typescript"],
     liveUrl: "https://verify.ekleelz.com",
@@ -254,9 +255,8 @@ export const data: Partial<Project>[] = [
     showInHome: true,
   },
   {
-    title: "Ekleelz Dashboard",
-    description:
-      "A dashboard for Ekleelz company, providing insights and analytics for product verification.",
+    titleKey: "projects.ekleelz_dashboard.title",
+    descriptionKey: "projects.ekleelz_dashboard.description",
     image: "/projects/ekleelz-system.png",
     technologies: ["React", "Nest.js", "MySQL", "Prisma", "Typescript"],
     gits: [],
@@ -268,9 +268,8 @@ export const data: Partial<Project>[] = [
     showInHome: true,
   },
   {
-    title: "Yari Mndalan System",
-    description:
-      "A System for online shopping of clothing and accessories, featuring product listings, shopping cart, and secure checkout.",
+    titleKey: "projects.yari_mndalan_system.title",
+    descriptionKey: "projects.yari_mndalan_system.description",
     image: "/projects/yarimndalan_system.png",
     technologies: ["React", "Nest.js", "MySQL", "Prisma", "Typescript"],
     gits: [],
@@ -281,9 +280,8 @@ export const data: Partial<Project>[] = [
   },
 
   {
-    title: "Kallapost",
-    description:
-      "A full-stack delivery and post management platform with roles for customers, drivers, and managers, plus mobile apps for Android and iOS.",
+    titleKey: "projects.kallapost.title",
+    descriptionKey: "projects.kallapost.description",
     image: "/projects/kalla.png",
     technologies: [
       "React",
@@ -304,9 +302,8 @@ export const data: Partial<Project>[] = [
     starred: true,
   },
   {
-    title: "Meera Post",
-    description:
-      "A social posting platform where users can register, share posts, like, comment, and engage with a community-driven interface.",
+    titleKey: "projects.meera_post.title",
+    descriptionKey: "projects.meera_post.description",
     image: "/projects/meera.png",
     technologies: [
       "React",
@@ -325,9 +322,8 @@ export const data: Partial<Project>[] = [
     starred: true,
   },
   {
-    title: "Factory System",
-    description:
-      "A full-featured factory management system built with React.js and Nest.js. It includes inventory tracking, order management, production planning, and role-based access control for admin and staff.",
+    titleKey: "projects.factory_system.title",
+    descriptionKey: "projects.factory_system.description",
     image: "/projects/factory_system.png",
     technologies: [
       "React",
@@ -351,9 +347,8 @@ export const data: Partial<Project>[] = [
     contributor: contributors.bester,
   },
   {
-    title: "Benabzar",
-    description:
-      "An online food delivery application developed using Express.js. Features include customer order placement, delivery status tracking, and admin dashboard for restaurant management.",
+    titleKey: "projects.benabzar.title",
+    descriptionKey: "projects.benabzar.description",
     image: "/projects/benabazar.png",
     technologies: ["Express.js", "MySQL", "Firebase", "Javascript"],
     liveUrl: "https://apps.apple.com/us/app/bena-bazar/id6743659036?uo=2",
@@ -366,9 +361,8 @@ export const data: Partial<Project>[] = [
     contributor: contributors.avanaSoft,
   },
   {
-    title: "Belt World",
-    description:
-      "Storage and inventory management system designed for managing product entries, stock updates, and supplier tracking.",
+    titleKey: "projects.belt_world.title",
+    descriptionKey: "projects.belt_world.description",
     image: "/projects/beltworld.png",
     technologies: ["Express.js", "MySQL", "Firebase", "Javascript"],
     liveUrl: "",
@@ -381,9 +375,8 @@ export const data: Partial<Project>[] = [
     contributor: contributors.avanaSoft,
   },
   {
-    title: "IQ Booking",
-    description:
-      "A hotel and resort booking platform with features like property listing, availability tracking, discounts, and online payment integration.",
+    titleKey: "projects.iq_booking.title",
+    descriptionKey: "projects.iq_booking.description",
     image: "/projects/iqbooking.png",
     technologies: ["Nest.js", "MySQL", "Firebase", "Typescript"],
     liveUrl: "https://apps.apple.com/us/app/iq-booking/id6746382861",
@@ -396,8 +389,8 @@ export const data: Partial<Project>[] = [
     contributor: contributors.avanaSoft,
   },
   {
-    title: "Mallsat",
-    description: "A full-stack real estate management platform.",
+    titleKey: "projects.mallsat.title",
+    descriptionKey: "projects.mallsat.description",
     image: "",
     technologies: ["Next.js", "Typescript"],
     liveUrl: "",
@@ -410,9 +403,8 @@ export const data: Partial<Project>[] = [
     starred: true,
   },
   {
-    title: "IQ Bids",
-    description:
-      "A full-stack car bids management platform, plus mobile apps for Android and iOS.",
+    titleKey: "projects.iq_bids.title",
+    descriptionKey: "projects.iq_bids.description",
     image: "",
     technologies: ["Nest.js", "MySQL", "Knex.js", "Firebase"],
     liveUrl: "https://apps.apple.com/iq/app/iqbid/id6751471543?l=ar",
@@ -424,9 +416,8 @@ export const data: Partial<Project>[] = [
     starred: true,
   },
   {
-    title: "Restaurant System",
-    description:
-      "A modern restaurant management system built with React.js and Nest.js using Shadcn UI. Designed for large-scale operations, it features multi-printer support, live order tracking, table management, and a sleek admin dashboard for streamlined restaurant workflows.",
+    titleKey: "projects.restaurant_system.title",
+    descriptionKey: "projects.restaurant_system.description",
 
     image: "/projects/restaurant_system.png",
     technologies: [
@@ -451,9 +442,8 @@ export const data: Partial<Project>[] = [
     contributor: contributors.apSoft,
   },
   {
-    title: "Expense System",
-    description:
-      "A comprehensive expense management system built with React.js and Nest.js using Shadcn UI. It includes features for tracking expenses, generating reports, managing budgets, and user role management for efficient financial oversight.",
+    titleKey: "projects.expense_system.title",
+    descriptionKey: "projects.expense_system.description",
 
     image: "/projects/expense_system.png",
     technologies: [
@@ -478,9 +468,8 @@ export const data: Partial<Project>[] = [
     contributor: contributors.apSoft,
   },
   {
-    title: "Carwash System",
-    description:
-      "A modern restaurant management system built with React.js and Nest.js using Shadcn UI. Designed for large-scale operations, it features multi-printer support, live order tracking, table management, and a sleek admin dashboard for streamlined restaurant workflows.",
+    titleKey: "projects.carwash_system.title",
+    descriptionKey: "projects.carwash_system.description",
 
     image: "/projects/ap_carwash.png",
     technologies: [
@@ -505,9 +494,8 @@ export const data: Partial<Project>[] = [
     contributor: contributors.apSoft,
   },
   {
-    title: "Bazian Solar",
-    description:
-      "Company website for a solar tech business. Includes service descriptions, contact info, and a modern UI/UX design for a professional look.",
+    titleKey: "projects.bazian_solar.title",
+    descriptionKey: "projects.bazian_solar.description",
     image: "/projects/bazian_solar.png",
     technologies: ["React", "Express.js", "MySQL", "Firebase", "Typescript"],
     tag: "production",
@@ -520,9 +508,8 @@ export const data: Partial<Project>[] = [
     contributor: contributors.bester,
   },
   {
-    title: "Golden Paper",
-    description:
-      "Company website for a solar tech business. Includes service descriptions, contact info, and a modern UI/UX design for a professional look.",
+    titleKey: "projects.golden_paper.title",
+    descriptionKey: "projects.golden_paper.description",
     image: "/projects/golden_paper.png",
     technologies: ["Vue.js", "Typescript"],
     tag: "production",
@@ -535,9 +522,8 @@ export const data: Partial<Project>[] = [
     contributor: contributors.bester,
   },
   {
-    title: "Digital Menu Website",
-    description:
-      "An intuitive web platform offering digital menu access via QR codes, designed with a sleek modern interface to enhance customer experience and streamline ordering processes.",
+    titleKey: "projects.digital_menu_website.title",
+    descriptionKey: "projects.digital_menu_website.description",
     image: "/projects/ominu.png",
     technologies: ["React", "Typescript", "GSAP Animation"],
     tag: "production",
@@ -550,9 +536,8 @@ export const data: Partial<Project>[] = [
     contributor: contributors.apSoft,
   },
   {
-    title: "Simple Menu QRCode",
-    description:
-      "An intuitive web platform offering digital menu access via QR codes, designed with a sleek modern interface to enhance customer experience and streamline ordering processes.",
+    titleKey: "projects.simple_menu_qrcode.title",
+    descriptionKey: "projects.simple_menu_qrcode.description",
     image: "/projects/simple_menu.png",
     technologies: ["React", "Nest.js", "PostgreSQL", "Typescript"],
     tag: "production",
@@ -565,9 +550,8 @@ export const data: Partial<Project>[] = [
     contributor: contributors.apSoft,
   },
   {
-    title: "Janan Group",
-    description:
-      "Product showcase website for a Kurdish notebook brand with product listings, contact form, and ordering via social media.",
+    titleKey: "projects.janan_group.title",
+    descriptionKey: "projects.janan_group.description",
     image: "/projects/janan.png",
     technologies: ["Vue.js", "Express.js", "MongoDB", "Firebase", "Javascript"],
     liveUrl: "https://janan-group.com/",
@@ -579,9 +563,8 @@ export const data: Partial<Project>[] = [
     contributor: contributors.bester,
   },
   {
-    title: "Kurdface",
-    description:
-      "A full-featured Kurdish social network platform modeled after Facebook. Includes posts, comments, messaging, real-time notifications, and admin moderation tools.",
+    titleKey: "projects.kurdface.title",
+    descriptionKey: "projects.kurdface.description",
     image: "/projects/facebook.png",
     technologies: [
       "React",
@@ -610,9 +593,8 @@ export const data: Partial<Project>[] = [
     client_specific: false,
   },
   {
-    title: "Bester Group",
-    description:
-      "A sleek and modern company profile site showcasing services and portfolio with interactive elements and responsive design.",
+    titleKey: "projects.bester_group.title",
+    descriptionKey: "projects.bester_group.description",
     image: "/projects/bester.png",
     technologies: ["React", "Javascript"],
     liveUrl: "https://bester-group.com/",
@@ -623,9 +605,8 @@ export const data: Partial<Project>[] = [
   },
 
   {
-    title: "Kurdferga",
-    description:
-      "An academic resource platform for Kurdish students. Includes course content, to-do list, timers, and a pro subscription tier.",
+    titleKey: "projects.kurdferga.title",
+    descriptionKey: "projects.kurdferga.description",
     image: "/projects/kurdferga.png",
     technologies: ["React", "Express.js", "MongoDB", "Firebase", "Redux"],
     liveUrl: "https://kurdferga.net",
@@ -635,9 +616,8 @@ export const data: Partial<Project>[] = [
     client_specific: false,
   },
   {
-    title: "Kurdidioms",
-    description:
-      "A community-driven Kurdish-English idiom translation and explanation platform with user submission, admin review, and moderation.",
+    titleKey: "projects.kurdidioms.title",
+    descriptionKey: "projects.kurdidioms.description",
     image: "/projects/idiom.png",
     technologies: ["React", "Firebase", "Javascript", "Redux"],
     liveUrl: "https://idoim.bester-group.com",
@@ -648,9 +628,8 @@ export const data: Partial<Project>[] = [
   },
 
   {
-    title: "Refinery System",
-    description:
-      "Enterprise-level web platform for managing refinery operations including storage, finance, production, and workforce. Built using PostgreSQL and Knex.js.",
+    titleKey: "projects.refinery_system.title",
+    descriptionKey: "projects.refinery_system.description",
     image: "/projects/refinery.png",
     technologies: [
       "React",
@@ -675,9 +654,8 @@ export const data: Partial<Project>[] = [
     client_specific: false,
   },
   {
-    title: "Pet System",
-    description:
-      "A full-featured system to manage pet clinic operations, appointments, records, and staff. Optimized for veterinarians and pet clinic staff.",
+    titleKey: "projects.pet_system.title",
+    descriptionKey: "projects.pet_system.description",
     image: "/projects/pet.png",
     technologies: [
       "React",
@@ -702,9 +680,8 @@ export const data: Partial<Project>[] = [
     client_specific: false,
   },
   {
-    title: "Absence Management System",
-    description:
-      "A system to track and manage employee absences. Includes request submission, approvals, search, and filter features.",
+    titleKey: "projects.absence_management_system.title",
+    descriptionKey: "projects.absence_management_system.description",
     image: "/projects/absence.png",
     technologies: [
       "React",
@@ -729,9 +706,8 @@ export const data: Partial<Project>[] = [
     client_specific: false,
   },
   {
-    title: "Tile Vania",
-    description:
-      "A simple platformer game inspired by Mario. Includes 3 levels and a boss level with coins, traps, and enemy monsters.",
+    titleKey: "projects.tile_vania.title",
+    descriptionKey: "projects.tile_vania.description",
     image: "/projects/unity.jpg",
     technologies: ["Unity", "C#"],
     liveUrl: "https://ahmadsoftware.itch.io/myfirstgame",
@@ -741,9 +717,8 @@ export const data: Partial<Project>[] = [
     client_specific: false,
   },
   {
-    title: "Kurd Todo",
-    description:
-      "A task manager app where users can create and manage to-do items, collections, and track their productivity over time.",
+    titleKey: "projects.kurd_todo.title",
+    descriptionKey: "projects.kurd_todo.description",
     image: "/projects/todo.png",
     technologies: [
       "React",
@@ -768,9 +743,8 @@ export const data: Partial<Project>[] = [
     client_specific: false,
   },
   {
-    title: "Farmuda",
-    description:
-      "A religious platform for Islamic hadith and Q&A built for Sayay Farmuda, with educational and community interaction features.",
+    titleKey: "projects.farmuda.title",
+    descriptionKey: "projects.farmuda.description",
     image: "/projects/saya.png",
     technologies: [
       "React",
@@ -787,9 +761,8 @@ export const data: Partial<Project>[] = [
   },
 
   {
-    title: "GCommerce",
-    description:
-      "A robust e-commerce application developed using React and Laravel. It offers a secure, feature-rich shopping experience and admin control.",
+    titleKey: "projects.gcommerce.title",
+    descriptionKey: "projects.gcommerce.description",
     image: "/projects/gcommerce.png",
     technologies: ["React", "Javascript"],
     gits: [],
@@ -799,9 +772,8 @@ export const data: Partial<Project>[] = [
   },
 
   {
-    title: "Bucks To Bar Copilot",
-    description:
-      "A tool to assist users in converting their bucks to bars seamlessly. This project for learning how to use Github Copilot In the best way for developing in JS",
+    titleKey: "projects.bucks_to_bar_copilot.title",
+    descriptionKey: "projects.bucks_to_bar_copilot.description",
     image: "/projects/bucks_to_bar_copilot.png",
     technologies: ["Javascript", "Jest"],
     gits: [

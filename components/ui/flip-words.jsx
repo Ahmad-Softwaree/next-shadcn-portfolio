@@ -7,7 +7,6 @@ export const FlipWords = ({ words, duration = 1500, className = "" }) => {
   const [currentWord, setCurrentWord] = useState(words[0]);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // thanks for the fix Julian - https://github.com/Julian-AT
   const startAnimation = useCallback(() => {
     const word = words[words.indexOf(currentWord) + 1] || words[0];
     setCurrentWord(word);
@@ -25,8 +24,7 @@ export const FlipWords = ({ words, duration = 1500, className = "" }) => {
     <AnimatePresence
       onExitComplete={() => {
         setIsAnimating(false);
-      }}
-    >
+      }}>
       <motion.div
         initial={{
           opacity: 0,
@@ -52,8 +50,7 @@ export const FlipWords = ({ words, duration = 1500, className = "" }) => {
           position: "absolute",
         }}
         className={cn("z-10 inline-block relative text-left  px-2", className)}
-        key={currentWord}
-      >
+        key={currentWord}>
         {currentWord.split("").map((letter, index) => (
           <motion.span
             key={currentWord + index}
@@ -63,8 +60,7 @@ export const FlipWords = ({ words, duration = 1500, className = "" }) => {
               delay: index * 0.02,
               duration: 0.2,
             }}
-            className={`initial-block text-primary-500`}
-          >
+            className="inline-block">
             {letter}
           </motion.span>
         ))}

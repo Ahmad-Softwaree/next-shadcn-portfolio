@@ -4,10 +4,26 @@ import { useParams } from "next/navigation";
 import { projects } from "@/lib/data/projects";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github, Star } from "lucide-react";
+import {
+  ExternalLink,
+  Github,
+  Star,
+  ArrowLeft,
+  Code2,
+  Briefcase,
+  Users,
+} from "lucide-react";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTranslation } from "react-i18next";
+import { getTechConfig } from "@/lib/config/technologies";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Separator } from "@/components/ui/separator";
+
 const page = () => {
+  const { t } = useTranslation();
   const params = useParams();
   const projectId = Number(params?.id);
 
@@ -16,17 +32,17 @@ const page = () => {
   if (!project) {
     return (
       <div className="text-center py-20">
-        <h2 className="text-2xl font-semibold">Project Not Found</h2>
+        <h2 className="text-2xl font-semibold">{t("common.no_data")}</h2>
         <p className="text-muted-foreground mt-2">
-          The project you are looking for does not exist.
+          {t("common.no_data_found")}
         </p>
       </div>
     );
   }
 
   const {
-    title,
-    description,
+    titleKey,
+    descriptionKey,
     image,
     technologies,
     liveUrl,
@@ -35,138 +51,258 @@ const page = () => {
     starred,
     types,
   } = project;
+
+  const translateType = (type: string) => {
+    const key = type.replace(/\s+/g, "_").toLowerCase();
+    const translated = t(`projects.types.${key}` as any);
+    return translated === `projects.types.${key}` ? type : translated;
+  };
+
+  const translateTag = (tag?: string) => {
+    if (!tag) return tag;
+    const translated = t(`projects.tag.${tag}` as any);
+    return translated === `projects.tag.${tag}` ? tag : translated;
+  };
+
   return (
-    <section className="py-20 px-6 max-w-4xl mx-auto">
-      <div className="space-y-6">
-        <div className="relative h-72 w-full rounded-xl overflow-hidden border border-muted">
-          <Image
-            src={image || "/placeholder.svg"}
-            alt={title}
-            fill
-            className="object-contain"
-          />
-        </div>
+    <section className="py-20 px-4 sm:px-6 max-w-6xl mx-auto">
+      {/* Back Button */}
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3 }}>
+        <Link
+          href="/projects"
+          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8">
+          <ArrowLeft className="w-4 h-4" />
+          <span>{t("navbar.projects")}</span>
+        </Link>
+      </motion.div>
 
-        <div className="flex flex-col gap-2">
-          <h1 className="text-4xl font-bold flex items-center gap-2">
-            {title}
-            {starred && <Star className="h-6 w-6 text-yellow-400" />}
-            {tag && (
-              <Badge
-                variant={
-                  tag === "down"
-                    ? "destructive"
-                    : tag === "production"
-                      ? "default"
-                      : "outline"
-                }>
-                {tag}
-              </Badge>
+      <div className="grid lg:grid-cols-2 gap-8">
+        {/* Left Column - Image */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="space-y-6">
+          {/* Project Image */}
+          <div className="relative h-80 lg:h-96 w-full rounded-2xl overflow-hidden border bg-accent/50 group">
+            <Image
+              src={image || "/placeholder.svg"}
+              alt={String(t(titleKey as any))}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-3 flex-wrap">
+            {liveUrl && tag !== "down" ? (
+              <Button
+                asChild
+                size="lg"
+                className="flex-1 rounded-full shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all">
+                <a href={liveUrl} target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="mr-2 h-5 w-5" />
+                  {t("projects.live")}
+                </a>
+              </Button>
+            ) : (
+              <Button
+                disabled
+                size="lg"
+                className="flex-1 rounded-full opacity-50">
+                {t("projects.private_project")}
+              </Button>
             )}
-          </h1>
 
-          {types && types.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {types.map((type) => (
-                <Badge key={type} variant="outline">
-                  {type}
-                </Badge>
-              ))}
+            {gits.length > 0 ? (
+              gits.map(({ url, name }, i) => (
+                <Button
+                  key={i}
+                  variant="outline"
+                  size="lg"
+                  className="flex-1 rounded-full hover:border-primary/50 transition-all"
+                  asChild>
+                  <a href={url} target="_blank" rel="noopener noreferrer">
+                    <Github className="mr-2 h-5 w-5" />
+                    {t("projects.view_code", { name })}
+                  </a>
+                </Button>
+              ))
+            ) : (
+              <Button
+                disabled
+                variant="outline"
+                size="lg"
+                className="flex-1 rounded-full opacity-50">
+                {t("projects.private_git")}
+              </Button>
+            )}
+          </div>
+        </motion.div>
+
+        {/* Right Column - Details */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="space-y-6">
+          {/* Title & Badges */}
+          <div className="space-y-4">
+            <div className="flex items-start gap-3 flex-wrap">
+              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight flex-1">
+                {String(t(titleKey as any))}
+              </h1>
+              {starred && (
+                <Star className="h-7 w-7 text-yellow-400 fill-yellow-400 flex-shrink-0" />
+              )}
             </div>
+
+            {/* Tags & Types Row */}
+            <div className="flex flex-wrap gap-2">
+              {tag && (
+                <Badge
+                  variant={
+                    tag === "down"
+                      ? "destructive"
+                      : tag === "production"
+                        ? "default"
+                        : "outline"
+                  }
+                  className="text-sm px-3 py-1 rounded-full">
+                  {String(translateTag(tag))}
+                </Badge>
+              )}
+              {types && types.length > 0 && (
+                <>
+                  {types.map((type) => (
+                    <Badge
+                      key={type}
+                      variant="secondary"
+                      className="text-sm px-3 py-1 rounded-full">
+                      {String(translateType(type))}
+                    </Badge>
+                  ))}
+                </>
+              )}
+            </div>
+          </div>
+
+          <Separator />
+
+          {/* Description */}
+          <div className="space-y-3">
+            <h2 className="text-xl font-semibold flex items-center gap-2">
+              <Code2 className="w-5 h-5 text-primary" />
+              {t("projects.details")}
+            </h2>
+            <p className="text-muted-foreground text-base leading-relaxed">
+              {String(t(descriptionKey as any))}
+            </p>
+          </div>
+
+          <Separator />
+
+          {/* Technologies */}
+          <div className="space-y-3">
+            <h2 className="text-xl font-semibold flex items-center gap-2">
+              <Code2 className="w-5 h-5 text-primary" />
+              {t("skills.title")}
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {technologies.map((tech) => {
+                const config = getTechConfig(tech);
+                return (
+                  <Badge
+                    key={tech}
+                    variant="outline"
+                    className={cn(
+                      "english_font rounded-full px-3 py-1.5 text-sm font-medium border transition-all duration-200",
+                      "hover:scale-110 cursor-default",
+                      config.bgColor,
+                      config.color,
+                      config.borderColor
+                    )}>
+                    {config.displayName}
+                  </Badge>
+                );
+              })}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Clients & Contributors Section */}
+      {(project.clients?.length || project.contributor) && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-12 grid gap-6 md:grid-cols-2">
+          {Array.isArray(project.clients) && project.clients.length > 0 && (
+            <Card className="border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Briefcase className="w-5 h-5 text-primary" />
+                  {t("projects.clients")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  {project.clients.map((client, idx) => (
+                    <li key={idx} className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-primary" />
+                      {client.url ? (
+                        <a
+                          href={client.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary hover:underline font-medium transition-all">
+                          {client.name}
+                        </a>
+                      ) : (
+                        <span className="font-medium">{client.name}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
           )}
-        </div>
 
-        <p className="text-muted-foreground text-lg leading-relaxed">
-          {description}
-        </p>
-
-        <div className="flex flex-wrap gap-2">
-          {technologies.map((tech) => (
-            <Badge key={tech} variant="secondary">
-              {tech}
-            </Badge>
-          ))}
-        </div>
-        {(project.clients?.length || project.contributor) && (
-          <div className="grid gap-4 md:grid-cols-2 mt-8">
-            {Array.isArray(project.clients) && project.clients.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Clients</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {project.clients.map((client, idx) => (
-                      <li key={idx}>
-                        {client.url ? (
-                          <a
-                            href={client.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-primary hover:underline">
-                            {client.name}
-                          </a>
-                        ) : (
-                          <span>{client.name}</span>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            )}
-
-            {project.contributor && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Contributor</CardTitle>
-                </CardHeader>
-                <CardContent>
+          {project.contributor && (
+            <Card className="border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="w-5 h-5 text-primary" />
+                  {t("projects.contributor")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-primary" />
                   {project.contributor.url ? (
                     <a
                       href={project.contributor.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline">
+                      className="text-primary hover:underline font-medium transition-all">
                       {project.contributor.name}
                     </a>
                   ) : (
-                    <span>{project.contributor.name}</span>
+                    <span className="font-medium">
+                      {project.contributor.name}
+                    </span>
                   )}
-                </CardContent>
-              </Card>
-            )}
-          </div>
-        )}
-
-        <div className="flex gap-3 flex-wrap mt-4">
-          {liveUrl && tag !== "down" ? (
-            <Button asChild>
-              <a href={liveUrl} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="mr-1 h-4 w-4" /> Live
-              </a>
-            </Button>
-          ) : (
-            <Button disabled className="opacity-50">
-              Private Project
-            </Button>
+                </div>
+              </CardContent>
+            </Card>
           )}
-
-          {gits.length > 0 ? (
-            gits.map(({ url, name }, i) => (
-              <Button key={i} variant="outline" asChild>
-                <a href={url} target="_blank" rel="noopener noreferrer">
-                  <Github className="mr-1 h-4 w-4" /> View {name} Code
-                </a>
-              </Button>
-            ))
-          ) : (
-            <Button disabled variant="outline" className="opacity-50">
-              Private Git
-            </Button>
-          )}
-        </div>
-      </div>
+        </motion.div>
+      )}
     </section>
   );
 };

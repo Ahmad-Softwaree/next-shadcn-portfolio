@@ -1,131 +1,146 @@
+"use client";
+
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Badge } from "@/components/ui/badge";
 import { Building2, Calendar } from "lucide-react";
+import { AnimateOnScroll } from "@/components/shared/animate";
+import experiences from "@/lib/data/experiences";
+import type { Experience } from "@/lib/data/experiences";
+import { getTechConfig } from "@/lib/config/technologies";
+import { cn } from "@/lib/utils";
 
 interface ExperienceItemProps {
-  title: string;
-  company: string;
-  period: string;
-  description: string;
-  technologies: string[];
+  experience: Experience;
+  index: number;
 }
 
-const ExperienceItem = ({
-  title,
-  company,
-  period,
-  description,
-  technologies,
-}: ExperienceItemProps) => {
+const ExperienceItem = ({ experience, index }: ExperienceItemProps) => {
+  const { t } = useTranslation();
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <div className="relative pl-8 not-last:pb-12">
+    <div
+      className={cn(
+        "group relative ps-8 pb-12 last:pb-0 animate-in fade-in slide-in-from-left-4",
+        "transition-all duration-300"
+      )}
+      style={{
+        animationDelay: `${index * 150}ms`,
+        animationFillMode: "backwards",
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}>
       {/* Timeline line */}
-      <div className="absolute left-0 top-2.5 h-full w-[2px] bg-muted group-first:h-[calc(100%-24px)] group-first:top-6">
-        <div className="absolute h-3 w-3 -left-[5px] top-0 rounded-full border-2 border-primary bg-background" />
+      <div className="absolute start-0 top-2.5 h-full w-[2px] bg-gradient-to-b from-primary/50 to-muted last:bg-gradient-to-b last:from-primary/50 last:to-transparent">
+        <div
+          className={cn(
+            "absolute h-3 w-3 -start-[5px] top-0 rounded-full border-2 border-primary bg-background transition-all duration-300",
+            isHovered && "scale-150 shadow-lg shadow-primary/50"
+          )}
+        />
       </div>
 
-      {/* Content */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 size-9 bg-accent rounded-full flex items-center justify-center">
-            <Building2 className="size-5 text-muted-foreground" />
+      {/* Content Card */}
+      <div
+        className={cn(
+          "relative rounded-xl border bg-card p-6 transition-all duration-300",
+          "hover:shadow-xl hover:border-primary/50 hover:-translate-y-1",
+          isHovered && "shadow-xl border-primary/50 -translate-y-1"
+        )}>
+        {/* Company Header */}
+        <div className="flex items-center gap-3 mb-4">
+          <div
+            className={cn(
+              "flex-shrink-0 h-12 w-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl flex items-center justify-center transition-all duration-300",
+              isHovered && "scale-110 from-primary/30 to-primary/10"
+            )}>
+            <Building2
+              className={cn(
+                "h-6 w-6 text-primary transition-transform duration-300",
+                isHovered && "rotate-12"
+              )}
+            />
           </div>
-          <span className="text-lg font-semibold">{company}</span>
-        </div>
-        <div>
-          <h3 className="text-xl font-medium">{title}</h3>
-          <div className="flex items-center gap-2 mt-1 text-sm">
-            <Calendar className="size-4" />
-            <span>{period}</span>
+          <div className="flex-1">
+            <h3 className="text-xl font-bold tracking-tight">
+              {String(t(experience.companyKey as any))}
+            </h3>
+            <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground">
+              <Calendar className="h-4 w-4" />
+              <span>{String(t(experience.periodKey as any))}</span>
+            </div>
           </div>
         </div>
-        <p className="text-muted-foreground">{description}</p>
+
+        {/* Job Title */}
+        <h4 className="text-lg font-semibold mb-3 text-foreground/90">
+          {String(t(experience.titleKey as any))}
+        </h4>
+
+        {/* Description */}
+        <p className="text-muted-foreground leading-relaxed mb-4">
+          {String(t(experience.descriptionKey as any))}
+        </p>
+
+        {/* Technologies */}
         <div className="flex flex-wrap gap-2">
-          {technologies.map((tech) => (
-            <Badge key={tech} variant="default" className="rounded-full">
-              {tech}
-            </Badge>
-          ))}
+          {experience.technologies.map((tech) => {
+            const techConfig = getTechConfig(tech);
+            return (
+              <Badge
+                key={tech}
+                variant="outline"
+                className={cn(
+                  "english_font rounded-full border transition-all duration-200 hover:scale-110",
+                  techConfig.color,
+                  techConfig.bgColor,
+                  techConfig.borderColor
+                )}>
+                {techConfig.displayName}
+              </Badge>
+            );
+          })}
         </div>
+
+        {/* Hover Effect Background */}
+        <div className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-br from-primary/5 via-primary/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
       </div>
     </div>
   );
 };
 
 const Experience = () => {
-  const experiences = [
-    {
-      title: "Junior Full Stack Developer",
-      company: "Bester Group",
-      period: "2021 - Present",
-      description:
-        "Contributed to the full development lifecycle of enterprise web systems by building scalable APIs, designing reusable frontend components, and maintaining databases. Collaborated closely with senior engineers to improve performance and security across the stack.",
-      technologies: [
-        "React",
-        "Next.js",
-        "Express.js",
-        "Nest.js",
-        "TypeScript",
-        "Mysql",
-        "MongoDB",
-        "Postgresql",
-      ],
-    },
-    {
-      title: "Full Stack Developer",
-      company: "AP Soft",
-      period: "2023 - Present",
-      description:
-        "Led development on multi-tenant client platforms using modern full stack tools. Architected backend services with NestJS, developed dynamic interfaces in Next.js, and integrated real-time features and external APIs to deliver robust business solutions.",
-      technologies: [
-        "React",
-        "Next.js",
-        "Nest.js",
-        "TypeScript",
-        "Mysql",
-        "MongoDB",
-        "Postgresql",
-      ],
-    },
-    {
-      title: "Backend Developer",
-      company: "Avana Soft",
-      period: "2025 - 2025",
-      description:
-        "Focused on designing and optimizing backend architecture for performance-critical applications. Built secure RESTful APIs, implemented data modeling best practices, and ensured reliable system integration with external services and databases.",
-      technologies: ["Nest.js", "TypeScript", "Mysql", "Express.js"],
-    },
-    {
-      title: "Frontend Developer",
-      company: "Kitn Company",
-      period: "2025 - 2025",
-      description:
-        "Specialized in building responsive and user-friendly interfaces. Developed reusable components, optimized performance for modern web applications, and collaborated closely with designers to deliver seamless user experiences across devices.",
-      technologies: ["React", "Next.js", "TypeScript", "Tailwindcss"],
-    },
-  ];
+  const { t } = useTranslation();
 
   return (
-    <section id="experience" className="relative py-20 px-6">
-      <div className="max-w-screen-md mx-auto">
-        <div className="text-center mb-12">
-          <Badge variant="secondary" className="mb-4">
-            Experience
-          </Badge>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
-            Professional Journey
-          </h2>
-          <p className="text-muted-foreground mt-2 sm:mt-4 text-lg">
-            A timeline of my professional growth and key achievements
-          </p>
-        </div>
+    <AnimateOnScroll animation="fade-up">
+      <section id="experience" className="py-12 md:py-20">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+          <div className="mb-12 text-center">
+            <Badge variant="secondary" className="mb-4">
+              {String(t("experience.badge" as any))}
+            </Badge>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+              {String(t("experience.title" as any))}
+            </h2>
+            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+              {String(t("experience.subtitle" as any))}
+            </p>
+          </div>
 
-        <div className="relative">
-          {experiences.map((experience, index) => (
-            <ExperienceItem key={index} {...experience} />
-          ))}
+          <div className="relative">
+            {experiences.map((experience, index) => (
+              <ExperienceItem
+                key={experience.id}
+                experience={experience}
+                index={index}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </AnimateOnScroll>
   );
 };
 

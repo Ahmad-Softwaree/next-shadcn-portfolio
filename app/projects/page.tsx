@@ -12,7 +12,7 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { FilterIcon } from "lucide-react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, Suspense } from "react";
 import {
   allTags,
   allTechs,
@@ -31,6 +31,15 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import ProjectCard from "@/components/cards/project-card";
+import Search from "@/components/Search";
+import NoData from "@/components/NoData";
+import { useAppQueryParams } from "@/hooks/useAppQuery";
+import { useTranslation } from "react-i18next";
+import { StaggerItem } from "@/components/shared/animate";
+import { getTypeConfig, getTagConfig } from "@/lib/config/project-filters";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+
 type FilterState = {
   types: ProjectType[];
   tags: ProjectTag[];
@@ -40,7 +49,11 @@ type FilterState = {
   hasLiveUrl: boolean | null;
 };
 
-const page = () => {
+function ProjectsContent() {
+  const { t } = useTranslation();
+  const { queries } = useAppQueryParams();
+  const searchQuery = queries.search?.toLowerCase() || "";
+
   const [sheetOpen, setSheetOpen] = useState(false);
 
   const [filters, setFilters] = useState<FilterState>({
@@ -55,6 +68,19 @@ const page = () => {
   // Filtering logic
   const filteredProjects = useMemo(() => {
     return projects.filter((p) => {
+      // Search filter
+      if (searchQuery) {
+        const title = String(t(p.titleKey as any)).toLowerCase();
+        const description = String(t(p.descriptionKey as any)).toLowerCase();
+        const matchesSearch =
+          title.includes(searchQuery) ||
+          description.includes(searchQuery) ||
+          p.technologies.some((tech) =>
+            tech.toLowerCase().includes(searchQuery)
+          );
+        if (!matchesSearch) return false;
+      }
+
       // Filter by types if selected
       if (filters.types.length > 0) {
         if (!p.types || !p.types.some((t) => filters.types.includes(t)))
@@ -87,7 +113,7 @@ const page = () => {
 
       return true;
     });
-  }, [filters]);
+  }, [filters, searchQuery]);
   const isFilterActive = useMemo(() => {
     return (
       filters.starredOnly ||
@@ -98,6 +124,7 @@ const page = () => {
       filters.hasLiveUrl !== null
     );
   }, [filters]);
+
   return (
     <section
       id="projects"
@@ -106,11 +133,15 @@ const page = () => {
         {/* Header */}
         <div className="text-center mb-8 flex flex-col items-center gap-4">
           <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
-            My Projects
+            {t("projects.title")}
           </h2>
           <p className="text-muted-foreground mt-2 sm:mt-4 text-lg max-w-xl">
-            Showcasing all of my projects and technical achievements
+            {t("projects.subtitle")}
           </p>
+
+          <div className="w-full max-w-md mt-4">
+            <Search placeholder={t("projects.search_placeholder")} />
+          </div>
 
           <div className="flex items-center justify-center gap-2 mt-4">
             <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
@@ -119,7 +150,7 @@ const page = () => {
                   variant="outline"
                   className="relative flex items-center gap-2">
                   <FilterIcon className="h-5 w-5" />
-                  Filters
+                  {t("common.filters")}
                   {isFilterActive && (
                     <Badge
                       className="h-3 w-3 rounded-full px-1 font-mono tabular-nums absolute -top-1 -right-1 inline-flex"
@@ -131,9 +162,9 @@ const page = () => {
 
               <SheetContent side="right" className="overflow-auto">
                 <SheetHeader>
-                  <SheetTitle>Filters</SheetTitle>
+                  <SheetTitle>{t("common.filters")}</SheetTitle>
                   <SheetDescription>
-                    Adjust project filters below
+                    {t("projects.adjust_filters")}
                   </SheetDescription>
                 </SheetHeader>
 
@@ -146,7 +177,9 @@ const page = () => {
                         setFilters((f) => ({ ...f, starredOnly: !!checked }))
                       }
                     />
-                    <Label htmlFor="filter-starred">Starred Only</Label>
+                    <Label htmlFor="filter-starred">
+                      {t("projects.starred_only")}
+                    </Label>
                   </div>
                   <Separator />
                   <div className="flex flex-wrap gap-4 justify-center">
@@ -158,12 +191,12 @@ const page = () => {
                               ? "outline"
                               : "default"
                           }>
-                          Public Git:{" "}
+                          {t("projects.has_public_git")}:{" "}
                           {filters.hasPublicGit === null
-                            ? "All"
+                            ? t("common.all")
                             : filters.hasPublicGit
-                              ? "Yes"
-                              : "No"}
+                              ? t("common.yes")
+                              : t("common.no")}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-40 p-2">
@@ -174,7 +207,7 @@ const page = () => {
                             onClick={() =>
                               setFilters((f) => ({ ...f, hasPublicGit: null }))
                             }>
-                            All
+                            {t("common.all")}
                           </Button>
                           <Button
                             variant="ghost"
@@ -182,7 +215,7 @@ const page = () => {
                             onClick={() =>
                               setFilters((f) => ({ ...f, hasPublicGit: true }))
                             }>
-                            Yes
+                            {t("common.yes")}
                           </Button>
                           <Button
                             variant="ghost"
@@ -190,7 +223,7 @@ const page = () => {
                             onClick={() =>
                               setFilters((f) => ({ ...f, hasPublicGit: false }))
                             }>
-                            No
+                            {t("common.no")}
                           </Button>
                         </div>
                       </PopoverContent>
@@ -202,12 +235,12 @@ const page = () => {
                           variant={
                             filters.hasLiveUrl === null ? "outline" : "default"
                           }>
-                          Has Live URL:{" "}
+                          {t("projects.has_live_url")}:{" "}
                           {filters.hasLiveUrl === null
-                            ? "All"
+                            ? t("common.all")
                             : filters.hasLiveUrl
-                              ? "Yes"
-                              : "No"}
+                              ? t("common.yes")
+                              : t("common.no")}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-40 p-2">
@@ -218,7 +251,7 @@ const page = () => {
                             onClick={() =>
                               setFilters((f) => ({ ...f, hasLiveUrl: null }))
                             }>
-                            All
+                            {t("common.all")}
                           </Button>
                           <Button
                             variant="ghost"
@@ -226,7 +259,7 @@ const page = () => {
                             onClick={() =>
                               setFilters((f) => ({ ...f, hasLiveUrl: true }))
                             }>
-                            Yes
+                            {t("common.yes")}
                           </Button>
                           <Button
                             variant="ghost"
@@ -234,7 +267,7 @@ const page = () => {
                             onClick={() =>
                               setFilters((f) => ({ ...f, hasLiveUrl: false }))
                             }>
-                            No
+                            {t("common.no")}
                           </Button>
                         </div>
                       </PopoverContent>
@@ -244,15 +277,23 @@ const page = () => {
 
                   <div>
                     <p className="mb-1 font-semibold text-center">
-                      Project Types
+                      {t("projects.filter_types")}
                     </p>
                     <div className="flex flex-wrap gap-2 justify-center">
                       {allTypes.map((type) => {
                         const isSelected = filters.types.includes(type);
+                        const config = getTypeConfig(type);
+                        const translateType = (type: string) => {
+                          const key = type.replace(/\s+/g, "_").toLowerCase();
+                          const translated = t(`projects.types.${key}` as any);
+                          return translated === `projects.types.${key}`
+                            ? type
+                            : translated;
+                        };
                         return (
                           <Button
                             key={type}
-                            variant={isSelected ? "default" : "outline"}
+                            variant="outline"
                             onClick={() =>
                               setFilters((f) => {
                                 const newTypes = isSelected
@@ -262,8 +303,13 @@ const page = () => {
                               })
                             }
                             size="sm"
-                            className="rounded-full">
-                            {type}
+                            className={cn(
+                              "rounded-full border transition-all duration-200",
+                              isSelected && config.bgColor,
+                              isSelected && config.color,
+                              isSelected && config.borderColor
+                            )}>
+                            {translateType(type)}
                           </Button>
                         );
                       })}
@@ -273,14 +319,23 @@ const page = () => {
                   <Separator />
 
                   <div>
-                    <p className="mb-1 font-semibold text-center">Tags</p>
+                    <p className="mb-1 font-semibold text-center">
+                      {t("projects.filter_tags")}
+                    </p>
                     <div className="flex flex-wrap gap-2 justify-center">
                       {allTags.map((tag) => {
                         const isSelected = filters.tags.includes(tag);
+                        const config = getTagConfig(tag);
+                        const translateTag = (tag: string) => {
+                          const translated = t(`projects.tag.${tag}` as any);
+                          return translated === `projects.tag.${tag}`
+                            ? tag
+                            : translated;
+                        };
                         return (
                           <Button
                             key={tag}
-                            variant={isSelected ? "default" : "outline"}
+                            variant="outline"
                             onClick={() =>
                               setFilters((f) => {
                                 const newTags = isSelected
@@ -290,8 +345,13 @@ const page = () => {
                               })
                             }
                             size="sm"
-                            className="rounded-full">
-                            {tag}
+                            className={cn(
+                              "rounded-full border transition-all duration-200",
+                              isSelected && config.bgColor,
+                              isSelected && config.color,
+                              isSelected && config.borderColor
+                            )}>
+                            {translateTag(tag)}
                           </Button>
                         );
                       })}
@@ -302,7 +362,7 @@ const page = () => {
 
                   <div className="max-w-md mx-auto">
                     <p className="mb-1 font-semibold text-center">
-                      Technologies
+                      {t("projects.filter_tech")}
                     </p>
                     <div className="flex flex-wrap gap-2 justify-center">
                       {allTechs.map((tech) => {
@@ -312,7 +372,7 @@ const page = () => {
                             key={tech}
                             variant={isSelected ? "default" : "outline"}
                             size="sm"
-                            className="rounded-full"
+                            className="english_font rounded-full"
                             onClick={() =>
                               setFilters((f) => {
                                 const newTechs = isSelected
@@ -332,7 +392,7 @@ const page = () => {
                   <div className="mt-6 flex gap-5 justify-between">
                     <SheetClose asChild>
                       <Button variant="default" className="w-full">
-                        Close Filters
+                        {t("common.close")}
                       </Button>
                     </SheetClose>
                     <Button
@@ -347,7 +407,7 @@ const page = () => {
                           hasLiveUrl: null,
                         })
                       }>
-                      Clear Filters
+                      {t("common.cancel")}
                     </Button>
                   </div>
                 </div>
@@ -366,27 +426,45 @@ const page = () => {
                     hasLiveUrl: null,
                   })
                 }>
-                Clear Filters
+                {t("common.cancel")}
               </Button>
             )}
           </div>
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-          {filteredProjects.map((project, index) => (
-            <ProjectCard key={index} {...project} />
-          ))}
-        </div>
-
-        {filteredProjects.length === 0 && (
-          <p className="text-center text-muted-foreground mt-8">
-            No projects found matching filters.
-          </p>
+        {filteredProjects.length > 0 ? (
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}>
+            {filteredProjects.map((project, index) => (
+              <StaggerItem key={index}>
+                <ProjectCard {...project} />
+              </StaggerItem>
+            ))}
+          </motion.div>
+        ) : (
+          <NoData />
         )}
       </div>
     </section>
   );
-};
+}
 
-export default page;
+export default function Page() {
+  return (
+    <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
+      <ProjectsContent />
+    </Suspense>
+  );
+}

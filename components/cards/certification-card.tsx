@@ -6,42 +6,49 @@ import Link from "next/link";
 import { Link2, Star } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import { getCertificateTypeConfig } from "@/lib/config/certification-filters";
+import { cn } from "@/lib/utils";
 
 const CertificationCard = (val: Certificate) => {
   const [openImage, setOpenImage] = useState(false);
+  const config = getCertificateTypeConfig(val.type);
+
   return (
     <>
-      <div
-        className="min-w-96 max-w-sm rounded-xl p-6
-    bg-background/60 backdrop-blur-md border border-border shadow-md">
+      <div className="w-[350px] h-full flex flex-col rounded-xl p-6 bg-background/60 backdrop-blur-md border border-border shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/50">
         {/* Certificate Image */}
-
-        <div className="w-full h-48 relative overflow-hidden rounded-md mb-4">
+        <div className="w-full h-48 relative overflow-hidden rounded-md mb-4 cursor-pointer group">
           <Image
             onClick={() => setOpenImage(true)}
             src={val.image}
             alt={val.title}
             fill
-            className="rounded-md object-cover"
+            className="rounded-md object-cover transition-all duration-300 group-hover:scale-110"
           />
         </div>
 
         {/* Title and Link */}
-        <div className="flex items-center justify-between">
-          <p className="text-lg font-semibold">{val.title}</p>
-          <div className="space-x-2 flex flex-row justify-center items-center gap-2">
+        <div className="flex items-center justify-between mb-3">
+          <p className="english_font text-lg font-semibold ">{val.title}</p>
+          <div className="flex items-center gap-2 flex-shrink-0">
             <Button variant="ghost" size="icon" asChild>
               <Link href={val.url} target="_blank">
                 <Link2 className="w-4 h-4" />
               </Link>
             </Button>
-            {val.starred && <Star className="h-5 w-5 text-yellow-400" />}
+            {val.starred && (
+              <Star className="h-5 w-5 text-yellow-400 fill-yellow-400" />
+            )}
           </div>
         </div>
         <Badge
-          key={val.type}
           variant="outline"
-          className="text-xs px-2 py-0.5 rounded-full">
+          className={cn(
+            "english_font text-xs px-2 py-0.5 rounded-full w-fit",
+            config.bgColor,
+            config.color,
+            config.borderColor
+          )}>
           {val.type}
         </Badge>
       </div>

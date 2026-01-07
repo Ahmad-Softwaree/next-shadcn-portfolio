@@ -1,6 +1,7 @@
-import { LucideIcon } from "lucide-react"; // assuming you're using Lucide icons
+import { LucideIcon } from "lucide-react";
 import {
   Blocks,
+  Bot,
   ChartPie,
   Code,
   FolderCode,
@@ -8,50 +9,47 @@ import {
   Settings2,
 } from "lucide-react";
 export type Service = {
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
   icon: LucideIcon;
   id: number;
 };
 
 const data: Partial<Service>[] = [
   {
-    title: "Development",
-    description:
-      "Developing (Website, Application, System) with newest technologies, clean code and configuration",
+    titleKey: "services.development.title",
+    descriptionKey: "services.development.description",
     icon: Code,
   },
   {
     icon: Settings2,
-    title: "Customizable Layouts",
-    description:
-      "Design your space with drag-and-drop simplicity—create grids, lists, or galleries in seconds.",
+    titleKey: "services.customizable_layouts.title",
+    descriptionKey: "services.customizable_layouts.description",
   },
   {
     icon: Blocks,
-    title: "Interactive Widgets",
-    description:
-      "Embed polls, quizzes, or forms to keep your audience engaged.",
+    titleKey: "services.interactive_widgets.title",
+    descriptionKey: "services.interactive_widgets.description",
   },
-
   {
     icon: ChartPie,
-    title: "Advanced Analytics",
-    description:
-      "Track engagement, clicks, and user activity with intuitive charts and reports.",
+    titleKey: "services.advanced_analytics.title",
+    descriptionKey: "services.advanced_analytics.description",
   },
-
   {
-    title: "Server management",
-    description:
-      "Managing Servers and Maintain Them, Switching and Protecting Server and Hosts",
+    titleKey: "services.server_management.title",
+    descriptionKey: "services.server_management.description",
     icon: Server,
   },
   {
-    title: "API integration",
-    description:
-      "Building Secure and most high performance API as much as It could be",
+    titleKey: "services.api_integration.title",
+    descriptionKey: "services.api_integration.description",
     icon: FolderCode,
+  },
+  {
+    titleKey: "services.bot_creation.title",
+    descriptionKey: "services.bot_creation.description",
+    icon: Bot,
   },
 ];
 
@@ -59,8 +57,8 @@ const services: Service[] = data.map(
   (item, index) =>
     ({
       id: index,
-      title: item.title,
-      description: item.description,
+      titleKey: item.titleKey,
+      descriptionKey: item.descriptionKey,
       icon: item.icon,
     }) as Service
 );
