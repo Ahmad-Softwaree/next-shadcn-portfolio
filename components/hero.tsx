@@ -22,7 +22,7 @@ const Hero = () => {
 
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center px-6 pt-6 overflow-hidden">
+      <div className="min-h-screen flex items-center justify-center px-6 pt-6">
         {/* Animated Grid Background */}
         <AnimatedGridPattern
           numSquares={30}
