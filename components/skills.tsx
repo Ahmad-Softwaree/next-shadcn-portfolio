@@ -3,9 +3,12 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
-import skills from "@/lib/data/skills";
+import { useQueryState } from "nuqs";
+import skills, { Skill } from "@/lib/data/skills";
 import { cn } from "@/lib/utils";
 import { AnimateOnScroll } from "@/components/shared/animate";
+import { Button } from "./ui/button";
+import { useAppQueryParams } from "@/hooks/useAppQuery";
 
 const getLevelColor = (level: string) => {
   switch (level) {
@@ -37,15 +40,33 @@ const getLevelTranslationKey = (level: string): string => {
   }
 };
 
+const levelOrder: Record<string, number> = {
+  Expert: 4,
+  Advanced: 3,
+  Intermediate: 2,
+  Beginner: 1,
+};
+
 export function Skills() {
   const { t } = useTranslation();
   const [hoveredId, setHoveredId] = useState<number | null>(null);
+ const {queries,setQueries} =useAppQueryParams()
+
+  const sortedSkills = [...skills].sort(
+    (a, b) => (levelOrder[b.level] || 0) - (levelOrder[a.level] || 0)
+  );
+
+  const filteredSkills = queries.skill_level
+    ? sortedSkills.filter((skill) => skill.level === queries.skill_level)
+    : sortedSkills;
+
+  const levels = ["Expert", "Advanced", "Intermediate", "Beginner"];
 
   return (
     <AnimateOnScroll animation="fade-up">
       <section className="py-12 md:py-20">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-12 text-center">
+          <div className="mb-8 text-center sm:mb-12">
             <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
               {String(t("skills.title" as any))}
             </h2>
@@ -54,8 +75,36 @@ export function Skills() {
             </p>
           </div>
 
+          <div className="mb-8 flex flex-wrap justify-center gap-2 sm:mb-10">
+            <Button
+              onClick={() => setQueries({skill_level:""})}
+              className={cn(
+                "english_font rounded-full border px-4 py-1.5 text-sm font-medium transition-all hover:bg-muted",
+                !queries.skill_level
+                  ? "bg-foreground text-background"
+                  : "bg-background text-muted-foreground hover:text-foreground"
+              )}>
+              All
+            </Button>
+            {levels.map((level) => (
+              <Button 
+                key={level}
+                onClick={() =>
+                  setQueries({skill_level:level === queries.skill_level ? "" : level})
+                }
+                className={cn(
+                  "rounded-full border px-4 py-1.5 text-sm font-medium transition-all hover:bg-muted",
+                  queries.skill_level === level
+                    ? getLevelColor(level)
+                    : "bg-background text-muted-foreground hover:text-foreground"
+                )}>
+                {String(t(getLevelTranslationKey(level) as any))}
+              </Button  >
+            ))}
+          </div>
+
           <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {skills.map((skill, index) => (
+            {filteredSkills.map((skill, index) => (
               <div
                 key={skill.id}
                 className={cn(
@@ -86,13 +135,17 @@ export function Skills() {
                 </h3>
 
                 {/* Skill Level Badge - Translated */}
-                <span
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setQueries({skill_level:skill.level});
+                  }}
                   className={cn(
-                    "rounded-full border px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs font-medium transition-all duration-300",
+                    "rounded-full border px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs font-medium transition-all duration-300 hover:opacity-80",
                     getLevelColor(skill.level)
                   )}>
                   {String(t(getLevelTranslationKey(skill.level) as any))}
-                </span>
+                </Button>
 
                 {/* Hover Effect Background */}
                 <div className="absolute inset-0 -z-10 rounded-xl md:rounded-2xl bg-gradient-to-br from-primary/5 to-primary/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />

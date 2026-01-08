@@ -39,36 +39,20 @@ import { StaggerItem } from "@/components/shared/animate";
 import { getTypeConfig, getTagConfig } from "@/lib/config/project-filters";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { getTechConfig } from "@/lib/config/technologies";
 
-type FilterState = {
-  types: ProjectType[];
-  tags: ProjectTag[];
-  starredOnly: boolean;
-  techs: Technology[];
-  hasPublicGit: boolean | null;
-  hasLiveUrl: boolean | null;
-};
 
 function ProjectsContent() {
-  const { t } = useTranslation();
-  const { queries } = useAppQueryParams();
+  const { t,i18n } = useTranslation();
+  const { queries,setQueries } = useAppQueryParams();
   const searchQuery = queries.search?.toLowerCase() || "";
 
   const [sheetOpen, setSheetOpen] = useState(false);
 
-  const [filters, setFilters] = useState<FilterState>({
-    types: [],
-    tags: [],
-    starredOnly: false,
-    techs: [],
-    hasPublicGit: null,
-    hasLiveUrl: null,
-  });
 
-  // Filtering logic
+
   const filteredProjects = useMemo(() => {
     return projects.filter((p) => {
-      // Search filter
       if (searchQuery) {
         const title = String(t(p.titleKey as any)).toLowerCase();
         const description = String(t(p.descriptionKey as any)).toLowerCase();
@@ -81,49 +65,45 @@ function ProjectsContent() {
         if (!matchesSearch) return false;
       }
 
-      // Filter by types if selected
-      if (filters.types.length > 0) {
-        if (!p.types || !p.types.some((t) => filters.types.includes(t)))
+      if (queries.project_types.length > 0) {
+        if (!p.types || !p.types.some((t) => queries.project_types.includes(t)))
           return false;
       }
-      // Filter by tags if selected
-      if (filters.tags.length > 0 && (!p.tag || !filters.tags.includes(p.tag)))
+      if (queries.project_tags.length > 0 && (!p.tag || !queries.project_tags.includes(p.tag)))
         return false;
 
-      // Filter starred
-      if (filters.starredOnly && !p.starred) return false;
+      if (queries.starred_only === "true" && !p.starred) return false; 
 
-      // Filter technologies: all selected techs must be present in project techs
-      if (filters.techs.length > 0) {
-        if (!filters.techs.every((tech) => p.technologies.includes(tech)))
+      if (queries.project_techs.length > 0) {
+        if (!queries.project_techs.every((tech) => p.technologies.includes(tech as Technology)))
           return false;
       }
 
-      // Filter public git
-      if (filters.hasPublicGit !== null) {
-        const hasGit = p.gits && p.gits.length > 0;
-        if (filters.hasPublicGit !== hasGit) return false;
+      if (queries.has_public_git) {
+        const requiredGit = queries.has_public_git === "true";
+        const hasGit = Boolean(p.gits && p.gits.length > 0);
+        if (requiredGit !== hasGit) return false;
       }
 
-      // Filter live URL
-      if (filters.hasLiveUrl !== null) {
+      if (queries.has_live_url) {
+        const requiredUrl = queries.has_live_url === "true";
         const hasUrl = Boolean(p.liveUrl && p.liveUrl.trim() !== "");
-        if (filters.hasLiveUrl !== hasUrl) return false;
+        if (requiredUrl !== hasUrl) return false;
       }
 
       return true;
     });
-  }, [filters, searchQuery]);
+  }, [queries, searchQuery]);
   const isFilterActive = useMemo(() => {
     return (
-      filters.starredOnly ||
-      filters.types.length > 0 ||
-      filters.tags.length > 0 ||
-      filters.techs.length > 0 ||
-      filters.hasPublicGit !== null ||
-      filters.hasLiveUrl !== null
+      queries.starred_only === "true" ||
+      queries.project_types.length > 0 ||
+      queries.project_tags.length > 0 ||
+      queries.project_techs.length > 0 ||
+      !!queries.has_public_git ||
+      !!queries.has_live_url
     );
-  }, [filters]);
+  }, [queries]);
 
   return (
     <section
@@ -160,7 +140,7 @@ function ProjectsContent() {
                 </Button>
               </SheetTrigger>
 
-              <SheetContent side="right" className="overflow-auto">
+              <SheetContent side={i18n.dir() === "rtl" ? "left" : "right"} className="overflow-auto">
                 <SheetHeader>
                   <SheetTitle>{t("common.filters")}</SheetTitle>
                   <SheetDescription>
@@ -172,9 +152,9 @@ function ProjectsContent() {
                   <div className="flex items-center gap-3 mx-auto">
                     <Checkbox
                       id="filter-starred"
-                      checked={filters.starredOnly}
-                      onCheckedChange={(checked: any) =>
-                        setFilters((f) => ({ ...f, starredOnly: !!checked }))
+                      checked={queries.starred_only === "true"}
+                      onCheckedChange={(checked: boolean) =>
+                        setQueries({ starred_only: checked ? "true" : null })
                       }
                     />
                     <Label htmlFor="filter-starred">
@@ -183,18 +163,19 @@ function ProjectsContent() {
                   </div>
                   <Separator />
                   <div className="flex flex-wrap gap-4 justify-center">
+                      {/* Git Filter */}
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
                           variant={
-                            filters.hasPublicGit === null
+                            !queries.has_public_git
                               ? "outline"
                               : "default"
                           }>
                           {t("projects.has_public_git")}:{" "}
-                          {filters.hasPublicGit === null
+                          {!queries.has_public_git
                             ? t("common.all")
-                            : filters.hasPublicGit
+                            : queries.has_public_git === "true"
                               ? t("common.yes")
                               : t("common.no")}
                         </Button>
@@ -205,7 +186,7 @@ function ProjectsContent() {
                             variant="ghost"
                             size="sm"
                             onClick={() =>
-                              setFilters((f) => ({ ...f, hasPublicGit: null }))
+                              setQueries({ has_public_git: null })
                             }>
                             {t("common.all")}
                           </Button>
@@ -213,7 +194,7 @@ function ProjectsContent() {
                             variant="ghost"
                             size="sm"
                             onClick={() =>
-                              setFilters((f) => ({ ...f, hasPublicGit: true }))
+                              setQueries({ has_public_git: "true" })
                             }>
                             {t("common.yes")}
                           </Button>
@@ -221,7 +202,7 @@ function ProjectsContent() {
                             variant="ghost"
                             size="sm"
                             onClick={() =>
-                              setFilters((f) => ({ ...f, hasPublicGit: false }))
+                              setQueries({ has_public_git: "false" })
                             }>
                             {t("common.no")}
                           </Button>
@@ -229,16 +210,17 @@ function ProjectsContent() {
                       </PopoverContent>
                     </Popover>
 
+                    {/* Live URL Filter */}
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
                           variant={
-                            filters.hasLiveUrl === null ? "outline" : "default"
+                            !queries.has_live_url ? "outline" : "default"
                           }>
                           {t("projects.has_live_url")}:{" "}
-                          {filters.hasLiveUrl === null
+                          {!queries.has_live_url
                             ? t("common.all")
-                            : filters.hasLiveUrl
+                            : queries.has_live_url === "true"
                               ? t("common.yes")
                               : t("common.no")}
                         </Button>
@@ -249,7 +231,7 @@ function ProjectsContent() {
                             variant="ghost"
                             size="sm"
                             onClick={() =>
-                              setFilters((f) => ({ ...f, hasLiveUrl: null }))
+                              setQueries({ has_live_url: null })
                             }>
                             {t("common.all")}
                           </Button>
@@ -257,7 +239,7 @@ function ProjectsContent() {
                             variant="ghost"
                             size="sm"
                             onClick={() =>
-                              setFilters((f) => ({ ...f, hasLiveUrl: true }))
+                              setQueries({ has_live_url: "true" })
                             }>
                             {t("common.yes")}
                           </Button>
@@ -265,7 +247,7 @@ function ProjectsContent() {
                             variant="ghost"
                             size="sm"
                             onClick={() =>
-                              setFilters((f) => ({ ...f, hasLiveUrl: false }))
+                              setQueries({ has_live_url: "false" })
                             }>
                             {t("common.no")}
                           </Button>
@@ -281,7 +263,7 @@ function ProjectsContent() {
                     </p>
                     <div className="flex flex-wrap gap-2 justify-center">
                       {allTypes.map((type) => {
-                        const isSelected = filters.types.includes(type);
+                        const isSelected = queries.project_types.includes(type);
                         const config = getTypeConfig(type);
                         const translateType = (type: string) => {
                           const key = type.replace(/\s+/g, "_").toLowerCase();
@@ -295,11 +277,10 @@ function ProjectsContent() {
                             key={type}
                             variant="outline"
                             onClick={() =>
-                              setFilters((f) => {
-                                const newTypes = isSelected
-                                  ? f.types.filter((t) => t !== type)
-                                  : [...f.types, type];
-                                return { ...f, types: newTypes };
+                              setQueries({
+                                project_types: isSelected
+                                  ? queries.project_types.filter((t) => t !== type)
+                                  : [...queries.project_types, type],
                               })
                             }
                             size="sm"
@@ -324,7 +305,7 @@ function ProjectsContent() {
                     </p>
                     <div className="flex flex-wrap gap-2 justify-center">
                       {allTags.map((tag) => {
-                        const isSelected = filters.tags.includes(tag);
+                        const isSelected = queries.project_tags.includes(tag);
                         const config = getTagConfig(tag);
                         const translateTag = (tag: string) => {
                           const translated = t(`projects.tag.${tag}` as any);
@@ -337,11 +318,10 @@ function ProjectsContent() {
                             key={tag}
                             variant="outline"
                             onClick={() =>
-                              setFilters((f) => {
-                                const newTags = isSelected
-                                  ? f.tags.filter((t) => t !== tag)
-                                  : [...f.tags, tag];
-                                return { ...f, tags: newTags };
+                              setQueries({
+                                project_tags: isSelected
+                                  ? queries.project_tags.filter((t) => t !== tag)
+                                  : [...queries.project_tags, tag],
                               })
                             }
                             size="sm"
@@ -366,21 +346,22 @@ function ProjectsContent() {
                     </p>
                     <div className="flex flex-wrap gap-2 justify-center">
                       {allTechs.map((tech) => {
-                        const isSelected = filters.techs.includes(tech);
+                        const isSelected = queries.project_techs.includes(tech);
+                        let config = getTechConfig(tech);
                         return (
                           <Button
                             key={tech}
                             variant={isSelected ? "default" : "outline"}
                             size="sm"
-                            className="english_font rounded-full"
+                            className={cn('english_font rounded-full', isSelected && config.bgColor, isSelected && config.color, isSelected && config.borderColor)}
                             onClick={() =>
-                              setFilters((f) => {
-                                const newTechs = isSelected
-                                  ? f.techs.filter((t) => t !== tech)
-                                  : [...f.techs, tech];
-                                return { ...f, techs: newTechs };
+                              setQueries({
+                                project_techs: isSelected
+                                  ? queries.project_techs.filter((t) => t !== tech)
+                                  : [...queries.project_techs, tech],
                               })
-                            }>
+                            }
+                            >
                             {tech}
                           </Button>
                         );
@@ -398,13 +379,13 @@ function ProjectsContent() {
                     <Button
                       variant="outline"
                       onClick={() =>
-                        setFilters({
-                          types: [],
-                          tags: [],
-                          starredOnly: false,
-                          techs: [],
-                          hasPublicGit: null,
-                          hasLiveUrl: null,
+                        setQueries({
+                          project_types: null,
+                          project_tags: null,
+                          starred_only: null,
+                          project_techs: null,
+                          has_public_git: null,
+                          has_live_url: null,
                         })
                       }>
                       {t("common.cancel")}
@@ -417,13 +398,13 @@ function ProjectsContent() {
               <Button
                 variant="outline"
                 onClick={() =>
-                  setFilters({
-                    types: [],
-                    tags: [],
-                    starredOnly: false,
-                    techs: [],
-                    hasPublicGit: null,
-                    hasLiveUrl: null,
+                  setQueries({
+                    project_types: null,
+                    project_tags: null,
+                    starred_only: null,
+                    project_techs: null,
+                    has_public_git: null,
+                    has_live_url: null,
                   })
                 }>
                 {t("common.cancel")}
@@ -435,6 +416,7 @@ function ProjectsContent() {
         {/* Projects Grid */}
         {filteredProjects.length > 0 ? (
           <motion.div
+            key={`${queries.project_types.join("-")}-${queries.project_tags.join("-")}-${queries.starred_only}-${queries.project_techs.join("-")}-${queries.has_public_git}-${queries.has_live_url}-${searchQuery}`}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8"
             initial="hidden"
             animate="visible"
@@ -448,7 +430,7 @@ function ProjectsContent() {
               },
             }}>
             {filteredProjects.map((project, index) => (
-              <StaggerItem key={index}>
+              <StaggerItem key={project.id}>
                 <ProjectCard {...project} />
               </StaggerItem>
             ))}

@@ -25,22 +25,14 @@ import { useTranslation } from "react-i18next";
 import { getTypeConfig } from "@/lib/config/tool-filters";
 import { cn } from "@/lib/utils";
 
-type FilterState = {
-  types: ToolType[];
-  starredOnly: boolean;
-};
 
 function ToolsContent() {
-  const { t } = useTranslation();
-  const { queries } = useAppQueryParams();
+  const { t,i18n } = useTranslation();
+  const { queries,setQueries } = useAppQueryParams();
   const searchQuery = queries.search?.toLowerCase() || "";
-
   const [sheetOpen, setSheetOpen] = useState(false);
 
-  const [filters, setFilters] = useState<FilterState>({
-    types: [],
-    starredOnly: false,
-  });
+
 
   // Filtering logic
   const filteredTools = useMemo(() => {
@@ -57,20 +49,20 @@ function ToolsContent() {
       }
 
       // Filter by types if selected
-      if (filters.types.length > 0) {
-        if (!filters.types.includes(tool.type)) return false;
+      if (queries.tool_types.length > 0) {
+        if (!queries.tool_types.includes(tool.type)) return false;
       }
 
       // Filter starred
-      if (filters.starredOnly && !tool.starred) return false;
+      if (queries.starred_only && !tool.starred) return false;
 
       return true;
     });
-  }, [filters, searchQuery, t]);
+  }, [queries, searchQuery, t]);
 
   const isFilterActive = useMemo(() => {
-    return filters.starredOnly || filters.types.length > 0;
-  }, [filters]);
+    return queries.starred_only || queries.tool_types.length > 0;
+  }, [queries]);
 
   return (
     <section
@@ -102,12 +94,12 @@ function ToolsContent() {
                     <Badge
                       variant="destructive"
                       className="ml-2 h-5 w-5 p-0 flex items-center justify-center text-xs">
-                      {filters.types.length + (filters.starredOnly ? 1 : 0)}
+                      {queries.tool_types.length + (queries.starred_only ? 1 : 0)}
                     </Badge>
                   )}
                 </Button>
               </SheetTrigger>
-              <SheetContent>
+              <SheetContent side={i18n.dir() === "rtl" ? "left" : "right"} className="overflow-auto px-5">
                 <SheetHeader>
                   <SheetTitle>{t("common.filters")}</SheetTitle>
                   <SheetDescription>
@@ -138,13 +130,13 @@ function ToolsContent() {
                             className="flex items-center space-x-2">
                             <Checkbox
                               id={`type-${type}`}
-                              checked={filters.types.includes(type)}
+                              checked={queries.tool_types.includes(type)}
                               onCheckedChange={(checked) => {
-                                setFilters((prev) => ({
+                                setQueries((prev: any) => ({
                                   ...prev,
-                                  types: checked
-                                    ? [...prev.types, type]
-                                    : prev.types.filter((t) => t !== type),
+                                  tool_types: checked
+                                    ? [...prev.tool_types, type]
+                                    : prev.tool_types.filter((t: any) => t !== type),
                                 }));
                               }}
                             />
@@ -174,11 +166,11 @@ function ToolsContent() {
                   <div className="flex items-center space-x-2">
                     <Checkbox
                       id="starred"
-                      checked={filters.starredOnly}
+                      checked={queries.starred_only == "true"}
                       onCheckedChange={(checked) => {
-                        setFilters((prev) => ({
+                        setQueries((prev: any) => ({
                           ...prev,
-                          starredOnly: Boolean(checked),
+                          starred_only: queries.starred_only == "true" ? "" : "true",
                         }));
                       }}
                     />
@@ -191,25 +183,26 @@ function ToolsContent() {
 
                   <Separator />
 
-                  {/* Clear Filters */}
-                  {isFilterActive && (
+                <div className="mt-6 flex gap-5 justify-between">
+                    <SheetClose asChild>
+                      <Button variant="default" className="w-full">
+                        {t("common.close")}
+                      </Button>
+                    </SheetClose>
                     <Button
                       variant="outline"
-                      className="w-full"
-                      onClick={() => {
-                        setFilters({
-                          types: [],
-                          starredOnly: false,
-                        });
-                      }}>
-                      Clear All Filters
+                      onClick={() =>
+                        setQueries({
+                          certification_types: [],
+                          starred_only: "",
+                        })
+                      }>
+                      {t("common.cancel")}
                     </Button>
-                  )}
+                  </div>
                 </div>
 
-                <SheetClose asChild>
-                  <Button className="w-full mt-6">{t("common.close")}</Button>
-                </SheetClose>
+             
               </SheetContent>
             </Sheet>
           </div>

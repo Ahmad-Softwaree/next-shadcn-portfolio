@@ -29,7 +29,7 @@ const Search = ({
         }
         value={search}
         placeholder={placeholder ?? t("common.search")}
-        className={cn(className, "ps-10")}
+        className={cn(className, "pe-10")}
         type="text"
         {...props}
       />

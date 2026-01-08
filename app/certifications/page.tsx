@@ -12,19 +12,13 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { FilterIcon } from "lucide-react";
-import { useState, useMemo, Suspense } from "react";
+import { useState, useMemo, Suspense, useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import CertificationCard from "@/components/cards/certification-card";
 import certificates, {
   allTypes,
-  CertificateType,
 } from "@/lib/data/certifications";
 import Search from "@/components/Search";
 import NoData from "@/components/NoData";
@@ -34,27 +28,15 @@ import { getCertificateTypeConfig } from "@/lib/config/certification-filters";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
-type FilterState = {
-  types: CertificateType[];
-  starredOnly: boolean;
-};
 
 function CertificationsContent() {
-  const { t } = useTranslation();
-  const { queries } = useAppQueryParams();
+  const { t,i18n } = useTranslation();
+  const { queries,setQueries } = useAppQueryParams();
   const searchQuery = queries.search?.toLowerCase() || "";
-
   const [sheetOpen, setSheetOpen] = useState(false);
 
-  const [filters, setFilters] = useState<FilterState>({
-    types: [],
-    starredOnly: false,
-  });
-
-  // Filtering logic
-  const filteredProjects = useMemo(() => {
+  const filteredCertifications = useMemo(() => {
     return certificates.filter((p) => {
-      // Search filter
       if (searchQuery) {
         const matchesSearch =
           p.title.toLowerCase().includes(searchQuery) ||
@@ -62,17 +44,16 @@ function CertificationsContent() {
         if (!matchesSearch) return false;
       }
 
-      if (filters.types.length > 0) {
-        if (p.type !== filters.types[0]) return false;
-      }
-      if (filters.starredOnly && !p.starred) return false;
+      if (queries.certification_types.length > 0) {
+        if (!queries.certification_types.includes(p.type)) return false;
+      } 
+      if (queries.starred_only && !p.starred) return false;
       return true;
     });
-  }, [filters, searchQuery]);
+  }, [queries, searchQuery]);
   const isFilterActive = useMemo(() => {
-    return filters.starredOnly || filters.types.length > 0;
-  }, [filters]);
-
+    return queries.starred_only || queries.certification_types.length > 0;
+  }, [queries]);
   return (
     <section
       id="certifications"
@@ -108,7 +89,8 @@ function CertificationsContent() {
                 </Button>
               </SheetTrigger>
 
-              <SheetContent side="right" className="overflow-auto">
+                       <SheetContent side={i18n.dir() === "rtl" ? "left" : "right"} className="overflow-auto px-5">
+
                 <SheetHeader>
                   <SheetTitle>{t("common.filters")}</SheetTitle>
                   <SheetDescription>
@@ -120,9 +102,9 @@ function CertificationsContent() {
                   <div className="flex items-center gap-3 mx-auto">
                     <Checkbox
                       id="filter-starred"
-                      checked={filters.starredOnly}
+                      checked={queries.starred_only === "true"}
                       onCheckedChange={(checked: any) =>
-                        setFilters((f) => ({ ...f, starredOnly: !!checked }))
+                        setQueries((f) => ({ ...f, starred_only: queries.starred_only == "true" ? "":"true" }))
                       }
                     />
                     <Label htmlFor="filter-starred">
@@ -137,18 +119,18 @@ function CertificationsContent() {
                     </p>
                     <div className="flex flex-wrap gap-2 justify-center">
                       {allTypes.map((type) => {
-                        const isSelected = filters.types.includes(type);
+                        const isSelected = queries.certification_types.includes(type);
                         const config = getCertificateTypeConfig(type);
                         return (
                           <Button
                             key={type}
                             variant="outline"
                             onClick={() =>
-                              setFilters((f) => {
+                              setQueries((f) => {
                                 const newTypes = isSelected
-                                  ? f.types.filter((t) => t !== type)
-                                  : [...f.types, type];
-                                return { ...f, types: newTypes };
+                                  ? f.certification_types.filter((t) => t !== type)
+                                  : [...f.certification_types, type];
+                                return { ...f, certification_types: newTypes };
                               })
                             }
                             size="sm"
@@ -176,9 +158,9 @@ function CertificationsContent() {
                     <Button
                       variant="outline"
                       onClick={() =>
-                        setFilters({
-                          types: [],
-                          starredOnly: false,
+                        setQueries({
+                          certification_types: [],
+                          starred_only: "",
                         })
                       }>
                       {t("common.cancel")}
@@ -191,9 +173,9 @@ function CertificationsContent() {
               <Button
                 variant="outline"
                 onClick={() =>
-                  setFilters({
-                    types: [],
-                    starredOnly: false,
+                  setQueries({
+                    certification_types: [],
+                    starred_only: "",
                   })
                 }>
                 {t("common.cancel")}
@@ -203,8 +185,9 @@ function CertificationsContent() {
         </div>
 
         {/* Certificates Grid */}
-        {filteredProjects.length > 0 ? (
+        {filteredCertifications.length > 0 ? (
           <motion.div
+            key={`${queries.certification_types.join("-")}-${queries.starred_only}-${searchQuery}`}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"
             initial="hidden"
             animate="visible"
@@ -217,9 +200,9 @@ function CertificationsContent() {
                 },
               },
             }}>
-            {filteredProjects.map((certificate, index) => (
+            {filteredCertifications.map((certificate, index) => (
               <motion.div
-                key={index}
+                key={certificate.id}
                 variants={{
                   hidden: { opacity: 0, y: 20, scale: 0.95 },
                   visible: {
@@ -246,7 +229,7 @@ function CertificationsContent() {
 
 export default function Page() {
   return (
-    <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
+    <Suspense >
       <CertificationsContent />
     </Suspense>
   );
