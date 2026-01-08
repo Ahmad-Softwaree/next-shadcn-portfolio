@@ -15,13 +15,11 @@ const Footer = () => {
 
   const footerLinks = [
     { href: "/", title: t("navbar.home") },
-
     {
       title: t("navbar.projects"),
       href: "/projects",
     },
-    { href: "/tools", title: String(t("navbar.tools" as any)) },
-
+    { href: "/tools", title: t("navbar.tools") },
     {
       title: t("navbar.certifications"),
       href: "/certifications",
