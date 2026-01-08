@@ -20,6 +20,8 @@ const Footer = () => {
       title: t("navbar.projects"),
       href: "/projects",
     },
+    { href: "/tools", title: String(t("navbar.tools" as any)) },
+
     {
       title: t("navbar.certifications"),
       href: "/certifications",
