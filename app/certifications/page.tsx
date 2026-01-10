@@ -17,9 +17,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import CertificationCard from "@/components/cards/certification-card";
-import certificates, {
-  allTypes,
-} from "@/lib/data/certifications";
+import certificates, { allTypes } from "@/lib/data/certifications";
 import Search from "@/components/Search";
 import NoData from "@/components/NoData";
 import { useAppQueryParams } from "@/hooks/useAppQuery";
@@ -27,16 +25,17 @@ import { useTranslation } from "react-i18next";
 import { getCertificateTypeConfig } from "@/lib/config/certification-filters";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-
+import { sortStarredFirst } from "@/lib/fucntions";
 
 function CertificationsContent() {
-  const { t,i18n } = useTranslation();
-  const { queries,setQueries } = useAppQueryParams();
+  const { t, i18n } = useTranslation();
+  const { queries, setQueries } = useAppQueryParams();
   const searchQuery = queries.search?.toLowerCase() || "";
   const [sheetOpen, setSheetOpen] = useState(false);
+  const sortedData = sortStarredFirst(certificates);
 
   const filteredCertifications = useMemo(() => {
-    return certificates.filter((p) => {
+    return sortedData.filter((p) => {
       if (searchQuery) {
         const matchesSearch =
           p.title.toLowerCase().includes(searchQuery) ||
@@ -46,7 +45,7 @@ function CertificationsContent() {
 
       if (queries.certification_types.length > 0) {
         if (!queries.certification_types.includes(p.type)) return false;
-      } 
+      }
       if (queries.starred_only && !p.starred) return false;
       return true;
     });
@@ -89,8 +88,9 @@ function CertificationsContent() {
                 </Button>
               </SheetTrigger>
 
-                       <SheetContent side={i18n.dir() === "rtl" ? "left" : "right"} className="overflow-auto px-5">
-
+              <SheetContent
+                side={i18n.dir() === "rtl" ? "left" : "right"}
+                className="overflow-auto px-5">
                 <SheetHeader>
                   <SheetTitle>{t("common.filters")}</SheetTitle>
                   <SheetDescription>
@@ -104,7 +104,11 @@ function CertificationsContent() {
                       id="filter-starred"
                       checked={queries.starred_only === "true"}
                       onCheckedChange={(checked: any) =>
-                        setQueries((f) => ({ ...f, starred_only: queries.starred_only == "true" ? "":"true" }))
+                        setQueries((f) => ({
+                          ...f,
+                          starred_only:
+                            queries.starred_only == "true" ? "" : "true",
+                        }))
                       }
                     />
                     <Label htmlFor="filter-starred">
@@ -119,7 +123,8 @@ function CertificationsContent() {
                     </p>
                     <div className="flex flex-wrap gap-2 justify-center">
                       {allTypes.map((type) => {
-                        const isSelected = queries.certification_types.includes(type);
+                        const isSelected =
+                          queries.certification_types.includes(type);
                         const config = getCertificateTypeConfig(type);
                         return (
                           <Button
@@ -128,7 +133,9 @@ function CertificationsContent() {
                             onClick={() =>
                               setQueries((f) => {
                                 const newTypes = isSelected
-                                  ? f.certification_types.filter((t) => t !== type)
+                                  ? f.certification_types.filter(
+                                      (t) => t !== type
+                                    )
                                   : [...f.certification_types, type];
                                 return { ...f, certification_types: newTypes };
                               })
@@ -229,7 +236,7 @@ function CertificationsContent() {
 
 export default function Page() {
   return (
-    <Suspense >
+    <Suspense>
       <CertificationsContent />
     </Suspense>
   );

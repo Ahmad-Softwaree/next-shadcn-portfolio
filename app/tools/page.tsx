@@ -24,19 +24,18 @@ import { useAppQueryParams } from "@/hooks/useAppQuery";
 import { useTranslation } from "react-i18next";
 import { getTypeConfig } from "@/lib/config/tool-filters";
 import { cn } from "@/lib/utils";
-
+import { sortStarredFirst } from "@/lib/fucntions";
 
 function ToolsContent() {
-  const { t,i18n } = useTranslation();
-  const { queries,setQueries } = useAppQueryParams();
+  const { t, i18n } = useTranslation();
+  const { queries, setQueries } = useAppQueryParams();
   const searchQuery = queries.search?.toLowerCase() || "";
   const [sheetOpen, setSheetOpen] = useState(false);
-
-
+  const sortedData = sortStarredFirst(tools);
 
   // Filtering logic
   const filteredTools = useMemo(() => {
-    return tools.filter((tool) => {
+    return sortedData.filter((tool) => {
       // Search filter
       if (searchQuery) {
         const name = String(t(tool.nameKey as any)).toLowerCase();
@@ -94,12 +93,15 @@ function ToolsContent() {
                     <Badge
                       variant="destructive"
                       className="ml-2 h-5 w-5 p-0 flex items-center justify-center text-xs">
-                      {queries.tool_types.length + (queries.starred_only ? 1 : 0)}
+                      {queries.tool_types.length +
+                        (queries.starred_only ? 1 : 0)}
                     </Badge>
                   )}
                 </Button>
               </SheetTrigger>
-              <SheetContent side={i18n.dir() === "rtl" ? "left" : "right"} className="overflow-auto px-5">
+              <SheetContent
+                side={i18n.dir() === "rtl" ? "left" : "right"}
+                className="overflow-auto px-5">
                 <SheetHeader>
                   <SheetTitle>{t("common.filters")}</SheetTitle>
                   <SheetDescription>
@@ -136,7 +138,9 @@ function ToolsContent() {
                                   ...prev,
                                   tool_types: checked
                                     ? [...prev.tool_types, type]
-                                    : prev.tool_types.filter((t: any) => t !== type),
+                                    : prev.tool_types.filter(
+                                        (t: any) => t !== type
+                                      ),
                                 }));
                               }}
                             />
@@ -170,7 +174,8 @@ function ToolsContent() {
                       onCheckedChange={(checked) => {
                         setQueries((prev: any) => ({
                           ...prev,
-                          starred_only: queries.starred_only == "true" ? "" : "true",
+                          starred_only:
+                            queries.starred_only == "true" ? "" : "true",
                         }));
                       }}
                     />
@@ -183,7 +188,7 @@ function ToolsContent() {
 
                   <Separator />
 
-                <div className="mt-6 flex gap-5 justify-between">
+                  <div className="mt-6 flex gap-5 justify-between">
                     <SheetClose asChild>
                       <Button variant="default" className="w-full">
                         {t("common.close")}
@@ -201,8 +206,6 @@ function ToolsContent() {
                     </Button>
                   </div>
                 </div>
-
-             
               </SheetContent>
             </Sheet>
           </div>

@@ -18,8 +18,6 @@ import {
   allTechs,
   allTypes,
   projects,
-  ProjectTag,
-  ProjectType,
   Technology,
 } from "@/lib/data/projects";
 import { Label } from "@/components/ui/label";
@@ -40,19 +38,18 @@ import { getTypeConfig, getTagConfig } from "@/lib/config/project-filters";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { getTechConfig } from "@/lib/config/technologies";
-
+import { sortStarredFirst } from "@/lib/fucntions";
 
 function ProjectsContent() {
-  const { t,i18n } = useTranslation();
-  const { queries,setQueries } = useAppQueryParams();
+  const { t, i18n } = useTranslation();
+  const { queries, setQueries } = useAppQueryParams();
   const searchQuery = queries.search?.toLowerCase() || "";
 
   const [sheetOpen, setSheetOpen] = useState(false);
-
-
+  const sortedData = sortStarredFirst(projects);
 
   const filteredProjects = useMemo(() => {
-    return projects.filter((p) => {
+    return sortedData.filter((p) => {
       if (searchQuery) {
         const title = String(t(p.titleKey as any)).toLowerCase();
         const description = String(t(p.descriptionKey as any)).toLowerCase();
@@ -69,13 +66,20 @@ function ProjectsContent() {
         if (!p.types || !p.types.some((t) => queries.project_types.includes(t)))
           return false;
       }
-      if (queries.project_tags.length > 0 && (!p.tag || !queries.project_tags.includes(p.tag)))
+      if (
+        queries.project_tags.length > 0 &&
+        (!p.tag || !queries.project_tags.includes(p.tag))
+      )
         return false;
 
-      if (queries.starred_only === "true" && !p.starred) return false; 
+      if (queries.starred_only === "true" && !p.starred) return false;
 
       if (queries.project_techs.length > 0) {
-        if (!queries.project_techs.every((tech) => p.technologies.includes(tech as Technology)))
+        if (
+          !queries.project_techs.every((tech) =>
+            p.technologies.includes(tech as Technology)
+          )
+        )
           return false;
       }
 
@@ -140,7 +144,9 @@ function ProjectsContent() {
                 </Button>
               </SheetTrigger>
 
-              <SheetContent side={i18n.dir() === "rtl" ? "left" : "right"} className="overflow-auto">
+              <SheetContent
+                side={i18n.dir() === "rtl" ? "left" : "right"}
+                className="overflow-auto">
                 <SheetHeader>
                   <SheetTitle>{t("common.filters")}</SheetTitle>
                   <SheetDescription>
@@ -163,14 +169,12 @@ function ProjectsContent() {
                   </div>
                   <Separator />
                   <div className="flex flex-wrap gap-4 justify-center">
-                      {/* Git Filter */}
+                    {/* Git Filter */}
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
                           variant={
-                            !queries.has_public_git
-                              ? "outline"
-                              : "default"
+                            !queries.has_public_git ? "outline" : "default"
                           }>
                           {t("projects.has_public_git")}:{" "}
                           {!queries.has_public_git
@@ -230,9 +234,7 @@ function ProjectsContent() {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() =>
-                              setQueries({ has_live_url: null })
-                            }>
+                            onClick={() => setQueries({ has_live_url: null })}>
                             {t("common.all")}
                           </Button>
                           <Button
@@ -279,7 +281,9 @@ function ProjectsContent() {
                             onClick={() =>
                               setQueries({
                                 project_types: isSelected
-                                  ? queries.project_types.filter((t) => t !== type)
+                                  ? queries.project_types.filter(
+                                      (t) => t !== type
+                                    )
                                   : [...queries.project_types, type],
                               })
                             }
@@ -320,7 +324,9 @@ function ProjectsContent() {
                             onClick={() =>
                               setQueries({
                                 project_tags: isSelected
-                                  ? queries.project_tags.filter((t) => t !== tag)
+                                  ? queries.project_tags.filter(
+                                      (t) => t !== tag
+                                    )
                                   : [...queries.project_tags, tag],
                               })
                             }
@@ -353,15 +359,21 @@ function ProjectsContent() {
                             key={tech}
                             variant={isSelected ? "default" : "outline"}
                             size="sm"
-                            className={cn('english_font rounded-full', isSelected && config.bgColor, isSelected && config.color, isSelected && config.borderColor)}
+                            className={cn(
+                              "english_font rounded-full",
+                              isSelected && config.bgColor,
+                              isSelected && config.color,
+                              isSelected && config.borderColor
+                            )}
                             onClick={() =>
                               setQueries({
                                 project_techs: isSelected
-                                  ? queries.project_techs.filter((t) => t !== tech)
+                                  ? queries.project_techs.filter(
+                                      (t) => t !== tech
+                                    )
                                   : [...queries.project_techs, tech],
                               })
-                            }
-                            >
+                            }>
                             {tech}
                           </Button>
                         );
