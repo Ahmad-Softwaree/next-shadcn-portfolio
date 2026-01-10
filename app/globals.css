@@ -4,12 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-html,
-body {
-  overflow-x: hidden;
-  max-width: 100vw;
-}
-
 @font-face {
   font-family: "bukra";
   src: url("/fonts/bukra/UNIQAIDAR_BUKRA 003.woff2") format("woff2");
@@ -284,10 +278,6 @@ html {
 @layer base {
   * {
     @apply border-border outline-ring/50;
-  }
-
-  html {
-    @apply overflow-x-hidden;
   }
 
   body {

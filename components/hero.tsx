@@ -35,7 +35,7 @@ const Hero = () => {
         />
 
         {/* Decorative Blur Balls */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
           {/* Purple Blur Ball - Top Left */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
