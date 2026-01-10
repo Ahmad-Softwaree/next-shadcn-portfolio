@@ -29,6 +29,8 @@ export const allTechs = [
   "UploadThings",
   "Clerk",
   "Neon",
+  "OpenAI",
+  "Ollama",
 ] as const;
 
 export type Technology = (typeof allTechs)[number];
@@ -70,6 +72,7 @@ export type GitName =
   | "reminder_bot"
   | "bucks-to-bar-copilot"
   | "bots"
+  | "ai_generator"
   | "Link-Shortener";
 
 export type GitRepo = {
@@ -157,6 +160,24 @@ export type Project = {
 };
 export const data: Partial<Project>[] = [
   {
+    titleKey: "projects.ai_generator.title",
+    descriptionKey: "projects.ai_generator.description",
+    image: "/projects/ai_generator.png",
+    technologies: ["Next.js", "Typescript", "Shadcn UI", "OpenAI", "Ollama"],
+    liveUrl: "https://ai.ahmad-software.com/",
+    gits: [
+      {
+        name: "Fullstack",
+        url: getGithubLink("ai_generator"),
+      },
+    ],
+    tag: "learning",
+    types: ["web"],
+    client_specific: false,
+    starred: true,
+    showInHome: true,
+  },
+  {
     titleKey: "projects.bot_website.title",
     descriptionKey: "projects.bot_website.description",
     image: "/projects/bots.png",
@@ -177,7 +198,7 @@ export const data: Partial<Project>[] = [
         url: getGithubLink("bots"),
       },
     ],
-    tag: "learning",
+    tag: "production",
     types: ["web", "simple dashboard"],
     client_specific: false,
     starred: true,
@@ -203,7 +224,7 @@ export const data: Partial<Project>[] = [
         url: getGithubLink("Link-Shortener"),
       },
     ],
-    tag: "learning",
+    tag: "production",
     types: ["web", "simple dashboard"],
     client_specific: false,
     starred: true,
@@ -222,7 +243,7 @@ export const data: Partial<Project>[] = [
       },
     ],
     liveUrl: "https://t.me/ahmad_reminder_bot",
-    tag: "learning",
+    tag: "production",
     types: ["telegram bot"],
     starred: true,
 

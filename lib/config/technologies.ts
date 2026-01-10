@@ -220,6 +220,20 @@ export const technologyConfig: Record<Technology, TechnologyConfig> = {
     bgColor: "bg-emerald-500/10 dark:bg-emerald-500/20",
     borderColor: "border-emerald-500/30",
   },
+  OpenAI: {
+    name: "OpenAI",
+    displayName: "OpenAI",
+    color: "text-yellow-700 dark:text-yellow-300",
+    bgColor: "bg-yellow-600/10 dark:bg-yellow-600/20",
+    borderColor: "border-yellow-600/30",
+  },
+  Ollama: {
+    name: "Ollama",
+    displayName: "Ollama",
+    color: "text-gray-800 dark:text-gray-200",
+    bgColor: "bg-gray-600/10 dark:bg-gray-600/20",
+    borderColor: "border-gray-600/30",
+  },
 };
 
 // Helper function to get technology config

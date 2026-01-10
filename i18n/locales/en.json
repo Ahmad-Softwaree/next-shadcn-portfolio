@@ -89,6 +89,10 @@
       "game": "Game",
       "telegram_bot": "Telegram Bot"
     },
+    "ai_generator": {
+      "title": "AI Generator",
+      "description": "An AI-powered content generation platform that allows users to create text, images, and code snippets using advanced machine learning models."
+    },
     "bot_website": {
       "title": "Bot Website",
       "description": "A Website for Telegram Bots showcasing features, commands, and user guides."
