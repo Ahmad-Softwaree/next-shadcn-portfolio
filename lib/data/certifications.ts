@@ -23,6 +23,13 @@ export const allTypes = [
 
 const data: Partial<Certificate>[] = [
   {
+    title: "Prompt Engineering for Everyone Bootcamp (Udemy)",
+    url: "https://www.udemy.com/course/prompt-engineering-for-everyone-bootcamp/",
+    image: "/certificates/prompt_engineering.jpg",
+    starred: true,
+    type: "udemy",
+  },
+  {
     title: "Modern Javascript Course (Udemy)",
     url: "https://www.udemy.com/course/modern-javascript-from-the-beginning/",
     image: "/certificates/js.jpg",
