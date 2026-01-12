@@ -89,6 +89,10 @@
       "game": "Game",
       "telegram_bot": "Telegram Bot"
     },
+    "shadcn": {
+      "title": "Shadcn UI Components",
+      "description": "A collection of reusable UI components built with Shadcn UI, designed to streamline frontend development and enhance user experience."
+    },
     "ai_generator": {
       "title": "AI Generator",
       "description": "An AI-powered content generation platform that allows users to create text, images, and code snippets using advanced machine learning models."

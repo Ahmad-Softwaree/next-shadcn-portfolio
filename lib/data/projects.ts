@@ -73,8 +73,8 @@ export type GitName =
   | "bucks-to-bar-copilot"
   | "bots"
   | "ai_generator"
-  | "Link-Shortener";
-
+  | "Link-Shortener"
+  | "shadcn";
 export type GitRepo = {
   name: RepoType;
   url: string;
@@ -241,6 +241,23 @@ export const data: Partial<Project>[] = [
     starred: true,
 
     client_specific: false,
+  },
+  {
+    titleKey: "projects.shadcn.title",
+    descriptionKey: "projects.shadcn.description",
+    image: "/projects/shadcn.png",
+    technologies: ["Next.js", "Typescript", "Shadcn UI"],
+    liveUrl: "https://shadcn.ahmad-software.com/",
+    gits: [
+      {
+        name: "Fullstack",
+        url: getGithubLink("shadcn"),
+      },
+    ],
+    tag: "production",
+    types: ["web"],
+    client_specific: false,
+    starred: true,
   },
   {
     titleKey: "projects.yari_mndalan_website.title",
