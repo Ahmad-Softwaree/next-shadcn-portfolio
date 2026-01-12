@@ -28,6 +28,11 @@ export const toolTypeColors: Record<ToolType, FilterColorConfig> = {
     bgColor: "bg-amber-500/10 dark:bg-amber-500/20",
     borderColor: "border-amber-500/30",
   },
+  "Online Menu": {
+    color: "text-pink-600 dark:text-pink-400",
+    bgColor: "bg-pink-500/10 dark:bg-pink-500/20",
+    borderColor: "border-pink-500/30",
+  },
 };
 
 // Helper function to get type configuration
