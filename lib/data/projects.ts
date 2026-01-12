@@ -164,7 +164,7 @@ export const data: Partial<Project>[] = [
         url: getGithubLink("ai_generator"),
       },
     ],
-    tag: "learning",
+    tag: "production",
     types: ["web"],
     client_specific: false,
     starred: true,
