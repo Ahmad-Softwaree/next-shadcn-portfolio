@@ -1,5 +1,6 @@
 export const allTypes = [
   "Bot",
+  "Online Menu",
   "Link Shortener",
   "Package",
   "CLI Tool",
@@ -20,9 +21,19 @@ export type Tool = {
   starred?: boolean;
 };
 
-const data: Tool[] = [
+const data: Partial<Tool>[] = [
   {
-    id: 1,
+    nameKey: "tools.ominu.name",
+    descriptionKey: "tools.ominu.description",
+    type: "Online Menu",
+    version: "2",
+    link: "https://ominu.net/",
+    image: "/tools/ominu.png",
+    icon: "/tools/ominu_logo.png",
+    showInHome: true,
+    starred: true,
+  },
+  {
     nameKey: "tools.telegram_bot.name",
     descriptionKey: "tools.telegram_bot.description",
     type: "Bot",
@@ -34,7 +45,6 @@ const data: Tool[] = [
     starred: true,
   },
   {
-    id: 2,
     nameKey: "tools.link_shortener.name",
     descriptionKey: "tools.link_shortener.description",
     type: "Link Shortener",
@@ -47,4 +57,10 @@ const data: Tool[] = [
   },
 ];
 
-export const tools: Tool[] = data;
+export const tools: Tool[] = data.map(
+  (tool, index) =>
+    ({
+      id: index + 1,
+      ...tool,
+    }) as Tool
+);

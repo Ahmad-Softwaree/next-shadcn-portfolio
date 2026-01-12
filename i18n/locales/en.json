@@ -307,6 +307,10 @@
       "package": "Package",
       "cli_tool": "CLI Tool"
     },
+    "ominu": {
+      "name": "Ominu Online Menu",
+      "description": "An intuitive digital menu platform offering QR code access, designed with a sleek modern interface to enhance customer experience and streamline ordering processes for restaurants and cafes."
+    },
     "telegram_bot": {
       "name": "Telegram Bot Platform",
       "description": "A comprehensive platform for managing and showcasing Telegram bots with features, commands, and user guides. Built to help bot creators demonstrate their work professionally."
