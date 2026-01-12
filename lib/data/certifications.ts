@@ -158,6 +158,14 @@ const data: Partial<Certificate>[] = [
     starred: true,
     type: "udemy",
   },
+  {
+    title:
+      "GitHub Copilot Coding Agent: Build, Test, and Ship Code Fast (Udemy)",
+    url: "https://www.udemy.com/course/github-copilot-coding-agent/",
+    image: "/certificates/copilot_coding_agent.jpg",
+    starred: true,
+    type: "udemy",
+  },
 ];
 
 const certificates: Certificate[] = data.map(
