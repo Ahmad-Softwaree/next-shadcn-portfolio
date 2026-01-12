@@ -166,6 +166,14 @@ const data: Partial<Certificate>[] = [
     starred: true,
     type: "udemy",
   },
+  {
+    title:
+      "Shadcn UI & Next JS - Build beautiful dashboards with shadcn (Udemy)",
+    url: "https://www.udemy.com/course/shadcn-ui/",
+    image: "/certificates/shadcn.jpg",
+    starred: true,
+    type: "udemy",
+  },
 ];
 
 const certificates: Certificate[] = data.map(
