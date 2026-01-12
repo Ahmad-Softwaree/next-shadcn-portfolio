@@ -100,11 +100,6 @@ export const persons = {
   iqBids: { name: "IQ Bids", url: "" },
   bazianSolar: { name: "Bazian Solar", url: "https://baziansolar.com/" },
   jananGroup: { name: "Janan Group", url: "https://janan-group.com/" },
-  fancyRest: {
-    name: "Fancy Rest",
-    url: "https://www.facebook.com/fancy.rest.cafe/",
-  },
-  fancy: { name: "Fancy", url: "https://www.facebook.com/fancy.rest.cafe/" },
   rahaCarwash: { name: "Raha Carwash", url: "" },
   kitnCompany: { name: "Kitn Company", url: "https://kitn.net/" },
   ahmad: { name: "Ahmad", url: "https://github.com/Ahmad-Softwaree" },
@@ -122,10 +117,8 @@ export const clients = {
   iqBids: persons.iqBids,
   bazianSolar: persons.bazianSolar,
   jananGroup: persons.jananGroup,
-  fancyRest: persons.fancyRest,
   rahaCarwash: persons.rahaCarwash,
   kitnCompany: persons.kitnCompany,
-  fancy: persons.fancy,
 } as const;
 
 export const contributors = {
@@ -567,7 +560,7 @@ export const data: Partial<Project>[] = [
     gits: [],
     types: ["web", "simple dashboard"],
     client_specific: false,
-    clients: [clients.fancyRest, clients.fancy],
+    clients: [],
     contributor: contributors.apSoft,
   },
   {
