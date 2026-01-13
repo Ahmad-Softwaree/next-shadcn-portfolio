@@ -14,6 +14,7 @@
     "see_all_projects": "عرض جميع المشاريع ←",
     "see_all_certifications": "عرض جميع الشهادات ←",
     "see_all_tools": "عرض جميع الأدوات ←",
+    "see_all_skills": "عرض جميع المهارات ←",
     "all": "الكل",
     "yes": "نعم",
     "no": "لا"
@@ -23,6 +24,7 @@
     "projects": "المشاريع",
     "certifications": "الشهادات",
     "tools": "الأدوات",
+    "skills": "المهارات",
     "about": "عني",
     "services": "الخدمات",
     "contact": "اتصل بي",
@@ -74,6 +76,7 @@
     "has_public_git": "لديها Git عام",
     "has_live_url": "لديها رابط مباشر",
     "adjust_filters": "ضبط تصفيات المشاريع أدناه",
+    "total_projects": "{{count}} مشاريع في المجموع",
     "tag": {
       "production": "إنتاج",
       "learning": "تعلم",
@@ -248,7 +251,8 @@
     "search_placeholder": "البحث في الشهادات...",
     "filter_types": "تصفية حسب النوع",
     "starred_only": "المميزة فقط",
-    "adjust_filters": "ضبط تصفيات الشهادات أدناه"
+    "adjust_filters": "ضبط تصفيات الشهادات أدناه",
+    "total_certifications": "{{count}} شهادات في المجموع"
   },
   "skills": {
     "title": "المهارات التقنية",
@@ -256,7 +260,18 @@
     "beginner": "مبتدئ",
     "intermediate": "متوسط",
     "advanced": "متقدم",
-    "expert": "خبير"
+    "expert": "خبير",
+    "all": "الكل",
+    "total_skills": "{{count}} مهارة في المجموع",
+    "filter_by_level": "التصفية حسب المستوى",
+    "filter_by_type": "التصفية حسب النوع",
+    "clear_filters": "مسح جميع التصفيات",
+    "types": {
+      "language": "لغة برمجة",
+      "framework": "إطار عمل",
+      "tool": "أداة",
+      "library": "مكتبة"
+    }
   },
   "services": {
     "badge": "الخدمات",
@@ -301,6 +316,7 @@
     "filter_types": "تصفية حسب النوع",
     "starred_only": "المميزة فقط",
     "adjust_filters": "ضبط تصفيات الأدوات أدناه",
+    "total_tools": "{{count}} أدوات في المجموع",
     "types": {
       "bot": "بوت",
       "link_shortener": "مختصر روابط",

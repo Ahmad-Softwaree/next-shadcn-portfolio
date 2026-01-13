@@ -15,7 +15,6 @@ const About = () => {
       <section id="about" className="relative py-20 px-6">
         <div>
           <div className="flex flex-col items-center text-center gap-8">
-            {/* Content */}
             <div className="max-w-3xl">
               <Badge
                 variant="secondary"

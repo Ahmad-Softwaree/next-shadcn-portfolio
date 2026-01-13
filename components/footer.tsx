@@ -20,6 +20,8 @@ const Footer = () => {
       href: "/projects",
     },
     { href: "/tools", title: t("navbar.tools") },
+    { href: "/skills", title: t("navbar.skills") },
+
     {
       title: t("navbar.certifications"),
       href: "/certifications",

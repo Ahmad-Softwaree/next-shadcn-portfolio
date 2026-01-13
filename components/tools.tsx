@@ -4,8 +4,13 @@ import { Badge } from "@/components/ui/badge";
 import { tools } from "@/lib/data/tools";
 import SpecialToolCard from "./cards/special-tool-card";
 import Link from "next/link";
-import { AnimateOnScroll } from "@/components/shared/animate";
+import {
+  AnimateOnScroll,
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/shared/animate";
 import { useTranslation } from "react-i18next";
+import { Button } from "./ui/button";
 
 const ToolsPreview = () => {
   const { t } = useTranslation();
@@ -29,20 +34,22 @@ const ToolsPreview = () => {
           </div>
 
           {/* Tools - Special Layout */}
-          <div className="space-y-12">
+          <StaggerContainer className="space-y-12">
             {topTools.map((tool, index) => (
-              <SpecialToolCard key={tool.id} {...tool} index={index} />
+              <StaggerItem key={tool.id}>
+                <SpecialToolCard {...tool} index={index} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
 
           {/* See All Tools Link */}
           <div className="flex justify-center mt-16">
             <Link href="/tools">
-              <Badge
-                className="text-base px-6 py-3 rounded-full cursor-pointer transition-all hover:scale-105"
-                variant="outline">
+              <Button
+                variant="outline"
+                className="group rounded-full px-6 py-2 text-sm font-medium transition-all hover:scale-105">
                 {t("common.see_all_tools")}
-              </Badge>
+              </Button>
             </Link>
           </div>
         </div>

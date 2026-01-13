@@ -12,19 +12,22 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { FilterIcon } from "lucide-react";
-import { useState, useMemo, Suspense, useEffect } from "react";
+import { useState, useMemo, Suspense } from "react";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import CertificationCard from "@/components/cards/certification-card";
-import certificates, { allTypes } from "@/lib/data/certifications";
+import certificates, {
+  allTypes,
+  CertificateType,
+} from "@/lib/data/certifications";
 import Search from "@/components/Search";
 import NoData from "@/components/NoData";
 import { useAppQueryParams } from "@/hooks/useAppQuery";
 import { useTranslation } from "react-i18next";
 import { getCertificateTypeConfig } from "@/lib/config/certification-filters";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { StaggerItem, StaggeredGrid } from "@/components/shared/animate";
 import { sortStarredFirst } from "@/lib/fucntions";
 
 function CertificationsContent() {
@@ -60,14 +63,20 @@ function CertificationsContent() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8 flex flex-col items-center gap-4">
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
-            {t("certifications.title")}
-          </h2>
-          <p className="text-muted-foreground mt-2 sm:mt-4 text-lg max-w-xl">
-            {t("certifications.subtitle")}
-          </p>
-
-          <div className="w-full max-w-md mt-4">
+          <div className="text-center sm:mb-4">
+            <h1 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+              {String(t("certifications.title" as any))}
+            </h1>
+            <p className="mx-auto max-w-2xl text-muted-foreground">
+              {String(t("certifications.subtitle" as any))}
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {t("certifications.total_certifications", {
+                count: certificates.length,
+              })}
+            </p>
+          </div>
+          <div className="w-full max-w-md ">
             <Search placeholder={t("certifications.search_placeholder")} />
           </div>
 
@@ -80,17 +89,21 @@ function CertificationsContent() {
                   <FilterIcon className="h-5 w-5" />
                   {t("common.filters")}
                   {isFilterActive && (
-                    <Badge
-                      className="h-3 w-3 rounded-full px-1 font-mono tabular-nums absolute -top-1 -right-1 inline-flex"
-                      variant="destructive"
-                    />
+                    <Badge className="ml-2 rounded-full bg-primary px-2 py-0.5 text-xs text-primary-foreground">
+                      {
+                        [
+                          queries.certification_types.length > 0,
+                          queries.starred_only === "true",
+                        ].filter(Boolean).length
+                      }
+                    </Badge>
                   )}
                 </Button>
               </SheetTrigger>
 
               <SheetContent
                 side={i18n.dir() === "rtl" ? "left" : "right"}
-                className="overflow-auto px-5">
+                className="overflow-auto p-5">
                 <SheetHeader>
                   <SheetTitle>{t("common.filters")}</SheetTitle>
                   <SheetDescription>
@@ -122,57 +135,48 @@ function CertificationsContent() {
                       {t("certifications.filter_types")}
                     </p>
                     <div className="flex flex-wrap gap-2 justify-center">
-                      {allTypes.map((type) => {
-                        const isSelected =
-                          queries.certification_types.includes(type);
-                        const config = getCertificateTypeConfig(type);
-                        return (
-                          <Button
-                            key={type}
-                            variant="outline"
-                            onClick={() =>
-                              setQueries((f) => {
-                                const newTypes = isSelected
-                                  ? f.certification_types.filter(
-                                      (t) => t !== type
-                                    )
-                                  : [...f.certification_types, type];
-                                return { ...f, certification_types: newTypes };
-                              })
-                            }
-                            size="sm"
-                            className={cn(
-                              "english_font rounded-full border transition-all duration-200",
-                              isSelected && config.bgColor,
-                              isSelected && config.color,
-                              isSelected && config.borderColor
-                            )}>
-                            {type}
-                          </Button>
-                        );
-                      })}
+                      {allTypes.map((type) => (
+                        <FilterTypeButton
+                          key={type}
+                          type={type}
+                          isActive={queries.certification_types.includes(type)}
+                          onClick={() =>
+                            setQueries((f) => {
+                              const newTypes = f.certification_types.includes(
+                                type
+                              )
+                                ? f.certification_types.filter(
+                                    (t) => t !== type
+                                  )
+                                : [...f.certification_types, type];
+                              return { ...f, certification_types: newTypes };
+                            })
+                          }
+                        />
+                      ))}
                     </div>
                   </div>
 
-                  <Separator />
-
-                  <div className="mt-6 flex gap-5 justify-between">
-                    <SheetClose asChild>
-                      <Button variant="default" className="w-full">
-                        {t("common.close")}
-                      </Button>
-                    </SheetClose>
-                    <Button
-                      variant="outline"
-                      onClick={() =>
-                        setQueries({
-                          certification_types: [],
-                          starred_only: "",
-                        })
-                      }>
-                      {t("common.cancel")}
-                    </Button>
-                  </div>
+                  {isFilterActive && (
+                    <>
+                      <Separator />
+                      <div className="mt-6 grid grid-cols-2 gap-5 justify-between w-full">
+                        <SheetClose asChild>
+                          <Button variant="default">{t("common.close")}</Button>
+                        </SheetClose>
+                        <Button
+                          variant="outline"
+                          onClick={() =>
+                            setQueries({
+                              certification_types: [],
+                              starred_only: "",
+                            })
+                          }>
+                          {t("common.cancel")}
+                        </Button>
+                      </div>
+                    </>
+                  )}
                 </div>
               </SheetContent>
             </Sheet>
@@ -193,39 +197,15 @@ function CertificationsContent() {
 
         {/* Certificates Grid */}
         {filteredCertifications.length > 0 ? (
-          <motion.div
-            key={`${queries.certification_types.join("-")}-${queries.starred_only}-${searchQuery}`}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: {
-                  staggerChildren: 0.08,
-                },
-              },
-            }}>
-            {filteredCertifications.map((certificate, index) => (
-              <motion.div
-                key={certificate.id}
-                variants={{
-                  hidden: { opacity: 0, y: 20, scale: 0.95 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    transition: {
-                      duration: 0.5,
-                      ease: "easeOut",
-                    },
-                  },
-                }}>
-                <CertificationCard {...certificate} />
-              </motion.div>
+          <StaggeredGrid
+            animationKey={`${queries.certification_types.join("-")}-${queries.starred_only}-${searchQuery}`}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+            {filteredCertifications.map((cert) => (
+              <StaggerItem key={cert.id}>
+                <CertificationCard {...cert} />
+              </StaggerItem>
             ))}
-          </motion.div>
+          </StaggeredGrid>
         ) : (
           <NoData />
         )}
@@ -233,6 +213,36 @@ function CertificationsContent() {
     </section>
   );
 }
+
+const FilterTypeButton = ({
+  type,
+  isActive,
+  onClick,
+}: {
+  type: CertificateType;
+  isActive: boolean;
+  onClick: () => void;
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const config = getCertificateTypeConfig(type);
+
+  return (
+    <Button
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
+      size="sm"
+      variant="outline"
+      className={cn(
+        "w-fit english_font rounded-full border transition-all duration-200",
+        (isActive || isHovered) && config.bgColor,
+        (isActive || isHovered) && config.color,
+        (isActive || isHovered) && config.borderColor
+      )}>
+      {type}
+    </Button>
+  );
+};
 
 export default function Page() {
   return (

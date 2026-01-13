@@ -15,6 +15,7 @@ export const NavMenu = ({ className }: { className?: string }) => {
     { href: "/", label: String(t("navbar.home" as any)) },
     { href: "/projects", label: String(t("navbar.projects" as any)) },
     { href: "/tools", label: String(t("navbar.tools" as any)) },
+    { href: "/skills", label: String(t("navbar.skills" as any)) },
     {
       href: "/certifications",
       label: String(t("navbar.certifications" as any)),

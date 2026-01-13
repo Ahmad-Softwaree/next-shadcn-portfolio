@@ -19,8 +19,8 @@ import { useTranslation } from "react-i18next";
 import { getTechConfig } from "@/lib/config/technologies";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Separator } from "@/components/ui/separator";
+import { BackBtnMotion, FadeInUpMotion } from "@/components/shared/animate";
 
 const page = () => {
   const { t } = useTranslation();
@@ -67,25 +67,18 @@ const page = () => {
   return (
     <section className="py-20 px-4 sm:px-6 max-w-6xl mx-auto">
       {/* Back Button */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3 }}>
+      <BackBtnMotion>
         <Link
           href="/projects"
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
           <span>{t("navbar.projects")}</span>
         </Link>
-      </motion.div>
+      </BackBtnMotion>
 
       <div className="grid lg:grid-cols-2 gap-8">
         {/* Left Column - Image */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-6">
+        <FadeInUpMotion className="space-y-6">
           {/* Project Image */}
           <div className="relative h-80 lg:h-96 w-full rounded-2xl overflow-hidden border bg-accent/50 group">
             <Image
@@ -142,14 +135,10 @@ const page = () => {
               </Button>
             )}
           </div>
-        </motion.div>
+        </FadeInUpMotion>
 
         {/* Right Column - Details */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="space-y-6">
+        <FadeInUpMotion delay={0.1} className="space-y-6">
           {/* Title & Badges */}
           <div className="space-y-4">
             <div className="flex items-start gap-3 flex-wrap">
@@ -232,16 +221,12 @@ const page = () => {
               })}
             </div>
           </div>
-        </motion.div>
+        </FadeInUpMotion>
       </div>
 
       {/* Clients & Contributors Section */}
       {(project.clients?.length || project.contributor) && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-12 grid gap-6 md:grid-cols-2">
+        <FadeInUpMotion delay={0.2} className="mt-12 grid gap-6 md:grid-cols-2">
           {Array.isArray(project.clients) && project.clients.length > 0 && (
             <Card className="border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
               <CardHeader>
@@ -301,7 +286,7 @@ const page = () => {
               </CardContent>
             </Card>
           )}
-        </motion.div>
+        </FadeInUpMotion>
       )}
     </section>
   );

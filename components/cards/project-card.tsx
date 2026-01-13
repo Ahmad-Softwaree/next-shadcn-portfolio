@@ -10,7 +10,7 @@ import { getTechConfig } from "@/lib/config/technologies";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { CardHoverMotion } from "@/components/shared/animate";
 
 const ProjectCard = ({
   titleKey,
@@ -40,7 +40,7 @@ const ProjectCard = ({
   };
 
   return (
-    <motion.div
+    <CardHoverMotion
       className={cn(
         "group relative flex flex-col h-full overflow-hidden rounded-xl border bg-card",
         "transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10",
@@ -48,9 +48,6 @@ const ProjectCard = ({
         isHovered &&
           "shadow-2xl shadow-primary/10 -translate-y-2 border-primary/50"
       )}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}>
       {/* Project Image */}
@@ -220,7 +217,7 @@ const ProjectCard = ({
           )}
         </div>
       </div>
-    </motion.div>
+    </CardHoverMotion>
   );
 };
 

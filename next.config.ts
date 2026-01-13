@@ -26,6 +26,34 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "logo.svgcdn.com",
       },
+      {
+        protocol: "https",
+        hostname: "termius.com",
+      },
+      {
+        protocol: "https",
+        hostname: "magicui.design",
+      },
+      {
+        protocol: "https",
+        hostname: "www.datocms-assets.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.namecheap.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.hostinger.com",
+      },
+      {
+        protocol: "https",
+        hostname: "contabo.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.bluehost.com",
+      },
     ],
   },
 };

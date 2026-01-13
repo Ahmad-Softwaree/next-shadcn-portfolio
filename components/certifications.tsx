@@ -5,8 +5,13 @@ import { Marquee } from "./magicui/marquee";
 import { Badge } from "./ui/badge";
 import certificates, { Certificate } from "@/lib/data/certifications";
 import CertificationCard from "./cards/certification-card";
-import { AnimateOnScroll } from "@/components/shared/animate";
+import {
+  AnimateOnScroll,
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/shared/animate";
 import { useTranslation } from "react-i18next";
+import { Button } from "./ui/button";
 
 const Certifications = () => {
   const { t } = useTranslation();
@@ -34,11 +39,11 @@ const Certifications = () => {
           {/* See All Certifications Link */}
           <div className="flex justify-center mt-10">
             <Link href="/certifications">
-              <Badge
-                className="text-sm px-4 py-2 rounded-full cursor-pointer transition-colors"
-                variant="outline">
+              <Button
+                variant="outline"
+                className="group rounded-full px-6 py-2 text-sm font-medium transition-all hover:scale-105">
                 {t("common.see_all_certifications")}
-              </Badge>
+              </Button>
             </Link>
           </div>
         </div>
@@ -49,7 +54,9 @@ const Certifications = () => {
 
 const CertificationList = () =>
   certificates.map((certification) => (
-    <CertificationCard key={certification.id} {...certification} />
+    <StaggerItem key={certification.id}>
+      <CertificationCard {...certification} />
+    </StaggerItem>
   ));
 
 export default Certifications;

@@ -14,6 +14,7 @@
     "see_all_projects": "See all projects →",
     "see_all_certifications": "See all certifications →",
     "see_all_tools": "See all tools →",
+    "see_all_skills": "See all skills →",
     "all": "All",
     "yes": "Yes",
     "no": "No"
@@ -23,6 +24,7 @@
     "projects": "Projects",
     "certifications": "Certifications",
     "tools": "Tools",
+    "skills": "Skills",
     "about": "About",
     "services": "Services",
     "contact": "Contact",
@@ -74,6 +76,7 @@
     "has_public_git": "Has Public Git",
     "has_live_url": "Has Live URL",
     "adjust_filters": "Adjust project filters below",
+    "total_projects": "{{count}} projects in total",
     "tag": {
       "production": "Production",
       "learning": "Learning",
@@ -248,7 +251,8 @@
     "search_placeholder": "Search certifications...",
     "filter_types": "Filter by Type",
     "starred_only": "Starred Only",
-    "adjust_filters": "Adjust certificate filters below"
+    "adjust_filters": "Adjust certificate filters below",
+    "total_certifications": "{{count}} certifications in total"
   },
   "skills": {
     "title": "Technical Skills",
@@ -256,7 +260,18 @@
     "beginner": "Beginner",
     "intermediate": "Intermediate",
     "advanced": "Advanced",
-    "expert": "Expert"
+    "expert": "Expert",
+    "all": "All",
+    "total_skills": "{{count}} skills in total",
+    "filter_by_level": "Filter by Level",
+    "filter_by_type": "Filter by Type",
+    "clear_filters": "Clear All Filters",
+    "types": {
+      "language": "Language",
+      "framework": "Framework",
+      "tool": "Tool",
+      "library": "Library"
+    }
   },
   "services": {
     "badge": "Services",
@@ -301,6 +316,7 @@
     "filter_types": "Filter by Type",
     "starred_only": "Starred Only",
     "adjust_filters": "Adjust tool filters below",
+    "total_tools": "{{count}} tools in total",
     "types": {
       "bot": "Bot",
       "link_shortener": "Link Shortener",

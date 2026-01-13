@@ -8,19 +8,14 @@ import { Github, Linkedin } from "lucide-react";
 import { LangToggle } from "../lang-toggle";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { motion } from "framer-motion";
+import { HeaderSlideMotion } from "../shared/animate";
 import { ThemeToggle } from "../theme-toggle";
 
 const Header = () => {
   const { t } = useTranslation();
 
   return (
-    <motion.header
-      className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}>
-      {" "}
+    <HeaderSlideMotion className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-16 items-center gap-6">
         <Link
           href={`/`}
@@ -31,7 +26,6 @@ const Header = () => {
           </h2>
         </Link>
 
-        {/* Desktop Menu */}
         <NavMenu className="hidden xl:flex flex-1" />
 
         <div className="flex items-center gap-2 ms-auto">
@@ -56,13 +50,12 @@ const Header = () => {
             </Button>
           </Link>
 
-          {/* Mobile Menu */}
           <div className="xl:hidden">
             <MobileNavigation />
           </div>
         </div>
       </div>
-    </motion.header>
+    </HeaderSlideMotion>
   );
 };
 

@@ -6,7 +6,11 @@ import { Badge } from "../ui/badge";
 import { ExternalLink, Star, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import {
+  SlideInMotion,
+  FloatingIconMotion,
+  ScrollRevealMotion,
+} from "@/components/shared/animate";
 import { getTypeConfig } from "@/lib/config/tool-filters";
 import Link from "next/link";
 
@@ -38,11 +42,8 @@ const SpecialToolCard = ({
   const typeConfig = getTypeConfig(type);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+    <SlideInMotion
+      direction={isEven ? "left" : "right"}
       className={cn(
         "group relative w-full overflow-hidden rounded-3xl border-2 bg-gradient-to-br",
         "from-card via-card to-accent/30",
@@ -69,12 +70,7 @@ const SpecialToolCard = ({
             priority
           />
           {/* Floating Icon */}
-          <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            whileInView={{ scale: 1, rotate: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="absolute top-6 right-6 z-20">
+          <FloatingIconMotion className="absolute top-6 right-6 z-20">
             <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-background/90 backdrop-blur-sm border-2 border-primary/30 shadow-2xl">
               <Image
                 src={icon || "/placeholder.svg"}
@@ -83,7 +79,7 @@ const SpecialToolCard = ({
                 fill
               />
             </div>
-          </motion.div>
+          </FloatingIconMotion>
           {starred && (
             <div className="absolute top-6 left-6 z-20">
               <Star className="w-8 h-8 fill-yellow-500 text-yellow-500 drop-shadow-lg" />
@@ -99,23 +95,14 @@ const SpecialToolCard = ({
           )}>
           {/* Title */}
           <div className="space-y-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.5 }}>
+            <ScrollRevealMotion delay={0.2}>
               <h3 className="text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">
                 {String(t(nameKey as any))}
               </h3>
-            </motion.div>
+            </ScrollRevealMotion>
 
             {/* Type and Version */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              className="flex flex-wrap gap-3">
+            <ScrollRevealMotion delay={0.3} className="flex flex-wrap gap-3">
               <Badge
                 variant="outline"
                 className={cn(
@@ -136,26 +123,18 @@ const SpecialToolCard = ({
                 )}>
                 v{version}
               </Badge>
-            </motion.div>
+            </ScrollRevealMotion>
           </div>
 
           {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="text-lg text-muted-foreground leading-relaxed">
-            {String(t(descriptionKey as any))}
-          </motion.p>
+          <ScrollRevealMotion delay={0.4}>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              {String(t(descriptionKey as any))}
+            </p>
+          </ScrollRevealMotion>
 
           {/* Action Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="flex flex-wrap gap-4 pt-4">
+          <ScrollRevealMotion delay={0.5} className="flex flex-wrap gap-4 pt-4">
             <a
               href={link}
               target="_blank"
@@ -180,7 +159,7 @@ const SpecialToolCard = ({
               {t("tools.details")}
               <ArrowRight className="w-5 h-5 transition-transform group-hover/btn:translate-x-1" />
             </Link>
-          </motion.div>
+          </ScrollRevealMotion>
         </div>
       </div>
 
@@ -195,7 +174,7 @@ const SpecialToolCard = ({
           )}
         />
       </div>
-    </motion.div>
+    </SlideInMotion>
   );
 };
 

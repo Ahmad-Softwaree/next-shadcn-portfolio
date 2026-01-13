@@ -19,6 +19,8 @@ import {
   allTypes,
   projects,
   Technology,
+  ProjectType,
+  ProjectTag,
 } from "@/lib/data/projects";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -33,10 +35,9 @@ import Search from "@/components/Search";
 import NoData from "@/components/NoData";
 import { useAppQueryParams } from "@/hooks/useAppQuery";
 import { useTranslation } from "react-i18next";
-import { StaggerItem } from "@/components/shared/animate";
+import { StaggerItem, StaggeredGrid } from "@/components/shared/animate";
 import { getTypeConfig, getTagConfig } from "@/lib/config/project-filters";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 import { getTechConfig } from "@/lib/config/technologies";
 import { sortStarredFirst } from "@/lib/fucntions";
 
@@ -116,14 +117,18 @@ function ProjectsContent() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8 flex flex-col items-center gap-4">
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
-            {t("projects.title")}
-          </h2>
-          <p className="text-muted-foreground mt-2 sm:mt-4 text-lg max-w-xl">
-            {t("projects.subtitle")}
-          </p>
-
-          <div className="w-full max-w-md mt-4">
+          <div className="text-center sm:mb-4">
+            <h1 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+              {String(t("projects.title" as any))}
+            </h1>
+            <p className="mx-auto max-w-2xl text-muted-foreground">
+              {String(t("projects.subtitle" as any))}
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {t("projects.total_projects", { count: projects.length })}
+            </p>
+          </div>
+          <div className="w-full max-w-md ">
             <Search placeholder={t("projects.search_placeholder")} />
           </div>
 
@@ -136,17 +141,24 @@ function ProjectsContent() {
                   <FilterIcon className="h-5 w-5" />
                   {t("common.filters")}
                   {isFilterActive && (
-                    <Badge
-                      className="h-3 w-3 rounded-full px-1 font-mono tabular-nums absolute -top-1 -right-1 inline-flex"
-                      variant="destructive"
-                    />
+                    <Badge className="ml-2 rounded-full bg-primary px-2 py-0.5 text-xs text-primary-foreground">
+                      {
+                        [
+                          queries.project_types.length > 0,
+                          queries.project_tags.length > 0,
+                          queries.starred_only === "true",
+                          queries.project_techs.length > 0,
+                          queries.has_public_git,
+                          queries.has_live_url,
+                        ].filter(Boolean).length
+                      }
+                    </Badge>
                   )}
                 </Button>
               </SheetTrigger>
-
               <SheetContent
                 side={i18n.dir() === "rtl" ? "left" : "right"}
-                className="overflow-auto">
+                className="overflow-auto p-5">
                 <SheetHeader>
                   <SheetTitle>{t("common.filters")}</SheetTitle>
                   <SheetDescription>
@@ -266,18 +278,12 @@ function ProjectsContent() {
                     <div className="flex flex-wrap gap-2 justify-center">
                       {allTypes.map((type) => {
                         const isSelected = queries.project_types.includes(type);
-                        const config = getTypeConfig(type);
-                        const translateType = (type: string) => {
-                          const key = type.replace(/\s+/g, "_").toLowerCase();
-                          const translated = t(`projects.types.${key}` as any);
-                          return translated === `projects.types.${key}`
-                            ? type
-                            : translated;
-                        };
+
                         return (
-                          <Button
+                          <FilterTypeButton
                             key={type}
-                            variant="outline"
+                            type={type}
+                            isActive={isSelected}
                             onClick={() =>
                               setQueries({
                                 project_types: isSelected
@@ -287,15 +293,7 @@ function ProjectsContent() {
                                   : [...queries.project_types, type],
                               })
                             }
-                            size="sm"
-                            className={cn(
-                              "rounded-full border transition-all duration-200",
-                              isSelected && config.bgColor,
-                              isSelected && config.color,
-                              isSelected && config.borderColor
-                            )}>
-                            {translateType(type)}
-                          </Button>
+                          />
                         );
                       })}
                     </div>
@@ -310,17 +308,12 @@ function ProjectsContent() {
                     <div className="flex flex-wrap gap-2 justify-center">
                       {allTags.map((tag) => {
                         const isSelected = queries.project_tags.includes(tag);
-                        const config = getTagConfig(tag);
-                        const translateTag = (tag: string) => {
-                          const translated = t(`projects.tag.${tag}` as any);
-                          return translated === `projects.tag.${tag}`
-                            ? tag
-                            : translated;
-                        };
+
                         return (
-                          <Button
+                          <FilterTagButton
                             key={tag}
-                            variant="outline"
+                            tag={tag}
+                            isActive={isSelected}
                             onClick={() =>
                               setQueries({
                                 project_tags: isSelected
@@ -330,15 +323,7 @@ function ProjectsContent() {
                                   : [...queries.project_tags, tag],
                               })
                             }
-                            size="sm"
-                            className={cn(
-                              "rounded-full border transition-all duration-200",
-                              isSelected && config.bgColor,
-                              isSelected && config.color,
-                              isSelected && config.borderColor
-                            )}>
-                            {translateTag(tag)}
-                          </Button>
+                          />
                         );
                       })}
                     </div>
@@ -353,18 +338,11 @@ function ProjectsContent() {
                     <div className="flex flex-wrap gap-2 justify-center">
                       {allTechs.map((tech) => {
                         const isSelected = queries.project_techs.includes(tech);
-                        let config = getTechConfig(tech);
                         return (
-                          <Button
+                          <FilterTechButton
                             key={tech}
-                            variant={isSelected ? "default" : "outline"}
-                            size="sm"
-                            className={cn(
-                              "english_font rounded-full",
-                              isSelected && config.bgColor,
-                              isSelected && config.color,
-                              isSelected && config.borderColor
-                            )}
+                            tech={tech}
+                            isActive={isSelected}
                             onClick={() =>
                               setQueries({
                                 project_techs: isSelected
@@ -373,36 +351,36 @@ function ProjectsContent() {
                                     )
                                   : [...queries.project_techs, tech],
                               })
-                            }>
-                            {tech}
-                          </Button>
+                            }
+                          />
                         );
                       })}
                     </div>
                   </div>
-                  <Separator />
-
-                  <div className="mt-6 flex gap-5 justify-between">
-                    <SheetClose asChild>
-                      <Button variant="default" className="w-full">
-                        {t("common.close")}
-                      </Button>
-                    </SheetClose>
-                    <Button
-                      variant="outline"
-                      onClick={() =>
-                        setQueries({
-                          project_types: null,
-                          project_tags: null,
-                          starred_only: null,
-                          project_techs: null,
-                          has_public_git: null,
-                          has_live_url: null,
-                        })
-                      }>
-                      {t("common.cancel")}
-                    </Button>
-                  </div>
+                  {isFilterActive && (
+                    <>
+                      <Separator />
+                      <div className="mt-6 grid grid-cols-2 gap-5 justify-between w-full">
+                        <SheetClose asChild>
+                          <Button variant="default">{t("common.close")}</Button>
+                        </SheetClose>
+                        <Button
+                          variant="outline"
+                          onClick={() =>
+                            setQueries({
+                              project_types: null,
+                              project_tags: null,
+                              starred_only: null,
+                              project_techs: null,
+                              has_public_git: null,
+                              has_live_url: null,
+                            })
+                          }>
+                          {t("common.cancel")}
+                        </Button>
+                      </div>
+                    </>
+                  )}
                 </div>
               </SheetContent>
             </Sheet>
@@ -427,26 +405,15 @@ function ProjectsContent() {
 
         {/* Projects Grid */}
         {filteredProjects.length > 0 ? (
-          <motion.div
-            key={`${queries.project_types.join("-")}-${queries.project_tags.join("-")}-${queries.starred_only}-${queries.project_techs.join("-")}-${queries.has_public_git}-${queries.has_live_url}-${searchQuery}`}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8"
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: {
-                  staggerChildren: 0.1,
-                },
-              },
-            }}>
-            {filteredProjects.map((project, index) => (
+          <StaggeredGrid
+            animationKey={`${queries.project_types.join("-")}-${queries.project_tags.join("-")}-${queries.starred_only}-${queries.project_techs.join("-")}-${queries.has_public_git}-${queries.has_live_url}-${searchQuery}`}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+            {filteredProjects.map((project) => (
               <StaggerItem key={project.id}>
                 <ProjectCard {...project} />
               </StaggerItem>
             ))}
-          </motion.div>
+          </StaggeredGrid>
         ) : (
           <NoData />
         )}
@@ -454,6 +421,109 @@ function ProjectsContent() {
     </section>
   );
 }
+
+const FilterTypeButton = ({
+  type,
+  isActive,
+  onClick,
+}: {
+  type: ProjectType;
+  isActive: boolean;
+  onClick: () => void;
+}) => {
+  const { t } = useTranslation();
+  const [isHovered, setIsHovered] = useState(false);
+  const config = getTypeConfig(type);
+
+  const translateType = (type: string) => {
+    const key = type.replace(/\s+/g, "_").toLowerCase();
+    const translated = t(`projects.types.${key}` as any);
+    return translated === `projects.types.${key}` ? type : translated;
+  };
+
+  return (
+    <Button
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
+      size="sm"
+      variant="outline"
+      className={cn(
+        "w-fit rounded-full border transition-all duration-200",
+        (isActive || isHovered) && config.bgColor,
+        (isActive || isHovered) && config.color,
+        (isActive || isHovered) && config.borderColor
+      )}>
+      {translateType(type)}
+    </Button>
+  );
+};
+
+const FilterTagButton = ({
+  tag,
+  isActive,
+  onClick,
+}: {
+  tag: ProjectTag;
+  isActive: boolean;
+  onClick: () => void;
+}) => {
+  const { t } = useTranslation();
+  const [isHovered, setIsHovered] = useState(false);
+  const config = getTagConfig(tag);
+
+  const translateTag = (tag: string) => {
+    const translated = t(`projects.tag.${tag}` as any);
+    return translated === `projects.tag.${tag}` ? tag : translated;
+  };
+
+  return (
+    <Button
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
+      size="sm"
+      variant="outline"
+      className={cn(
+        "w-fit rounded-full border transition-all duration-200",
+        (isActive || isHovered) && config.bgColor,
+        (isActive || isHovered) && config.color,
+        (isActive || isHovered) && config.borderColor
+      )}>
+      {translateTag(tag)}
+    </Button>
+  );
+};
+
+const FilterTechButton = ({
+  tech,
+  isActive,
+  onClick,
+}: {
+  tech: Technology;
+  isActive: boolean;
+  onClick: () => void;
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const config = getTechConfig(tech);
+
+  return (
+    <Button
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
+      size="sm"
+      variant="outline"
+      className={cn(
+        "w-fit english_font rounded-full border transition-all duration-200",
+        (isActive || isHovered) && config.bgColor,
+        (isActive || isHovered) && config.color,
+        (isActive || isHovered) && config.borderColor
+      )}>
+      {tech}
+    </Button>
+  );
+};
 
 export default function Page() {
   return (

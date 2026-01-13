@@ -14,6 +14,7 @@
     "see_all_projects": "بینینی هەموو پرۆژەکان ←",
     "see_all_certifications": "بینینی هەموو بڕواناەکان ←",
     "see_all_tools": "بینینی هەموو ئامرازەکان ←",
+    "see_all_skills": "بینینی هەموو شارەزاییەکان ←",
     "all": "هەموو",
     "yes": "بەڵێ",
     "no": "نەخێر"
@@ -23,6 +24,7 @@
     "projects": "پرۆژەکان",
     "certifications": "بڕواناەکان",
     "tools": "ئامرازەکان",
+    "skills": "شارەزاییەکان",
     "about": "دەربارەی من",
     "services": "خزمەتگوزاریەکان",
     "contact": "پەیوەندیم پێوە بکە",
@@ -74,6 +76,7 @@
     "has_public_git": "Git ی گشتی هەیە",
     "has_live_url": "بەستەری ڕاستەوخۆی هەیە",
     "adjust_filters": "ڕێکخستنی پاڵاوتنی پرۆژەکان لە خوارەوە",
+    "total_projects": "{{count}} پرۆژە لە کۆی گشتیدا",
     "tag": {
       "production": "درۆستکراو",
       "learning": "فێربوون",
@@ -248,7 +251,8 @@
     "search_placeholder": "گەڕان لە بڕوانامەکان...",
     "filter_types": "پاڵاوتن بەپێی جۆر",
     "starred_only": "تەنها ئەستێرەدارەکان",
-    "adjust_filters": "ڕێکخستنی پاڵاوتنی بڕوانامەکان لە خوارەوە"
+    "adjust_filters": "ڕێکخستنی پاڵاوتنی بڕوانامەکان لە خوارەوە",
+    "total_certifications": "{{count}} بڕوانامە لە کۆی گشتیدا"
   },
   "skills": {
     "title": "شارەزایی تەکنیکی",
@@ -256,7 +260,18 @@
     "beginner": "دەستپێکەر",
     "intermediate": "ناوەند",
     "advanced": "پێشکەوتوو",
-    "expert": "پسپۆڕ"
+    "expert": "پسپۆڕ",
+    "all": "هەموو",
+    "total_skills": "{{count}} شارەزایی لە کۆی گشتیدا",
+    "filter_by_level": "پاڵاوتن بەپێی ئاست",
+    "filter_by_type": "پاڵاوتن بەپێی جۆر",
+    "clear_filters": "سڕینەوەی هەموو پاڵاوتنەکان",
+    "types": {
+      "language": "زمانی پرۆگرامسازی",
+      "framework": "چوارچێوە",
+      "tool": "ئامراز",
+      "library": "کتێبخانە"
+    }
   },
   "services": {
     "badge": "خزمەتگوزاریەکان",
@@ -301,6 +316,7 @@
     "filter_types": "پاڵاوتن بەپێی جۆر",
     "starred_only": "تەنها ئەستێرەدارەکان",
     "adjust_filters": "ڕێکخستنی پاڵاوتنی ئامرازەکان لە خوارەوە",
+    "total_tools": "{{count}} ئامراز لە کۆی گشتیدا",
     "types": {
       "bot": "بۆت",
       "link_shortener": "کورتکەرەوەی بەستەر",

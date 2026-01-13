@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { BackBtnMotion, FadeInUpMotion } from "@/components/shared/animate";
 import { getTypeConfig } from "@/lib/config/tool-filters";
 
 const page = () => {
@@ -45,25 +45,18 @@ const page = () => {
   return (
     <section className="py-20 px-4 sm:px-6 max-w-6xl mx-auto">
       {/* Back Button */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3 }}>
+      <BackBtnMotion>
         <Link
           href="/tools"
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
           <span>{t("navbar.tools")}</span>
         </Link>
-      </motion.div>
+      </BackBtnMotion>
 
       <div className="grid lg:grid-cols-2 gap-8">
         {/* Left Column - Image */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-6">
+        <FadeInUpMotion className="space-y-6">
           {/* Tool Image */}
           <div className="relative h-80 lg:h-96 w-full rounded-2xl overflow-hidden border bg-accent/50 group">
             <Image
@@ -87,14 +80,10 @@ const page = () => {
               </a>
             </Button>
           </div>
-        </motion.div>
+        </FadeInUpMotion>
 
         {/* Right Column - Details */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="space-y-6">
+        <FadeInUpMotion delay={0.1} className="space-y-6">
           {/* Title and Icon */}
           <div className="flex items-start gap-4">
             <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-accent/50 flex-shrink-0 border">
@@ -210,7 +199,7 @@ const page = () => {
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </FadeInUpMotion>
       </div>
     </section>
   );

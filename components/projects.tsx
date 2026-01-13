@@ -10,6 +10,7 @@ import {
   StaggerItem,
 } from "@/components/shared/animate";
 import { useTranslation } from "react-i18next";
+import { Button } from "./ui/button";
 
 const ProjectsPreview = () => {
   const { t } = useTranslation();
@@ -43,11 +44,11 @@ const ProjectsPreview = () => {
           {/* See All Projects Link */}
           <div className="flex justify-center mt-10">
             <Link href="/projects">
-              <Badge
-                className="text-sm px-4 py-2 rounded-full cursor-pointer transition-colors"
-                variant="outline">
+              <Button
+                variant="outline"
+                className="group rounded-full px-6 py-2 text-sm font-medium transition-all hover:scale-105">
                 {t("common.see_all_projects")}
-              </Badge>
+              </Button>
             </Link>
           </div>
         </div>
