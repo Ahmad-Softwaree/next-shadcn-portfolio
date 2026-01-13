@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import LanguageProvider from "@/providers/language-provider";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import ScrollToTop from "@/components/shared/scroll-to-top";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,7 @@ export default function RootLayout({
               <main className="flex-1">{children}</main>
               <Analytics />
               <Footer />
+              <ScrollToTop />
             </ThemeProvider>
           </LanguageProvider>
         </NuqsAdapter>
