@@ -33,6 +33,7 @@ This file contains **strict coding standards and architecture patterns** for thi
 - **Tailwind CSS 4** - For styling (with CSS variables)
 - **Lucide React** - Icon library
 - **cn() utility** from `@/lib/utils` - For conditional styling
+- **framer-motion** - Animation library (use via reusable components in animate.tsx)
 
 #### **Data Fetching & State Management**
 
