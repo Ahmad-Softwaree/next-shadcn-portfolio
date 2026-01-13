@@ -5,11 +5,11 @@ import { Logo } from "./logo";
 import { NavMenu } from "./nav-menu";
 import { MobileNavigation } from "./mobile-navigation";
 import { Github, Linkedin } from "lucide-react";
-import { ModeToggle } from "../theme-toggle";
 import { LangToggle } from "../lang-toggle";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import { ThemeToggle } from "../theme-toggle";
 
 const Header = () => {
   const { t } = useTranslation();
@@ -36,7 +36,7 @@ const Header = () => {
 
         <div className="flex items-center gap-2 ms-auto">
           <LangToggle />
-          <ModeToggle />
+          <ThemeToggle />
           <Link
             target="_blank"
             href={`https://www.linkedin.com/in/ahmad-salah-50519022a/`}>
