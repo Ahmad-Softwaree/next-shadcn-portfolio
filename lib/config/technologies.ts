@@ -10,6 +10,20 @@ export type TechnologyConfig = {
 
 // Centralized technology configuration with consistent colors across the app
 export const technologyConfig: Record<Technology, TechnologyConfig> = {
+  "Next Auth": {
+    name: "Next Auth",
+    displayName: "Next Auth",
+    color: "text-purple-600 dark:text-purple-400",
+    bgColor: "bg-purple-500/10 dark:bg-purple-500/20",
+    borderColor: "border-purple-500/30",
+  },
+  "2FA": {
+    name: "2FA",
+    displayName: "2FA",
+    color: "text-yellow-600 dark:text-yellow-400",
+    bgColor: "bg-yellow-500/10 dark:bg-yellow-500/20",
+    borderColor: "border-yellow-500/30",
+  },
   MySQL: {
     name: "MySQL",
     displayName: "MySQL",

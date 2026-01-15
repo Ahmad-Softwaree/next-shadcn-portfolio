@@ -174,6 +174,13 @@ const data: Partial<Certificate>[] = [
     starred: true,
     type: "udemy",
   },
+  {
+    title: "NextAuth v5 Credentials with Next App Router & TypeScript (Udemy)",
+    url: "https://www.udemy.com/course/next-auth-js/",
+    image: "/certificates/nextjs-nextauth.jpg",
+    starred: true,
+    type: "udemy",
+  },
 ];
 
 const certificates: Certificate[] = data.map(

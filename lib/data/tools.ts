@@ -4,6 +4,7 @@ export const allTypes = [
   "Link Shortener",
   "Package",
   "CLI Tool",
+  "Learning Tracker",
 ] as const;
 
 export type ToolType = (typeof allTypes)[number];
@@ -53,6 +54,16 @@ const data: Partial<Tool>[] = [
     image: "/tools/link_shortener.png",
     icon: "/tools/shortener_icon.png",
     showInHome: true,
+    starred: true,
+  },
+  {
+    nameKey: "tools.learning_tracker.name",
+    descriptionKey: "tools.learning_tracker.description",
+    type: "Learning Tracker",
+    version: "1",
+    link: "https://learningtracker.ahmad-software.com/",
+    image: "/tools/learning_tracker.png",
+    icon: "/tools/learning_tracker_icon.png",
     starred: true,
   },
 ];

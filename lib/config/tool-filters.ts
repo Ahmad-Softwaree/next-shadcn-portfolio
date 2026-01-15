@@ -8,6 +8,11 @@ export type FilterColorConfig = {
 
 // Color configuration for tool types
 export const toolTypeColors: Record<ToolType, FilterColorConfig> = {
+  "Learning Tracker": {
+    color: "text-teal-600 dark:text-teal-400",
+    bgColor: "bg-teal-500/10 dark:bg-teal-500/20",
+    borderColor: "border-teal-500/30",
+  },
   Bot: {
     color: "text-cyan-600 dark:text-cyan-400",
     bgColor: "bg-cyan-500/10 dark:bg-cyan-500/20",

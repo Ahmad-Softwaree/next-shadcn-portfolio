@@ -31,6 +31,8 @@ export const allTechs = [
   "Neon",
   "OpenAI",
   "Ollama",
+  "Next Auth",
+  "2FA",
 ] as const;
 
 export type Technology = (typeof allTechs)[number];
@@ -74,7 +76,8 @@ export type GitName =
   | "bots"
   | "ai_generator"
   | "Link-Shortener"
-  | "shadcn";
+  | "shadcn"
+  | "learning_tracker";
 export type GitRepo = {
   name: RepoType;
   url: string;
@@ -152,6 +155,31 @@ export type Project = {
   showInHome: boolean;
 };
 export const data: Partial<Project>[] = [
+  {
+    titleKey: "projects.learning_tracker.title",
+    descriptionKey: "projects.learning_tracker.description",
+    image: "/projects/learning_tracker.png",
+    technologies: [
+      "Next.js",
+      "Typescript",
+      "Shadcn UI",
+      "Neon",
+      "PostgreSQL",
+      "Next Auth",
+      "2FA",
+    ],
+    liveUrl: "https://learningtracker.ahmad-software.com/",
+    gits: [
+      {
+        name: "Fullstack",
+        url: getGithubLink("learning_tracker"),
+      },
+    ],
+    tag: "production",
+    types: ["web"],
+    client_specific: false,
+    starred: true,
+  },
   {
     titleKey: "projects.ai_generator.title",
     descriptionKey: "projects.ai_generator.description",

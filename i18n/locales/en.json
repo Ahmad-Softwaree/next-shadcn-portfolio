@@ -92,6 +92,10 @@
       "game": "Game",
       "telegram_bot": "Telegram Bot"
     },
+    "learning_tracker": {
+      "title": "Learning Tracker",
+      "description": "A comprehensive learning management tool that helps users track their learning progress, set goals, and manage educational resources effectively."
+    },
     "shadcn": {
       "title": "Shadcn UI Components",
       "description": "A collection of reusable UI components built with Shadcn UI, designed to streamline frontend development and enhance user experience."
@@ -321,7 +325,12 @@
       "bot": "Bot",
       "link_shortener": "Link Shortener",
       "package": "Package",
-      "cli_tool": "CLI Tool"
+      "cli_tool": "CLI Tool",
+      "learning_tracker": "Learning Tracker"
+    },
+    "learning_tracker": {
+      "name": "Learning Tracker",
+      "description": "A comprehensive learning management tool that helps users track their learning progress, set goals, and manage educational resources effectively."
     },
     "ominu": {
       "name": "Ominu Online Menu",
