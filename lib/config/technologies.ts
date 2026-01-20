@@ -10,6 +10,20 @@ export type TechnologyConfig = {
 
 // Centralized technology configuration with consistent colors across the app
 export const technologyConfig: Record<Technology, TechnologyConfig> = {
+  "Passport.js": {
+    name: "Passport.js",
+    displayName: "Passport.js",
+    color: "text-blue-600 dark:text-blue-400",
+    bgColor: "bg-blue-500/10 dark:bg-blue-500/20",
+    borderColor: "border-blue-500/30",
+  },
+  Stripe: {
+    name: "Stripe",
+    displayName: "Stripe",
+    color: "text-purple-600 dark:text-purple-400",
+    bgColor: "bg-purple-500/10 dark:bg-purple-500/20",
+    borderColor: "border-purple-500/30",
+  },
   "Next Auth": {
     name: "Next Auth",
     displayName: "Next Auth",
