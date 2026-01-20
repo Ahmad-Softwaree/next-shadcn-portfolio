@@ -33,6 +33,8 @@ export const allTechs = [
   "Ollama",
   "Next Auth",
   "2FA",
+  "Passport.js",
+  "Stripe",
 ] as const;
 
 export type Technology = (typeof allTechs)[number];
@@ -77,7 +79,9 @@ export type GitName =
   | "ai_generator"
   | "Link-Shortener"
   | "shadcn"
-  | "learning_tracker";
+  | "learning_tracker"
+  | "shop_backend"
+  | "shop_frontend";
 export type GitRepo = {
   name: RepoType;
   url: string;
@@ -155,6 +159,40 @@ export type Project = {
   showInHome: boolean;
 };
 export const data: Partial<Project>[] = [
+  {
+    titleKey: "projects.shop.title",
+    descriptionKey: "projects.shop.description",
+    image: "/projects/shop.png",
+    technologies: [
+      "Next.js",
+      "Typescript",
+      "Shadcn UI",
+      "Prisma",
+      "PostgreSQL",
+      "Next Auth",
+      "2FA",
+      "Nest.js",
+      "Stripe",
+      "Passport.js",
+      "Socket.io",
+    ],
+    liveUrl: "https://shop.ahmad-software.com/",
+    gits: [
+      {
+        name: "Frontend",
+        url: getGithubLink("shop_frontend"),
+      },
+      {
+        name: "Backend",
+        url: getGithubLink("shop_backend"),
+      },
+    ],
+    tag: "production",
+    types: ["web"],
+    client_specific: false,
+    starred: true,
+    showInHome: true,
+  },
   {
     titleKey: "projects.learning_tracker.title",
     descriptionKey: "projects.learning_tracker.description",

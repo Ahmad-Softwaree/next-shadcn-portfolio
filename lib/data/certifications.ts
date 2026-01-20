@@ -181,6 +181,13 @@ const data: Partial<Certificate>[] = [
     starred: true,
     type: "udemy",
   },
+  {
+    title: "Build a Shopping App With Next.js + NestJS & Prisma (Udemy)",
+    url: "https://www.udemy.com/course/build-a-shopping-app-with-nextjs-nestjs-prisma/",
+    image: "/certificates/next_nest_prisma.jpg",
+    starred: true,
+    type: "udemy",
+  },
 ];
 
 const certificates: Certificate[] = data.map(

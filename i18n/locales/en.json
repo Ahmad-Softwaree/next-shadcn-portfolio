@@ -92,6 +92,10 @@
       "game": "Game",
       "telegram_bot": "Telegram Bot"
     },
+    "shop": {
+      "title": "Shop",
+      "description": "A full-featured e-commerce platform with product listings, shopping cart, user authentication, and secure checkout process."
+    },
     "learning_tracker": {
       "title": "Learning Tracker",
       "description": "A comprehensive learning management tool that helps users track their learning progress, set goals, and manage educational resources effectively."
