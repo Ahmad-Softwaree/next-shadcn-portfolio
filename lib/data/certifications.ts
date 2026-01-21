@@ -188,6 +188,13 @@ const data: Partial<Certificate>[] = [
     starred: true,
     type: "udemy",
   },
+  {
+    title: "Tailwind CSS v4 - Beginner to Pro (Udemy)",
+    url: "https://www.udemy.com/course/tailwind-css-zero-to-hero/",
+    image: "/certificates/tailwind-pro.jpg",
+    starred: true,
+    type: "udemy",
+  },
 ];
 
 const certificates: Certificate[] = data.map(
