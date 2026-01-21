@@ -92,6 +92,10 @@
       "game": "Game",
       "telegram_bot": "Telegram Bot"
     },
+    "quran": {
+      "title": "Quran App",
+      "description": "A comprehensive Quran application featuring verse-by-verse recitations, translations in multiple languages, and an intuitive user interface for easy navigation and study."
+    },
     "shop": {
       "title": "Shop",
       "description": "A full-featured e-commerce platform with product listings, shopping cart, user authentication, and secure checkout process."

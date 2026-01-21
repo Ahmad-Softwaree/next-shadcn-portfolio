@@ -81,7 +81,8 @@ export type GitName =
   | "shadcn"
   | "learning_tracker"
   | "shop_backend"
-  | "shop_frontend";
+  | "shop_frontend"
+  | "quran";
 export type GitRepo = {
   name: RepoType;
   url: string;
@@ -159,6 +160,24 @@ export type Project = {
   showInHome: boolean;
 };
 export const data: Partial<Project>[] = [
+  {
+    titleKey: "projects.quran.title",
+    descriptionKey: "projects.quran.description",
+    image: "/projects/quran.png",
+    technologies: ["Next.js", "Typescript", "Shadcn UI"],
+    liveUrl: "https://quran.ahmad-software.com/",
+    gits: [
+      {
+        name: "Fullstack",
+        url: getGithubLink("quran"),
+      },
+    ],
+    tag: "production",
+    types: ["web"],
+    client_specific: false,
+    starred: true,
+    showInHome: true,
+  },
   {
     titleKey: "projects.shop.title",
     descriptionKey: "projects.shop.description",
