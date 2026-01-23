@@ -35,7 +35,7 @@ export function MyComponent() {
 
 ```tsx
 // ❌ WRONG: Inline motion code
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export function MyComponent() {
   return (

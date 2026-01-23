@@ -60,8 +60,7 @@ This file contains **strict coding standards and architecture patterns** for thi
 
 #### **Internationalization**
 
-- **i18next** - Translation framework
-- **react-i18next** - React bindings for i18next
+- **next-intl** - Translation framework for Next.js
 
 #### **File Uploads** (if needed)
 
@@ -178,7 +177,7 @@ Before writing ANY code:
 | Page sections | Extract to component  | `components/sections/`                |
 | URL params    | nuqs                  | Direct usage in components            |
 | Theme         | next-themes           | `providers/theme-provider.tsx`        |
-| Translation   | i18next               | `useTranslation()` hook               |
+| Translation   | next-intl             | `useTranslations()` hook              |
 
 ---
 

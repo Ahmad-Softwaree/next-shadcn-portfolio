@@ -1,47 +1,9 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Header from "@/components/navbar/header";
-import Footer from "@/components/footer";
-import { Analytics } from "@vercel/analytics/next";
-import ScrollToTop from "@/components/shared/scroll-to-top";
-import Providers from "./providers";
+import { ReactNode } from "react";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "Ahmad Software",
-  description:
-    "Ahmad Software Full stack Portfolio, Contains all project, services, skills and certifications, come and see My world",
+type Props = {
+  children: ReactNode;
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col overflow-x-hidden`}>
-        <Providers>
-          <>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Analytics />
-            <Footer />
-            <ScrollToTop />
-          </>
-        </Providers>
-      </body>
-    </html>
-  );
+export default function RootLayout({ children }: Props) {
+  return children;
 }

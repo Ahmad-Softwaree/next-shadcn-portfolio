@@ -1,12 +1,12 @@
-# Internationalization (i18n) with i18next
+# Internationalization (i18n) with next-intl
 
 **⚠️ CRITICAL: READ BEFORE IMPLEMENTING MULTI-LANGUAGE FEATURES**
 
-This document outlines the internationalization standards and patterns used in this project with **i18next** and **react-i18next**.
+This document outlines the internationalization standards and patterns used in this project with **next-intl**.
 
 ## 📋 Overview
 
-This project uses **i18next** for multi-language support with the following languages:
+This project uses **next-intl** for multi-language support with the following languages:
 
 - **English (en)** - Default language, LTR
 - **Arabic (ar)** - RTL
@@ -18,66 +18,62 @@ This project uses **i18next** for multi-language support with the following lang
 
 ```
 i18n/
-  ├── i18n.ts              # i18next configuration
-  ├── i18next.d.ts         # TypeScript type definitions
-  └── locale/
-      ├── en.json          # English translations
-      ├── ar.json          # Arabic translations
-      └── ckb.json         # Kurdish translations
+  ├── navigation.ts        # next-intl navigation configuration
+  ├── request.ts           # next-intl request configuration
+  └── routing.ts           # next-intl routing configuration
+messages/
+  ├── en.json              # English translations
+  ├── ar.json              # Arabic translations
+  └── ckb.json             # Kurdish translations
 ```
 
-### Configuration File
+### Configuration Files
 
-**File**: `i18n/i18n.ts`
+**File**: `i18n/request.ts`
 
 ```typescript
-import i18n from "i18next";
-import en from "./locale/en.json";
-import ar from "./locale/ar.json";
-import ckb from "./locale/ckb.json";
-import { initReactI18next } from "react-i18next";
+import { getRequestConfig } from "next-intl/server";
+import { routing } from "./routing";
 
-i18n.use(initReactI18next).init({
-  resources: {
-    en: { translation: en },
-    ar: { translation: ar },
-    ckb: { translation: ckb },
-  },
-  fallbackLng: ["en", "ckb", "ar"],
-  interpolation: { escapeValue: false },
+export default getRequestConfig(async ({ requestLocale }) => {
+  let locale = await requestLocale;
+
+  if (!locale || !routing.locales.includes(locale as any)) {
+    locale = routing.defaultLocale;
+  }
+
+  return {
+    locale,
+    messages: (await import(`../messages/${locale}.json`)).default,
+  };
 });
+```
 
-export default i18n;
+**File**: `i18n/routing.ts`
+
+```typescript
+import { defineRouting } from "next-intl/routing";
+import { createNavigation } from "next-intl/navigation";
+
+export const routing = defineRouting({
+  locales: ["en", "ar", "ckb"],
+  defaultLocale: "en",
+});
 ```
 
 **Key Points**:
 
-- Import all locale JSON files
-- Use `initReactI18next` plugin
-- Set fallback languages (English first)
-- Disable HTML escaping with `escapeValue: false`
+- Configure locales and default locale
+- Set up routing for internationalized paths
+- Messages are loaded dynamically per locale
 
 ### TypeScript Definitions
 
-**File**: `i18n/i18next.d.ts`
+**next-intl** provides built-in TypeScript support. You can create type-safe translations by:
 
-```typescript
-import "i18next";
-import en from "./locale/en.json";
-import ar from "./locale/ar.json";
-import ckb from "./locale/ckb.json";
-
-declare module "i18next" {
-  interface CustomTypeOptions {
-    defaultNS: "ckb";
-    resources: {
-      en: typeof en;
-      ar: typeof ar;
-      ckb: typeof ckb;
-    };
-  }
-}
-```
+1. Using the `useTranslations` hook with namespace parameter
+2. TypeScript will infer types from your JSON message files
+3. Autocomplete works automatically in supported IDEs
 
 **Benefits**:
 
@@ -85,104 +81,75 @@ declare module "i18next" {
 - Type safety for all translations
 - Compile-time errors for missing keys
 
-## 🎨 Language Provider
+## 🎨 Next.js Integration
 
 **File**: `providers/language-provider.tsx`
 
-```typescript
+````typescript
 "use client";
 
-import { useEffect } from "react";
-import { I18nextProvider } from "react-i18next";
-import { getCookie } from "@/lib/config/cookie.config";
-import { ENUMs } from "@/lib/enums";
-import i18n from "@/i18n/i18n";
+**File**: `app/[locale]/layout.tsx`
 
-function LanguageSetup() {
-  useEffect(() => {
-    const cookieLang = getCookie(ENUMs.GLOBAL.LANG_COOKIE);
-    let langToUse = ENUMs.GLOBAL.DEFAULT_LANG as string;
+```typescript
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
 
-    if (cookieLang && i18n.languages.includes(cookieLang)) {
-      langToUse = cookieLang;
-    }
-
-    i18n.changeLanguage(langToUse);
-
-    document.body.classList.remove(
-      "english_font",
-      "arabic_font",
-      "kurdish_font"
-    );
-
-    if (langToUse === "en") {
-      document.body.classList.add("english_font");
-      document.dir = "ltr";
-    } else if (langToUse === "ar") {
-      document.body.classList.add("arabic_font");
-      document.dir = "rtl";
-    } else if (langToUse === "ckb") {
-      document.body.classList.add("kurdish_font");
-      document.dir = "rtl";
-    }
-  }, []);
-
-  return null;
-}
-
-export default function LanguageProvider({
+export default async function LocaleLayout({
   children,
+  params: { locale }
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
+  // Ensure that the incoming locale is valid
+  if (!routing.locales.includes(locale as any)) {
+    notFound();
+  }
+
+  // Providing all messages to the client side
+  const messages = await getMessages();
+
   return (
-    <I18nextProvider i18n={i18n}>
-      <LanguageSetup />
-      {children}
-    </I18nextProvider>
+    <html lang={locale} dir={locale === 'ar' || locale === 'ckb' ? 'rtl' : 'ltr'}>
+      <body>
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 }
-```
+````
 
 **Key Responsibilities**:
 
-1. Wrap app with `I18nextProvider`
-2. Check for saved language in cookies
-3. Apply language change on mount
-4. Set text direction (`ltr` or `rtl`)
-5. Apply language-specific font classes
+1. Wrap app with `NextIntlClientProvider`
+2. Validate incoming locale parameter
+3. Load messages for the current locale
+4. Set text direction (`ltr` or `rtl`) based on locale
+5. Apply language-specific attributes to HTML tag
 
 ## 🔄 Language Toggle Component
 
 **File**: `components/lang-toggle.tsx`
 
 ```typescript
-export const setLanguage = (selectedLang: string) => {
-  setCookie(ENUMs.GLOBAL.LANG_COOKIE, selectedLang);
-  document.body.classList.remove("english_font", "arabic_font", "kurdish_font");
-
-  if (selectedLang === "en") {
-    document.body.classList.add("english_font");
-    document.dir = "ltr";
-  } else if (selectedLang === "ar") {
-    document.body.classList.add("arabic_font");
-    document.dir = "rtl";
-  } else if (selectedLang === "ckb") {
-    document.body.classList.add("kurdish_font");
-    document.dir = "rtl";
-  }
-};
+import { useLocale } from 'next-intl';
+import { useRouter, usePathname } from '@/i18n/navigation';
 
 export function LangToggle() {
-  const { i18n } = useTranslation();
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const setSelectedLang = (selectedLang: string) => {
-    i18n.changeLanguage(selectedLang);
-    setLanguage(selectedLang);
+    router.replace(pathname, { locale: selectedLang });
   };
 
   return <DropdownMenu>{/* Dropdown implementation */}</DropdownMenu>;
-}
+}}
 ```
 
 **Pattern**:
@@ -231,15 +198,15 @@ export function LangToggle() {
 ```typescript
 "use client";
 
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 export function MyComponent() {
-  const { t } = useTranslation();
+  const t = useTranslations("home");
 
   return (
     <div>
-      <h1>{t("home.hero.title_line1")}</h1>
-      <p>{t("home.hero.description")}</p>
+      <h1>{t("title")}</h1>
+      <p>{t("description")}</p>
     </div>
   );
 }
@@ -247,49 +214,48 @@ export function MyComponent() {
 
 ### Server Components
 
-**⚠️ IMPORTANT**: i18next does NOT work in Server Components by default. For translations in Server Components, you must:
-
-1. Use Client Components for translated content
-2. Pass translations as props from Client Components
-3. Or use a server-side i18n solution (not currently implemented)
-
-**Current Pattern**: Wrap sections that need translations in Client Components with `"use client"` directive.
-
-## 🍪 Cookie Management
-
-**File**: `lib/config/cookie.config.ts`
-
 ```typescript
-import Cookies from "js-cookie";
+import { useTranslations } from "next-intl";
 
-export const setCookie = (name: string, value: string, days: number = 365) => {
-  Cookies.set(name, value, { expires: days });
-};
+export default function ServerComponent() {
+  const t = useTranslations("namespace");
 
-export const getCookie = (name: string): string | undefined => {
-  return Cookies.get(name);
-};
+  return <div>{t("key")}</div>;
+}
 ```
 
-**Package**: `js-cookie`
+**Key Points**:
+
+- `useTranslations` works in both Server and Client Components
+- Pass namespace as parameter: `useTranslations("namespace")`
+- Use keys without namespace prefix: `t("key")` not `t("namespace.key")`
+- For root-level keys, omit namespace or use empty string
+
+## 🔗 Navigation
+
+**File**: `i18n/navigation.ts`
+
+```typescript
+import { createNavigation } from "next-intl/navigation";
+import { routing } from "./routing";
+
+export const { Link, redirect, usePathname, useRouter } =
+  createNavigation(routing);
+```
 
 **Usage**:
 
-- Cookie name: defined in `ENUMs.GLOBAL.LANG_COOKIE`
-- Default expiry: 365 days
-- Persists user language preference
-
-## ⚙️ Configuration Constants
-
-**File**: `lib/enums.ts`
-
 ```typescript
-export const ENUMs = {
-  GLOBAL: {
-    DEFAULT_LANG: "en",
-    LANG_COOKIE: "lang",
-  },
-};
+import { Link, useRouter, usePathname } from '@/i18n/navigation';
+
+// Automatically handles locale prefixes
+<Link href="/about">About</Link>
+
+// In components
+const router = useRouter();
+router.push('/projects');
+
+const pathname = usePathname();
 ```
 
 ## 🎨 Font & Direction Handling
@@ -323,22 +289,17 @@ document.dir = "rtl"; // For Arabic/Kurdish
 
 ## 🔄 Adding a New Language
 
-1. **Create translation file**: `i18n/locale/[lang-code].json`
-2. **Import in i18n.ts**:
+1. **Create translation file**: `messages/[lang-code].json`
+2. **Update routing config** in `i18n/routing.ts`:
    ```typescript
-   import newLang from "./locale/new-lang.json";
+   export const routing = defineRouting({
+     locales: ["en", "ar", "ckb", "new-lang"],
+     defaultLocale: "en",
+   });
    ```
-3. **Add to resources**:
-   ```typescript
-   resources: {
-     en: { translation: en },
-     newLang: { translation: newLang },
-   }
-   ```
-4. **Update TypeScript definitions** in `i18next.d.ts`
-5. **Add font class** in `globals.css`
-6. **Update LanguageSetup** and `setLanguage` functions
-7. **Add language names** to translation files:
+3. **Add font class** in `globals.css` (if needed)
+4. **Update layout** to handle new locale's text direction
+5. **Add language names** to translation files:
    ```json
    "langs": {
      "newLang": "New Language Name"
@@ -352,15 +313,14 @@ document.dir = "rtl"; // For Arabic/Kurdish
 - Always use the `t()` function for user-facing text
 - Keep translation keys descriptive and hierarchical
 - Maintain identical structure across all language files
-- Use `"use client"` for components with translations
+- Use `useTranslations` with namespace parameter for better organization
 - Test with all languages, especially RTL
 - Use TypeScript autocomplete for translation keys
-- Store language preference in cookies
+- Leverage Server Components for better performance
 
 ### ❌ DON'T
 
 - Don't hardcode user-facing strings
-- Don't use translations in Server Components without proper setup
 - Don't forget to add new keys to ALL language files
 - Don't nest keys too deeply (max 3-4 levels)
 - Don't use special characters in translation keys
@@ -371,9 +331,9 @@ document.dir = "rtl"; // For Arabic/Kurdish
 When adding new translatable content:
 
 1. ☐ Add translation keys to all JSON files (`en.json`, `ar.json`, `ckb.json`)
-2. ☐ Use `"use client"` directive if component is currently a Server Component
-3. ☐ Import `useTranslation` hook
-4. ☐ Use `t("your.key.path")` for translations
+2. ☐ Import `useTranslations` from `next-intl`
+3. ☐ Use `const t = useTranslations('namespace')` with appropriate namespace
+4. ☐ Use `t("key")` for translations (without namespace prefix in key)
 5. ☐ Test in all languages
 6. ☐ Verify RTL layout for Arabic/Kurdish
 
@@ -382,19 +342,14 @@ When adding new translatable content:
 ```json
 {
   "dependencies": {
-    "i18next": "latest",
-    "react-i18next": "latest",
-    "js-cookie": "latest"
-  },
-  "devDependencies": {
-    "@types/js-cookie": "latest"
+    "next-intl": "latest"
   }
 }
 ```
 
-Install with: `bun add i18next react-i18next js-cookie`
+Install with: `bun add next-intl`
 
 ---
 
-**Version**: 1.0.0  
-**Last Updated**: January 6, 2026
+**Version**: 2.0.0  
+**Last Updated**: January 23, 2026

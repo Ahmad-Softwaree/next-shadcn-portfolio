@@ -4,8 +4,8 @@ import { Tool } from "@/lib/data/tools";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { ExternalLink, Eye, Star } from "lucide-react";
-import Link from "next/link";
-import { useTranslation } from "react-i18next";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { CardHoverMotion } from "@/components/shared/animate";
@@ -22,7 +22,7 @@ const ToolCard = ({
   starred,
   id,
 }: Tool) => {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const [isHovered, setIsHovered] = useState(false);
 
   const translateType = (type: string) => {

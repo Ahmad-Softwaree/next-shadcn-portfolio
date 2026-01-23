@@ -4,7 +4,7 @@ import { Tool } from "@/lib/data/tools";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { ExternalLink, Star, ArrowRight } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import {
   SlideInMotion,
@@ -12,7 +12,7 @@ import {
   ScrollRevealMotion,
 } from "@/components/shared/animate";
 import { getTypeConfig } from "@/lib/config/tool-filters";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 interface SpecialToolCardProps extends Tool {
   index: number;
@@ -30,7 +30,7 @@ const SpecialToolCard = ({
   id,
   index,
 }: SpecialToolCardProps) => {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const isEven = index % 2 === 0;
 
   const translateType = (type: string) => {

@@ -101,8 +101,7 @@ export default function AnimatedGridPattern({
         "pointer-events-none absolute inset-0 h-full w-full fill-gray-400/30 stroke-gray-400/30",
         className
       )}
-      {...props}
-    >
+      {...props}>
       <defs>
         <pattern
           id={id}
@@ -110,8 +109,7 @@ export default function AnimatedGridPattern({
           height={height}
           patternUnits="userSpaceOnUse"
           x={x}
-          y={y}
-        >
+          y={y}>
           <path
             d={`M.5 ${height}V.5H${width}`}
             fill="none"

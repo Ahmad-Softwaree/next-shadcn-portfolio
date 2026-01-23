@@ -15,7 +15,6 @@ export const ENUMs = {
     SKILL_TYPE: "skill_type",
   },
   GLOBAL: {
-    DEFAULT_LANG: "en",
-    LANG_COOKIE: "language",
+    DEFAULT_LANG: "ckb",
   },
 } as const;

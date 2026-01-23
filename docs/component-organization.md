@@ -187,7 +187,7 @@ Structural components for page layouts.
 ```tsx
 // components/layouts/header.tsx
 import { UserButton } from "@clerk/nextjs";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 export function Header() {
   return (
@@ -416,7 +416,7 @@ Organize imports in this order:
 ```tsx
 // 1. React & Next.js
 import { useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { redirect } from "next/navigation";
 
 // 2. Third-party libraries

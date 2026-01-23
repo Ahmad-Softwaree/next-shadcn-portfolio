@@ -1,0 +1,65 @@
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
+import ScrollToTop from "@/components/shared/scroll-to-top";
+import Providers from "./providers";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Ahmad Software",
+  description:
+    "Ahmad Software Full stack Portfolio, Contains all project, services, skills and certifications, come and see My world",
+};
+
+export default async function LocaleLayout({
+  children,
+  params,
+}: Readonly<{
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}>) {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+  setRequestLocale(locale);
+  return (
+    <html
+      dir={locale === "en" ? "ltr" : "rtl"}
+      lang={locale}
+      suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${
+          locale == "en"
+            ? "english_font"
+            : locale == "ar"
+              ? "arabic_font"
+              : "kurdish_font"
+        } relative antialiased min-h-screen flex flex-col overflow-x-hidden`}>
+        <NextIntlClientProvider>
+          <Providers>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <ScrollToTop />
+          </Providers>
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  );
+}

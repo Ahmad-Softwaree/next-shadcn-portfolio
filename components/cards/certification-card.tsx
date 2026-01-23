@@ -2,7 +2,7 @@ import { Certificate } from "@/lib/data/certifications";
 import Image from "next/image";
 import { useState } from "react";
 import { Button } from "../ui/button";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Link2, Star } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";

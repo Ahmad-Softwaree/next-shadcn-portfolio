@@ -9,13 +9,13 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { useAppQueryParams } from "@/hooks/useAppQuery";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 import { Badge } from "../ui/badge";
 import { CardHoverMotion } from "@/components/shared/animate";
 
 const SkillCard = (val: Skill & { index: number }) => {
   const { setQueries } = useAppQueryParams();
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
