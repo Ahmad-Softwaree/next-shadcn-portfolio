@@ -94,21 +94,167 @@ Other form libraries: Formik (use react-hook-form with shadcn/ui Form)
 **Key Rules:**
 
 - ✅ Extract components when pages exceed ~100 lines
-- ✅ Organize by type: `ui/`, `cards/`, `forms/`, `layouts/`, `sections/`, `dashboard/`, `shared/`
+- ✅ Organize by type: `ui/`, `cards/`, `btn/`, `layout/`, `sections/`, `shared/`, `certifications/`, `projects/`, `skills/`, `tools/`
 - ❌ NO massive page files with hundreds of lines of JSX
 - ❌ NO mixing unrelated components in the same file
+
+**Component Folders:**
+
+- `ui/` - shadcn/ui primitives ONLY (Button, Card, Dialog, etc.)
+- `cards/` - Card components for different entities (projects, skills, etc.)
+- `btn/` - Custom button components for filters and actions
+- `layout/` - Layout components (header, footer, navigation)
+- `sections/` - Page sections (hero, about, services, etc.)
+- `shared/` - Globally shared components (Loading, NoData, Search, etc.)
+- `certifications/` - Certification page specific components
+- `projects/` - Projects page specific components
+- `skills/` - Skills page specific components
+- `tools/` - Tools page specific components
 
 **Folder Structure:**
 
 ```
-components/
-├── ui/          # shadcn/ui primitives ONLY
-├── cards/       # Card components
-├── forms/       # Form components
-├── layouts/     # Layout components
-├── sections/    # Page sections
-├── dashboard/   # Dashboard-specific
-└── shared/      # Globally shared
+Portfolio/
+├── AGENTS.md                    # AI agent coding standards & rules
+├── README.md                    # Project documentation
+├── components.json              # shadcn/ui configuration
+├── next.config.ts              # Next.js configuration
+├── tsconfig.json               # TypeScript configuration
+├── package.json                # Dependencies & scripts
+├── postcss.config.mjs          # PostCSS configuration
+├── proxy.ts                    # Middleware proxy configuration
+│
+├── app/                        # Next.js App Router
+│   ├── layout.tsx              # Root layout
+│   ├── page.tsx                # Root page
+│   ├── not-found.tsx           # Global 404 page
+│   ├── [locale]/               # Localized routes
+│   │   ├── layout.tsx          # Locale layout
+│   │   ├── page.tsx            # Home page
+│   │   ├── globals.css         # Global styles
+│   │   ├── providers.tsx       # Context providers
+│   │   ├── loading.tsx         # Loading state
+│   │   ├── error.tsx           # Error boundary
+│   │   ├── not-found.tsx       # Locale 404 page
+│   │   ├── certifications/     # Certifications page
+│   │   ├── projects/           # Projects page
+│   │   ├── skills/             # Skills page
+│   │   └── tools/              # Tools page
+│   └── api/                    # API routes
+│       └── contact/            # Contact form API
+│
+├── components/                 # React components
+│   ├── ui/                     # shadcn/ui primitives (Button, Card, etc.)
+│   ├── cards/                  # Card components
+│   │   ├── certification-card.tsx
+│   │   ├── experience-card.tsx
+│   │   ├── project-card.tsx
+│   │   ├── service-card.tsx
+│   │   ├── skill-card.tsx
+│   │   ├── special-tool-card.tsx
+│   │   └── tool-card.tsx
+│   ├── btn/                    # Button components
+│   │   ├── certification-type-btn.tsx
+│   │   ├── project-tag-btn.tsx
+│   │   ├── project-tech-btn.tsx
+│   │   ├── project-type-btn.tsx
+│   │   ├── skill-level-btn.tsx
+│   │   ├── skill-type-btn.tsx
+│   │   └── tool-type-btn.tsx
+│   ├── layout/                 # Layout components
+│   │   ├── header.tsx
+│   │   ├── footer.tsx
+│   │   ├── logo.tsx
+│   │   ├── nav-menu.tsx
+│   │   └── mobile-navigation.tsx
+│   ├── sections/               # Page sections
+│   │   ├── hero.tsx
+│   │   ├── about.tsx
+│   │   ├── services.tsx
+│   │   ├── experiences.tsx
+│   │   ├── skills.tsx
+│   │   ├── projects.tsx
+│   │   ├── certifications.tsx
+│   │   ├── tools.tsx
+│   │   └── contact.tsx
+│   ├── shared/                 # Shared components
+│   │   ├── animate.tsx         # Animation wrapper
+│   │   ├── Loading.tsx
+│   │   ├── NoData.tsx
+│   │   ├── Search.tsx
+│   │   └── scroll-to-top.tsx
+│   ├── certifications/         # Certification page components
+│   │   ├── CertificationsHeader.tsx
+│   │   ├── CertificationsContent.tsx
+│   │   └── CertificationGrid.tsx
+│   ├── projects/               # Projects page components
+│   │   ├── ProjectsHeader.tsx
+│   │   ├── ProjectsContent.tsx
+│   │   └── ProjectsGrid.tsx
+│   ├── skills/                 # Skills page components
+│   │   ├── SkillsHeader.tsx
+│   │   ├── SkillsFilter.tsx
+│   │   └── SkillsGrid.tsx
+│   ├── tools/                  # Tools page components
+│   │   ├── ToolsHeader.tsx
+│   │   ├── ToolsContent.tsx
+│   │   ├── ToolsGrid.tsx
+│   │   └── ContactHeader.tsx
+│   ├── lang-toggle.tsx         # Language switcher
+│   ├── theme-toggle.tsx        # Dark/light mode toggle
+│   └── NotFound.tsx            # 404 component
+│
+├── hooks/                      # Custom React hooks
+│   ├── useCertificationQueries.tsx
+│   ├── useProjectQueries.tsx
+│   ├── useSearchQuery.tsx
+│   ├── useSkillQueries.tsx
+│   └── useToolsQueries.tsx
+│
+├── lib/                        # Utility functions & configurations
+│   ├── utils.ts                # cn() utility & helpers
+│   ├── enums.ts                # TypeScript enums
+│   ├── functions.ts            # Helper functions
+│   ├── config/                 # Configuration files
+│   ├── data/                   # Static data (projects, skills, etc.)
+│   └── fetch/                  # Data fetching utilities
+│
+├── i18n/                       # Internationalization
+│   ├── navigation.ts           # i18n navigation
+│   ├── request.ts              # i18n request handler
+│   └── routing.ts              # i18n routing config
+│
+├── messages/                   # Translation files
+│   ├── en.json                 # English translations
+│   ├── ar.json                 # Arabic translations
+│   └── ckb.json                # Kurdish translations
+│
+├── types/                      # TypeScript types
+│   └── types.ts                # Global type definitions
+│
+├── docs/                       # Documentation
+│   ├── component-organization.md
+│   ├── ui-components.md
+│   ├── documentation-standards.md
+│   ├── folder-file-conventions.md
+│   ├── internationalization.md
+│   ├── motion.md
+│   ├── package-management.md
+│   ├── theme-dark-light-mode.md
+│   └── url-parameters.md
+│
+├── public/                     # Static assets
+│   ├── certificates/           # Certificate images
+│   ├── fonts/                  # Custom fonts
+│   ├── pdf/                    # PDF files
+│   ├── projects/               # Project images
+│   ├── tools/                  # Tool images
+│   └── works/                  # Work/experience images
+│
+└── project.inlang/             # Inlang i18n configuration
+    ├── project_id
+    ├── settings.json
+    └── cache/
 ```
 
 ### 2️⃣ UI Components (shadcn/ui)
@@ -129,21 +275,20 @@ components/
 ```bash
 npx shadcn@latest add button
 npx shadcn@latest add card
-npx shadcn@latest add dialog
-```
+npx shadcn@lateststatic data for portfolio content?
 
----
+### Components
 
-## ✅ Pre-Flight Checklist
+- [ ] Is this component in the correct folder (`ui/`, `cards/`, `btn/`, `layout/`, `sections/`, `shared/`, etc.)?
+- [ ] Is the page file under ~100 lines?
+- [ ] Am I using shadcn/ui components (not custom)?
 
-Before writing ANY code:
+### Data & Hooks
 
-### Libraries
-
-- [ ] Am I using ONLY approved libraries?
-- [ ] Do I need to install a new shadcn/ui component?
-- [ ] Am I using TanStack Query for data fetching?
-
+- [ ] Did I create hooks in `hooks/` directory?
+- [ ] Did I add static data to `lib/data/` directory?
+- [ ] Did I add helper functions to `lib/functions.ts`?
+- [ ] Did I add enums to `lib/enums.ts`
 ### Components
 
 - [ ] Is this component in the correct folder?
@@ -175,20 +320,32 @@ Before writing ANY code:
 | Icons         | Lucide React          | `import { Icon } from "lucide-react"` |
 | Styling       | Tailwind CSS + `cn()` | `className={cn("...")}`               |
 | Page sections | Extract to component  | `components/sections/`                |
-| URL params    | nuqs                  | Direct usage in components            |
-| Theme         | next-themes           | `providers/theme-provider.tsx`        |
-| Translation   | next-intl             | `useTranslations()` hook              |
+- **[Internationalization](docs/internationalization.md)** - i18n setup and usage with next-intl
+- **[Theme Management](docs/theme-dark-light-mode.md)** - Dark/light mode implementation
+- **[URL Parameters](docs/url-parameters.md)** - nuqs usage for URL state management
+- **[Motion & Animations](docs/motion.md)** - Framer Motion usage guidelines
+- **[Package Management](docs/package-management.md)** - Bun usage and best practices
+- **[Folder & File Conventions](docs/folder-file-conventions.md)** - Naming conventions
+- **[Documentation Standards](docs/documentation-standards.md)** - How to document code
 
----
+### Code Quality
 
-## 📖 Documentation
+- [ ] All files are TypeScript (`.ts` or `.tsx`)?
+- [ ] Server actions marked with `'use server'`?
+- [ ] Client components marked with `'use client'`?
+- [ ] Using `cn()` for conditional Tailwind classes?
+- [ ] Using next-intl for all text content (not hardcoded strings)?
+- [ ] Using `useTranslations()` hook for translations?
+- [ ] All translation keys exist in `messages/en.json`, `messages/ar.json`, and `messages/ckb.json`?
 
-### Core Architecture
+### Before Submitting
 
-- **[Component Organization](docs/component-organization.md)** - Component structure, folder organization, and file naming
-- **[UI Components](docs/ui-components.md)** - shadcn/ui component usage and styling
-
-### Components
+1. Test all functionality
+2. Verify translations work in all supported languages (en, ar, ckb)
+3. Check dark/light mode compatibility
+4. Ensure responsive design works on all devices
+5. Run `bun run build` to check for build errors
+6. Ask for clarification if uncertai
 
 - [ ] Is the page file under ~100 lines?
 - [ ] Am I using shadcn/ui components (not custom)?
@@ -203,3 +360,4 @@ Before writing ANY code:
 3. Ask for clarification - do NOT improvise
 
 **Remember:** Consistency is key to maintainability. Follow the patterns, use the approved tools, and keep the codebase clean.
+```
