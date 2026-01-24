@@ -37,6 +37,7 @@ export enum ProjectTech {
   Stripe = "Stripe",
   I18next = "i18next",
   NextIntl = "Next-Intl",
+  Motion = "Motion",
 }
 export const projectTechs = Object.values(ProjectTech);
 
@@ -195,6 +196,7 @@ export const data: Partial<Project>[] = [
           ProjectTech.Typescript,
           ProjectTech.ShadcnUI,
           ProjectTech.I18next,
+          ProjectTech.Motion,
         ],
       },
       {
@@ -204,6 +206,7 @@ export const data: Partial<Project>[] = [
           ProjectTech.Typescript,
           ProjectTech.ShadcnUI,
           ProjectTech.NextIntl,
+          ProjectTech.Motion,
         ],
       },
     ],
@@ -251,6 +254,7 @@ export const data: Partial<Project>[] = [
           ProjectTech.Stripe,
           ProjectTech.PassportJs,
           ProjectTech.SocketIo,
+          ProjectTech.Motion,
         ],
       },
     ],
@@ -274,6 +278,7 @@ export const data: Partial<Project>[] = [
           ProjectTech.PostgreSQL,
           ProjectTech.NextAuth,
           ProjectTech.TwoFA,
+          ProjectTech.Motion,
         ],
       },
     ],
@@ -302,6 +307,7 @@ export const data: Partial<Project>[] = [
           ProjectTech.OpenAI,
           ProjectTech.Ollama,
           ProjectTech.I18next,
+          ProjectTech.Motion,
         ],
       },
       {
@@ -313,6 +319,7 @@ export const data: Partial<Project>[] = [
           ProjectTech.OpenAI,
           ProjectTech.Ollama,
           ProjectTech.NextIntl,
+          ProjectTech.Motion,
         ],
       },
     ],
@@ -344,6 +351,7 @@ export const data: Partial<Project>[] = [
           ProjectTech.Zod,
           ProjectTech.ShadcnUI,
           ProjectTech.UploadThings,
+          ProjectTech.Motion,
         ],
       },
     ],
@@ -374,6 +382,7 @@ export const data: Partial<Project>[] = [
           ProjectTech.PostgreSQL,
           ProjectTech.Zod,
           ProjectTech.ShadcnUI,
+          ProjectTech.Motion,
         ],
       },
     ],
@@ -424,6 +433,7 @@ export const data: Partial<Project>[] = [
           ProjectTech.Typescript,
           ProjectTech.ShadcnUI,
           ProjectTech.I18next,
+          ProjectTech.Motion,
         ],
       },
       {
@@ -433,6 +443,7 @@ export const data: Partial<Project>[] = [
           ProjectTech.Typescript,
           ProjectTech.ShadcnUI,
           ProjectTech.NextIntl,
+          ProjectTech.Motion,
         ],
       },
     ],

@@ -10,6 +10,13 @@ export type TechnologyConfig = {
 
 // Centralized technology configuration with consistent colors across the app
 export const technologyConfig: Record<ProjectTech, TechnologyConfig> = {
+  Motion: {
+    name: ProjectTech.Motion,
+    displayName: "Motion",
+    color: "text-pink-600 dark:text-pink-400",
+    bgColor: "bg-pink-500/10 dark:bg-pink-500/20",
+    borderColor: "border-pink-500/30",
+  },
   "Passport.js": {
     name: ProjectTech.PassportJs,
     displayName: "Passport.js",
