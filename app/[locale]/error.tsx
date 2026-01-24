@@ -33,7 +33,6 @@ export default function Error({
             </div>
           </div>
         </div>
-
         {/* Title */}
         <div className="space-y-4">
           <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
@@ -43,17 +42,12 @@ export default function Error({
             {t("description")}
           </p>
         </div>
-
-        {/* Error Details (in development) */}
-        {process.env.NODE_ENV === "development" && (
-          <div className="max-w-lg mx-auto p-4 bg-destructive/10 rounded-lg border border-destructive/20">
-            <p className="text-sm text-destructive font-mono text-left break-all">
-              {error.message}
-            </p>
-          </div>
-        )}
-
-        {/* Action Buttons */}
+        <div className="max-w-lg mx-auto p-4 bg-destructive/10 rounded-lg border border-destructive/20">
+          <p className="text-sm text-destructive font-mono text-left break-all">
+            {error.message}
+          </p>
+        </div>
+        ){/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
           <Button
             size="lg"
