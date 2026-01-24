@@ -12,7 +12,7 @@ import { HeaderSlideMotion } from "../shared/animate";
 import { ThemeToggle } from "../theme-toggle";
 
 const Header = () => {
-  const t = useTranslations();
+  const t = useTranslations("navbar");
 
   return (
     <HeaderSlideMotion className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -21,7 +21,7 @@ const Header = () => {
           href={`/`}
           className="flex flex-row justify-center items-center gap-2">
           <Logo />
-          <h2 className="font-bold hidden sm:block">{t("navbar.logo_text")}</h2>
+          <h2 className="font-bold hidden sm:block">{t("logo_text")}</h2>
         </Link>
 
         <NavMenu className="hidden xl:flex flex-1" />
