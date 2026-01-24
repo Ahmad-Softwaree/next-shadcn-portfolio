@@ -1,8 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
 import { Home, RefreshCcw, AlertTriangle } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import Link from "next/link";
 
 export default function Error({
   error,
