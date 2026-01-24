@@ -1,18 +1,17 @@
-export const allTypes = [
-  "Bot",
-  "Online Menu",
-  "Link Shortener",
-  "Package",
-  "CLI Tool",
-  "Learning Tracker",
-] as const;
+export enum ToolType {
+  Bot = "bot",
+  OnlineMenu = "online_menu",
+  LinkShortener = "link_shortener",
+  Package = "package",
+  CLITool = "cli_tool",
+  LearningTracker = "learning_tracker",
+}
 
-export type ToolType = (typeof allTypes)[number];
+export const toolTypes = Object.values(ToolType);
 
 export type Tool = {
   id: number;
-  nameKey: string;
-  descriptionKey: string;
+  textKey: string;
   type: ToolType;
   version: string;
   link: string;
@@ -24,9 +23,8 @@ export type Tool = {
 
 const data: Partial<Tool>[] = [
   {
-    nameKey: "tools.ominu.name",
-    descriptionKey: "tools.ominu.description",
-    type: "Online Menu",
+    textKey: "ominu",
+    type: ToolType.OnlineMenu,
     version: "2",
     link: "https://ominu.net/",
     image: "/tools/ominu.png",
@@ -35,9 +33,8 @@ const data: Partial<Tool>[] = [
     starred: true,
   },
   {
-    nameKey: "tools.telegram_bot.name",
-    descriptionKey: "tools.telegram_bot.description",
-    type: "Bot",
+    textKey: "telegram_bot",
+    type: ToolType.Bot,
     version: "1",
     link: "https://bot.ahmad-software.com/",
     image: "/tools/bots.png",
@@ -46,9 +43,8 @@ const data: Partial<Tool>[] = [
     starred: true,
   },
   {
-    nameKey: "tools.link_shortener.name",
-    descriptionKey: "tools.link_shortener.description",
-    type: "Link Shortener",
+    textKey: "link_shortener",
+    type: ToolType.LinkShortener,
     version: "1",
     link: "https://linkshortner.ahmad-software.com/",
     image: "/tools/link_shortener.png",
@@ -57,9 +53,8 @@ const data: Partial<Tool>[] = [
     starred: true,
   },
   {
-    nameKey: "tools.learning_tracker.name",
-    descriptionKey: "tools.learning_tracker.description",
-    type: "Learning Tracker",
+    textKey: "learning_tracker",
+    type: ToolType.LearningTracker,
     version: "1",
     link: "https://learningtracker.ahmad-software.com/",
     image: "/tools/learning_tracker.png",

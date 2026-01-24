@@ -247,21 +247,9 @@
       transform: translateY(calc(-100% - var(--gap)));
     }
   }
-  --animate-orbit: orbit calc(var(--duration) * 1s) linear infinite;
-  @keyframes orbit {
-    0% {
-      transform: rotate(calc(var(--angle) * 1deg))
-        translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
-    }
-    100% {
-      transform: rotate(calc(var(--angle) * 1deg + 360deg))
-        translateY(calc(var(--radius) * 1px))
-        rotate(calc((var(--angle) * -1deg) - 360deg));
-    }
-  }
 }
 
-@layer components {
+@layer utilities {
   .english_font {
     @apply font-mono;
   }
@@ -269,11 +257,14 @@
     @apply font-tajawal;
   }
   .kurdish_font {
-    @apply font-rudaw;
+    @apply font-speda;
   }
 }
-html {
-  scroll-behavior: smooth;
+
+@layer components {
+  .badge {
+    @apply mb-4 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-950 dark:to-blue-950 text-purple-700 dark:text-purple-300 border-none;
+  }
 }
 
 @layer base {
@@ -282,13 +273,15 @@ html {
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground w-full;
   }
-
+  html {
+    @apply scroll-smooth;
+  }
   header,
   footer,
   section {
-    @apply px-5 md:px-10;
+    @apply px-5 md:px-10 w-full;
   }
 
   /* Blur ball animations */

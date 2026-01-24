@@ -1,4 +1,5 @@
 {
+  "$schema": "https://inlang.com/schema/inlang-message-format",
   "langs": {
     "en": "English",
     "ar": "العربية",
@@ -12,7 +13,7 @@
     "filters": "پاڵاوتنەکان",
     "close": "داخستن",
     "see_all_projects": "بینینی هەموو پرۆژەکان ←",
-    "see_all_certifications": "بینینی هەموو بڕواناەکان ←",
+    "see_all_certifications": "بینینی هەموو بڕوانامەکان ←",
     "see_all_tools": "بینینی هەموو ئامرازەکان ←",
     "see_all_skills": "بینینی هەموو شارەزاییەکان ←",
     "all": "هەموو",
@@ -22,7 +23,7 @@
   "navbar": {
     "home": "سەرەکی",
     "projects": "پرۆژەکان",
-    "certifications": "بڕواناەکان",
+    "certifications": "بڕوانامەکان",
     "tools": "ئامرازەکان",
     "skills": "شارەزاییەکان",
     "about": "دەربارەی من",
@@ -31,7 +32,7 @@
     "logo_text": "ئەحمەد سۆفتوێر"
   },
   "footer": {
-    "experience": "ئەزموون",
+    "experiences": "ئەزموون",
     "copyright": "© {year} ئەحمەد سۆفتوێر. هەموو مافێک پارێزراوە."
   },
   "contact": {
@@ -57,7 +58,7 @@
     "badge": "دەربارەی من",
     "title": "حەز لە دروستکردنی ئەزموونی وێب و ئەپی کاریگەر",
     "description": "لەگەڵ زیاتر لە ٥ ساڵ ئەزموون لە گەشەپێدانی فوڵ ستاک، پسپۆڕم لە دروستکردنی ئەپی وێبی گەشەپێدراو بە بەکارهێنانی تەکنەلۆژیای نوێ. شارەزایی من React Native و Next.js و Node.js و Express.js و React Native و Nest.js لەخۆدەگرێت. حەزم لە دروستکردنی چارەسەری جوان بۆ کێشەی ئاڵۆزە و هاوبەشکردنی زانیاری لەگەڵ کۆمەڵگەی گەشەپێدەران.",
-    "view_github": "سەیری Github",
+    "view_github": "سەیری گیتهەب",
     "download_cv": "داگرتنی سی ڤی"
   },
   "projects": {
@@ -66,19 +67,27 @@
     "details": "وردەکاری",
     "live": "پشکەش",
     "private_project": "پرۆژەی تایبەتی",
-    "view_code": "بینینی کۆدی {name}",
-    "private_git": "Git ی تایبەتی",
+    "view_code": "بینینی کۆدی ",
+    "private_git": "گیتی تایبەتی",
+    "version": "وەشان",
+    "versions": "وەشانەکان",
+    "version_history": "مێژووی وەشانەکان",
+    "current_version": "وەشانی ئێستا",
+    "external_api": "ی دەرەکی",
+    "external_apis": "ی دەرەکیەکان API",
+    "api_documentation": "بەڵگەنامە",
+    "visit_api": "سەردانی کردنی",
     "search_placeholder": "گەڕان لە پرۆژەکان...",
     "filter_types": "پاڵاوتن بەپێی جۆر",
     "filter_tags": "پاڵاوتن بەپێی تاگ",
     "filter_tech": "پاڵاوتن بەپێی تەکنەلۆژیا",
     "starred_only": "تەنها ئەستێرەدارەکان",
-    "has_public_git": "Git ی گشتی هەیە",
+    "has_public_git": "گیتی گشتی هەیە",
     "has_live_url": "بەستەری ڕاستەوخۆی هەیە",
     "adjust_filters": "ڕێکخستنی پاڵاوتنی پرۆژەکان لە خوارەوە",
     "total_projects": "{count} پرۆژە لە کۆی گشتیدا",
-    "tag": {
-      "production": "درۆستکراو",
+    "tags": {
+      "production": "پرۆدەکشن",
       "learning": "فێربوون",
       "university": "زانکۆ",
       "down": "بەستکراو"
@@ -253,7 +262,8 @@
       "description": "ئامرازێک بۆ یارمەتیدانی بەکارهێنەران لە گۆڕینی باکسەکانیان بۆ بارەکان بە ئاسانی. ئەم پرۆژەیە بۆ فێربوونی چۆنیەتی بەکارهێنانی Github Copilot بە باشترین شێوە بۆ گەشەپێدان لە JS"
     },
     "clients": "کڕیاران",
-    "contributor": "بەشداربوو"
+    "contributor": "بەشداربوو",
+    "see_all": "بینینی هەموو"
   },
   "certifications": {
     "badge": "بڕوانامەکان",
@@ -264,7 +274,8 @@
     "filter_types": "پاڵاوتن بەپێی جۆر",
     "starred_only": "تەنها ئەستێرەدارەکان",
     "adjust_filters": "ڕێکخستنی پاڵاوتنی بڕوانامەکان لە خوارەوە",
-    "total_certifications": "{count} بڕوانامە لە کۆی گشتیدا"
+    "total_certifications": "{count} بڕوانامە لە کۆی گشتیدا",
+    "see_all": "بینینی هەموو"
   },
   "skills": {
     "title": "شارەزایی تەکنیکی",
@@ -283,7 +294,9 @@
       "framework": "چوارچێوە",
       "tool": "ئامراز",
       "library": "کتێبخانە"
-    }
+    },
+    "see_all": "بینینی هەمووی",
+    "badge": "شارەزاییەکان"
   },
   "services": {
     "badge": "خزمەتگوزاریەکان",
@@ -310,8 +323,8 @@
       "description": "بەڕێوەبردنی پیشەیی سێرڤەر و چاککردنەوە و گۆڕین و پاراستنی ئاسایش بۆ ژێرخانی تەکنیکیەکەت"
     },
     "api_integration": {
-      "title": "یەکخستنی API",
-      "description": "دروستکردنی API ی پارێزراو و بەرزکارایی بە باشترین پراکتیسی پیشەسازی و کارایی باشترین"
+      "title": "یەکخستنی ئەی پی ئای",
+      "description": "دروستکردنی ئەی پی ئای ی پارێزراو و بەرزکارایی بە باشترین پراکتیسی پیشەسازی و کارایی باشترین"
     },
     "bot_creation": {
       "title": "گەشەپێدانی بۆتی تێلێگرام",
@@ -333,7 +346,7 @@
       "bot": "بۆت",
       "link_shortener": "کورتکەرەوەی بەستەر",
       "package": "پاکێج",
-      "cli_tool": "ئامرازی CLI",
+      "cli_tool": "ئامرازی کۆماند ڵاین",
       "learning_tracker": "ڕاگەیاندنی فێربوون",
       "online_menu": "مینیوی ئۆنلاین"
     },
@@ -359,9 +372,10 @@
     "description_label": "وەسف",
     "status_active": "چالاک",
     "ready_to_use": "ئامادەیت بۆ بەکارهێنانی ئەم ئامرازە؟",
-    "visit_to_get_started": "سەردانی ئامرازەکە بکە بۆ دەستپێکردن"
+    "visit_to_get_started": "سەردانی ئامرازەکە بکە بۆ دەستپێکردن",
+    "see_all": "بینینی هەموو"
   },
-  "experience": {
+  "experiences": {
     "badge": "ئەزموون",
     "title": "گەشتی پیشەیی",
     "subtitle": "هێڵی کاتی گەشەی پیشەیی و دەستکەوتە سەرەکیەکانم",

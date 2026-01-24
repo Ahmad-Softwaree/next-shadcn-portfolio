@@ -23,12 +23,12 @@ export const projectTypeColors: Record<ProjectType, FilterColorConfig> = {
     bgColor: "bg-green-500/10 dark:bg-green-500/20",
     borderColor: "border-green-500/30",
   },
-  "simple dashboard": {
+  simple_dashboard: {
     color: "text-orange-600 dark:text-orange-400",
     bgColor: "bg-orange-500/10 dark:bg-orange-500/20",
     borderColor: "border-orange-500/30",
   },
-  "complex dashboard": {
+  complex_dashboard: {
     color: "text-red-600 dark:text-red-400",
     bgColor: "bg-red-500/10 dark:bg-red-500/20",
     borderColor: "border-red-500/30",
@@ -38,7 +38,7 @@ export const projectTypeColors: Record<ProjectType, FilterColorConfig> = {
     bgColor: "bg-pink-500/10 dark:bg-pink-500/20",
     borderColor: "border-pink-500/30",
   },
-  "telegram bot": {
+  telegram_bot: {
     color: "text-cyan-600 dark:text-cyan-400",
     bgColor: "bg-cyan-500/10 dark:bg-cyan-500/20",
     borderColor: "border-cyan-500/30",
@@ -69,10 +69,10 @@ export const projectTagColors: Record<ProjectTag, FilterColorConfig> = {
   },
 };
 
-export const getTypeConfig = (type: ProjectType): FilterColorConfig => {
+export const getProjectTypeConfig = (type: ProjectType): FilterColorConfig => {
   return projectTypeColors[type];
 };
 
-export const getTagConfig = (tag: ProjectTag): FilterColorConfig => {
+export const getProjectTagConfig = (tag: ProjectTag): FilterColorConfig => {
   return projectTagColors[tag];
 };

@@ -1,37 +1,21 @@
 "use client";
 
 import { Separator } from "@/components/ui/separator";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { Github, Linkedin } from "lucide-react";
 import { Logo } from "./logo";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
+import { NavItem, navItems } from "./nav-menu";
 
 const Footer = () => {
-  const t = useTranslations();
+  const navbar_t = useTranslations("navbar");
+  const footer_t = useTranslations("footer");
   const pathname = usePathname();
 
-  const footerLinks = [
-    { href: "/", title: t("navbar.home") },
-    {
-      title: t("navbar.projects"),
-      href: "/projects",
-    },
-    { href: "/tools", title: t("navbar.tools") },
-    { href: "/skills", title: t("navbar.skills") },
-
-    {
-      title: t("navbar.certifications"),
-      href: "/certifications",
-    },
-  ];
-
-  const isActive = (href: string) => {
-    if (href === "/") return pathname === "/";
-    if (href.startsWith("/#")) return pathname === "/";
-    return pathname.startsWith(href);
+  const isActive = (item: NavItem) => {
+    return pathname === item.href;
   };
 
   return (
@@ -41,22 +25,22 @@ const Footer = () => {
           {/* Logo */}
           <div className="flex flex-row justify-center items-center gap-2">
             <Logo />
-            <h2 className="font-bold">{t("navbar.logo_text")}</h2>
+            <h2 className="font-bold">{navbar_t("logo_text")}</h2>
           </div>
 
           <nav className="mt-6 flex items-center gap-2 flex-wrap justify-center">
-            {footerLinks.map(({ title, href }) => (
-              <Link key={title} href={href}>
+            {navItems.map((item: NavItem) => (
+              <Link key={item.href} href={item.href}>
                 <Button
-                  variant={isActive(href) ? "default" : "ghost"}
+                  variant={isActive(item) ? "default" : "ghost"}
                   size="sm"
                   className={cn(
                     "rounded-full transition-all duration-300",
-                    isActive(href)
+                    isActive(item)
                       ? "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 dark:from-purple-500 dark:to-blue-500 dark:hover:from-purple-600 dark:hover:to-blue-600 text-white shadow-lg"
                       : "hover:bg-accent"
                   )}>
-                  {title}
+                  {navbar_t(item.label as any)}
                 </Button>
               </Link>
             ))}
@@ -66,7 +50,7 @@ const Footer = () => {
         <div className="py-6 flex flex-col-reverse sm:flex-row items-center justify-between gap-x-2 gap-y-5 px-6 xl:px-0">
           {/* Copyright */}
           <span className="text-muted-foreground text-sm">
-            {t("footer.copyright", {
+            {footer_t("copyright", {
               year: new Date().getFullYear(),
             })}
           </span>

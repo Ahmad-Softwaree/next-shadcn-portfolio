@@ -11,9 +11,11 @@ import { AnimateOnScroll } from "@/components/shared/animate";
 import { useTranslations } from "next-intl";
 import { Badge } from "../ui/badge";
 import { toast } from "sonner";
+import ContactHeader from "../tools/ContactHeader";
 
 export default function Contact() {
-  const t = useTranslations();
+  const t = useTranslations("contact");
+  const global_t = useTranslations();
   const [form, setForm] = useState({ email: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
@@ -49,18 +51,7 @@ export default function Contact() {
   return (
     <AnimateOnScroll animation="fade-up">
       <div id="contact" className="py-20 px-6">
-        {/* Header */}
-        <div className="text-center mb-12 flex flex-col items-center gap-4">
-          <Badge variant="secondary" className="mb-4">
-            {t("navbar.contact")}
-          </Badge>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
-            {t("contact.title")}
-          </h2>
-          <p className="text-muted-foreground mt-2 sm:mt-4 text-lg max-w-xl">
-            {t("contact.subtitle")}
-          </p>
-        </div>
+        <ContactHeader />
 
         <div className="relative overflow-hidden my-10 w-full bg-background text-foreground max-w-screen-lg mx-auto rounded-2xl py-10 md:py-16 px-6 md:px-14 border border-border shadow-lg">
           <AnimatedGridPattern
@@ -84,10 +75,10 @@ export default function Contact() {
           <div className="relative z-10 grid md:grid-cols-2 gap-10 items-start">
             <div>
               <h3 className="text-3xl md:text-4xl font-semibold">
-                {t("contact.heading")}
+                {t("heading")}
               </h3>
               <p className="mt-2 text-base md:text-lg text-muted-foreground">
-                {t("contact.description")}
+                {t("description")}
               </p>
             </div>
 
@@ -95,14 +86,14 @@ export default function Contact() {
               <Input
                 type="email"
                 required
-                placeholder={t("contact.email_placeholder")}
+                placeholder={t("email_placeholder")}
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 className="w-full px-4 py-3 rounded-md bg-muted text-foreground outline-none"
               />
               <Textarea
                 required
-                placeholder={t("contact.message_placeholder")}
+                placeholder={t("message_placeholder")}
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
                 className="w-full px-4 py-3 rounded-md bg-muted text-foreground h-32 outline-none"
@@ -112,12 +103,12 @@ export default function Contact() {
                 type="submit"
                 className="w-full md:w-auto"
                 disabled={loading}>
-                {loading ? t("contact.sending") : t("contact.send_button")}
+                {loading ? t("sending") : t("send_button")}
                 <ArrowUpRight className="ml-2 w-5 h-5" />
               </Button>
               {sent && (
                 <p className="text-green-600 dark:text-green-400 text-sm mt-2">
-                  {t("contact.success_message")}
+                  {t("success_message")}
                 </p>
               )}
             </form>

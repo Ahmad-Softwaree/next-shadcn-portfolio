@@ -23,9 +23,6 @@ const NotFoundComponent = () => {
           <div className="english_font z-50 text-9xl md:text-[12rem] font-bold bg-gradient-to-br from-primary/20 to-accent/20 bg-clip-text text-transparent select-none">
             404
           </div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <BookOpen className="w-24 h-24 md:w-32 md:h-32 text-primary/30" />
-          </div>
         </div>
 
         {/* Title */}

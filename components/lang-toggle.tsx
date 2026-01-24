@@ -17,6 +17,10 @@ export function LangToggle() {
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations();
+
+  const changeLang = (lang: string) => {
+    router.replace(pathname, { locale: lang as any });
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -28,7 +32,7 @@ export function LangToggle() {
         {routing.locales.map((val, idx) => (
           <DropdownMenuItem
             key={idx}
-            onClick={() => router.replace(pathname, { locale: val })}
+            onClick={() => changeLang(val)}
             className={`${
               locale === val ? "bg-primary text-primary-foreground" : ""
             } focus:bg-primary focus:text-primary-foreground transition-colors duration-200 cursor-pointer ${
@@ -38,7 +42,7 @@ export function LangToggle() {
                   ? "arabic_font"
                   : "kurdish_font"
             }`}>
-            {String(t(`langs.${val}` as any))}
+            {t(`langs.${val}` as any)}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

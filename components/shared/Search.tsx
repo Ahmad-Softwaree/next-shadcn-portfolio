@@ -1,12 +1,12 @@
 "use client";
 
-import { ENUMs } from "@/lib/enums";
 import { Search as SearchIcon, X } from "lucide-react";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { useTranslations } from "next-intl";
-import { useAppQueryParams } from "@/hooks/useAppQuery";
+import { useSearchQuery } from "@/hooks/useSearchQuery";
+import { debounce } from "nuqs";
 
 const Search = ({
   className,
@@ -15,18 +15,31 @@ const Search = ({
 }: React.PropsWithChildren<React.ComponentProps<"input">>) => {
   const t = useTranslations("common");
 
-  const { queries, setQueries } = useAppQueryParams();
-  const search = queries.search || "";
+  const [{ search }, setQueries] = useSearchQuery();
 
   return (
     <div className="relative w-full">
       <Input
         onChange={(e) =>
-          setQueries((prev) => ({
-            ...prev,
-            [ENUMs.PARAMS.SEARCH]: e.target.value,
-          }))
+          setQueries(
+            (prev) => ({
+              ...prev,
+              search: e.currentTarget.value,
+            }),
+            {
+              limitUrlUpdates:
+                e.target.value === "" ? undefined : debounce(500),
+            }
+          )
         }
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            setQueries((prev) => ({
+              ...prev,
+              search: e.currentTarget.value,
+            }));
+          }
+        }}
         value={search}
         placeholder={placeholder ?? t("search")}
         className={cn(className, "pe-10")}
@@ -47,7 +60,7 @@ const Search = ({
           onClick={() =>
             setQueries((prev) => ({
               ...prev,
-              [ENUMs.PARAMS.SEARCH]: "",
+              search: "",
             }))
           }
           variant="ghost"

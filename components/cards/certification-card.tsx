@@ -1,4 +1,3 @@
-import { Certificate } from "@/lib/data/certifications";
 import Image from "next/image";
 import { useState } from "react";
 import { Button } from "../ui/button";
@@ -9,21 +8,18 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { getCertificateTypeConfig } from "@/lib/config/certification-filters";
 import { cn } from "@/lib/utils";
 import { CardHoverMotion } from "@/components/shared/animate";
+import { Certification } from "@/lib/data/certifications";
 
-const CertificationCard = (val: Certificate) => {
+const CertificationCard = (val: Certification) => {
   const [openImage, setOpenImage] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const config = getCertificateTypeConfig(val.type);
 
   return (
     <>
       <CardHoverMotion
         className={cn(
-          "w-[350px] h-full flex flex-col rounded-xl p-6 bg-background/60 backdrop-blur-md border border-border shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/50",
-          isHovered && "shadow-xl -translate-y-1 border-primary/50"
-        )}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}>
+          "w-[350px] h-full flex flex-col rounded-xl p-6 bg-background/60 backdrop-blur-md border border-border shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/50"
+        )}>
         {/* Certificate Image */}
         <div className="w-full h-48 relative overflow-hidden rounded-md mb-4 cursor-pointer group">
           <Image

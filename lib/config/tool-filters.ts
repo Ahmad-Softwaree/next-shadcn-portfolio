@@ -8,32 +8,32 @@ export type FilterColorConfig = {
 
 // Color configuration for tool types
 export const toolTypeColors: Record<ToolType, FilterColorConfig> = {
-  "Learning Tracker": {
+  learning_tracker: {
     color: "text-teal-600 dark:text-teal-400",
     bgColor: "bg-teal-500/10 dark:bg-teal-500/20",
     borderColor: "border-teal-500/30",
   },
-  Bot: {
+  bot: {
     color: "text-cyan-600 dark:text-cyan-400",
     bgColor: "bg-cyan-500/10 dark:bg-cyan-500/20",
     borderColor: "border-cyan-500/30",
   },
-  "Link Shortener": {
+  link_shortener: {
     color: "text-indigo-600 dark:text-indigo-400",
     bgColor: "bg-indigo-500/10 dark:bg-indigo-500/20",
     borderColor: "border-indigo-500/30",
   },
-  Package: {
+  package: {
     color: "text-emerald-600 dark:text-emerald-400",
     bgColor: "bg-emerald-500/10 dark:bg-emerald-500/20",
     borderColor: "border-emerald-500/30",
   },
-  "CLI Tool": {
+  cli_tool: {
     color: "text-amber-600 dark:text-amber-400",
     bgColor: "bg-amber-500/10 dark:bg-amber-500/20",
     borderColor: "border-amber-500/30",
   },
-  "Online Menu": {
+  online_menu: {
     color: "text-pink-600 dark:text-pink-400",
     bgColor: "bg-pink-500/10 dark:bg-pink-500/20",
     borderColor: "border-pink-500/30",
@@ -41,7 +41,7 @@ export const toolTypeColors: Record<ToolType, FilterColorConfig> = {
 };
 
 // Helper function to get type configuration
-export const getTypeConfig = (type: ToolType): FilterColorConfig => {
+export const getToolTypeConfig = (type: ToolType): FilterColorConfig => {
   return (
     toolTypeColors[type] || {
       color: "text-gray-600 dark:text-gray-400",

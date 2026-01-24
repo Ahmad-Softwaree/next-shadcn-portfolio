@@ -2,32 +2,35 @@
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { usePathname } from "next/navigation";
+export type NavItem = {
+  href: string;
+  label: string;
+};
+export const navItems: NavItem[] = [
+  { href: "/", label: "home" },
+  { href: "/skills", label: "skills" },
+
+  { href: "/projects", label: "projects" },
+  { href: "/tools", label: "tools" },
+  {
+    href: "/certifications",
+    label: "certifications",
+  },
+];
 
 export const NavMenu = ({ className }: { className?: string }) => {
   const t = useTranslations("navbar");
   const pathname = usePathname();
 
-  const navItems = [
-    { href: "/", label: String(t("home" as any)) },
-    { href: "/projects", label: String(t("projects" as any)) },
-    { href: "/tools", label: String(t("tools" as any)) },
-    { href: "/skills", label: String(t("skills" as any)) },
-    {
-      href: "/certifications",
-      label: String(t("certifications" as any)),
-    },
-  ];
-
-  const isActive = (item: (typeof navItems)[0]) => {
+  const isActive = (item: NavItem) => {
     return pathname === item.href;
   };
 
   return (
     <nav className={cn("flex items-center gap-1", className)}>
-      {navItems.map((item) => (
+      {navItems.map((item: NavItem) => (
         <Link key={item.href} href={item.href}>
           <Button
             variant={isActive(item) ? "default" : "ghost"}
@@ -37,7 +40,7 @@ export const NavMenu = ({ className }: { className?: string }) => {
                 ? "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 dark:from-purple-500 dark:to-blue-500 dark:hover:from-purple-600 dark:hover:to-blue-600 text-white shadow-lg"
                 : "hover:bg-accent"
             )}>
-            {item.label}
+            {t(item.label as any)}
           </Button>
         </Link>
       ))}

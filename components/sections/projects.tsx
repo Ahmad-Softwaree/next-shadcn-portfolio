@@ -1,56 +1,30 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
-import { projects } from "@/lib/data/projects";
-import ProjectCard from "../cards/project-card";
 import { Link } from "@/i18n/navigation";
-import {
-  AnimateOnScroll,
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/shared/animate";
+import { AnimateOnScroll } from "@/components/shared/animate";
 import { useTranslations } from "next-intl";
 import { Button } from "../ui/button";
+import { getHomeProjects } from "@/lib/fetch/projects.action";
+import ProjectsHeader from "../projects/ProjectsHeader";
+import ProjectsGrid from "../projects/ProjectsGrid";
 
 const ProjectsPreview = () => {
-  const t = useTranslations();
-  const topProjects = projects.filter((project) => project.showInHome);
+  const t = useTranslations("projects");
+  const data = getHomeProjects();
 
   return (
     <AnimateOnScroll animation="fade-up">
-      <section id="projects" className="relative py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-8 flex flex-col items-center gap-4">
-            <Badge variant="secondary" className="mb-4">
-              {t("navbar.projects")}
-            </Badge>
-            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
-              {t("projects.title")}
-            </h2>
-            <p className="text-muted-foreground mt-2 sm:mt-4 text-lg max-w-xl">
-              {t("projects.subtitle")}
-            </p>
-          </div>
-
-          {/* Projects Grid */}
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-            {topProjects.map((project, index) => (
-              <StaggerItem key={index}>
-                <ProjectCard {...project} />
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-          {/* See All Projects Link */}
-          <div className="flex justify-center mt-10">
-            <Link href="/projects">
-              <Button
-                variant="outline"
-                className="group rounded-full px-6 py-2 text-sm font-medium transition-all hover:scale-105">
-                {t("common.see_all_projects")}
-              </Button>
-            </Link>
-          </div>
+      <section id="projects" className="relative py-20 px-6 max-w-6xl mx-auto">
+        <ProjectsHeader />
+        <ProjectsGrid data={data} />
+        <div className="flex justify-center mt-10">
+          <Link href="/projects">
+            <Button
+              variant="outline"
+              className="group rounded-full px-6 py-2 text-sm font-medium transition-all hover:scale-105">
+              {t("see_all")}
+            </Button>
+          </Link>
         </div>
       </section>
     </AnimateOnScroll>

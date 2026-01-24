@@ -3,29 +3,18 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./logo";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
-import { usePathname } from "next/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
+import { NavItem, navItems } from "./nav-menu";
 
 export const MobileNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const t = useTranslations("navbar");
   const pathname = usePathname();
 
-  const navItems = [
-    { href: "/", label: String(t("home" as any)) },
-    { href: "/projects", label: String(t("projects" as any)) },
-    { href: "/tools", label: String(t("tools" as any)) },
-    { href: "/skills", label: String(t("skills" as any)) },
-    {
-      href: "/certifications",
-      label: String(t("certifications" as any)),
-    },
-  ];
-
-  const isActive = (item: (typeof navItems)[0]) => {
+  const isActive = (item: NavItem) => {
     return pathname === item.href;
   };
 
@@ -54,7 +43,7 @@ export const MobileNavigation = () => {
             </div>
           </div>
           <div className="w-full flex flex-col items-center gap-3">
-            {navItems.map((item) => (
+            {navItems.map((item: NavItem) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -68,7 +57,7 @@ export const MobileNavigation = () => {
                       ? "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 dark:from-purple-500 dark:to-blue-500 dark:hover:from-purple-600 dark:hover:to-blue-600 text-white shadow-lg"
                       : "hover:bg-accent"
                   )}>
-                  {item.label}
+                  {t(item.label as any)}
                 </Button>
               </Link>
             ))}

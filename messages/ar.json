@@ -1,4 +1,5 @@
 {
+  "$schema": "https://inlang.com/schema/inlang-message-format",
   "langs": {
     "en": "English",
     "ar": "العربية",
@@ -31,7 +32,7 @@
     "logo_text": "أحمد سوفتوير"
   },
   "footer": {
-    "experience": "الخبرة",
+    "experiences": "الخبرة",
     "copyright": "© {year} أحمد سوفتوير. جميع الحقوق محفوظة."
   },
   "contact": {
@@ -57,7 +58,7 @@
     "badge": "عني",
     "title": "شغوف بإنشاء تجارب ويب وتطبيقات مؤثرة",
     "description": "مع أكثر من 5 سنوات من الخبرة في تطوير الفول ستاك، أتخصص في بناء تطبيقات ويب قابلة للتطوير باستخدام التقنيات الحديثة. تشمل خبرتي React Native و Next.js و Node.js و Express.js و React Native و Nest.js. أنا شغوف بإنشاء حلول أنيقة لمشاكل معقدة ومشاركة المعرفة مع مجتمع المطورين.",
-    "view_github": "عرض Github",
+    "view_github": "عرض گیتهب",
     "download_cv": "تحميل السيرة الذاتية"
   },
   "projects": {
@@ -66,18 +67,26 @@
     "details": "تفاصيل",
     "live": "عرض مباشر",
     "private_project": "مشروع خاص",
-    "view_code": "عرض شفرة {name}",
-    "private_git": "Git خاص",
+    "view_code": "عرض شفرة ",
+    "private_git": "گیت خاص",
+    "version": "إصدار",
+    "versions": "الإصدارات",
+    "version_history": "تاريخ الإصدارات",
+    "current_version": "الإصدار الحالي",
+    "external_api": "خارجیة",
+    "external_apis": "واجهات برمجية خارجية",
+    "api_documentation": "توثيق",
+    "visit_api": "زيارة",
     "search_placeholder": "البحث في المشاريع...",
     "filter_types": "تصفية حسب النوع",
     "filter_tags": "تصفية حسب الوسم",
     "filter_tech": "تصفية حسب التقنية",
     "starred_only": "المميزة فقط",
-    "has_public_git": "لديها Git عام",
+    "has_public_git": "لديها گیت عام",
     "has_live_url": "لديها رابط مباشر",
     "adjust_filters": "ضبط تصفيات المشاريع أدناه",
     "total_projects": "{count} مشاريع في المجموع",
-    "tag": {
+    "tags": {
       "production": "إنتاج",
       "learning": "تعلم",
       "university": "جامعة",
@@ -253,7 +262,8 @@
       "description": "أداة لمساعدة المستخدمين في تحويل باكاتهم إلى بارات بسلاسة. هذا المشروع لتعلم كيفية استخدام Github Copilot بأفضل طريقة للتطوير في JS"
     },
     "clients": "العملاء",
-    "contributor": "المساهم"
+    "contributor": "المساهم",
+    "see_all": "عرض الکل"
   },
   "certifications": {
     "badge": "الشهادات",
@@ -264,7 +274,8 @@
     "filter_types": "تصفية حسب النوع",
     "starred_only": "المميزة فقط",
     "adjust_filters": "ضبط تصفيات الشهادات أدناه",
-    "total_certifications": "{count} شهادات في المجموع"
+    "total_certifications": "{count} شهادات في المجموع",
+    "see_all": "عرض الکل"
   },
   "skills": {
     "title": "المهارات التقنية",
@@ -283,7 +294,9 @@
       "framework": "إطار عمل",
       "tool": "أداة",
       "library": "مكتبة"
-    }
+    },
+    "see_all": "عرض الکل",
+    "badge": "مهارات"
   },
   "services": {
     "badge": "الخدمات",
@@ -310,7 +323,7 @@
       "description": "إدارة الخوادم المهنية والصيانة والتبديل وحماية الأمان لبنيتك التحتية"
     },
     "api_integration": {
-      "title": "تكامل API",
+      "title": "تكامل ئاي پي ئاي",
       "description": "بناء واجهات برمجية آمنة وعالية الأداء مع أفضل ممارسات الصناعة وكفاءة مثالية"
     },
     "bot_creation": {
@@ -359,9 +372,10 @@
     "description_label": "الوصف",
     "status_active": "نشط",
     "ready_to_use": "هل أنت مستعد لاستخدام هذه الأداة؟",
-    "visit_to_get_started": "قم بزيارة الأداة للبدء"
+    "visit_to_get_started": "قم بزيارة الأداة للبدء",
+    "see_all": "عرض الکل"
   },
-  "experience": {
+  "experiences": {
     "badge": "الخبرة",
     "title": "الرحلة المهنية",
     "subtitle": "خط زمني لنموي المهني والإنجازات الرئيسية",

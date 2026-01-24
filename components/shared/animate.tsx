@@ -141,7 +141,7 @@ export function StaggerContainer({
       variants={container}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}>
+      animate="visible">
       {children}
     </motion.div>
   );
@@ -309,7 +309,7 @@ export function CardHoverMotion({
   onMouseLeave,
 }: CardHoverMotionProps) {
   return (
-    <motion.div
+    <motion.article
       className={cn(className)}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -317,7 +317,7 @@ export function CardHoverMotion({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}>
       {children}
-    </motion.div>
+    </motion.article>
   );
 }
 

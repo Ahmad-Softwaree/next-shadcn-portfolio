@@ -21,9 +21,7 @@ const Header = () => {
           href={`/`}
           className="flex flex-row justify-center items-center gap-2">
           <Logo />
-          <h2 className="font-bold hidden sm:block">
-            {String(t("navbar.logo_text" as any))}
-          </h2>
+          <h2 className="font-bold hidden sm:block">{t("navbar.logo_text")}</h2>
         </Link>
 
         <NavMenu className="hidden xl:flex flex-1" />

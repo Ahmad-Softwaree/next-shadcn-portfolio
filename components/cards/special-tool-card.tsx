@@ -11,16 +11,11 @@ import {
   FloatingIconMotion,
   ScrollRevealMotion,
 } from "@/components/shared/animate";
-import { getTypeConfig } from "@/lib/config/tool-filters";
 import { Link } from "@/i18n/navigation";
-
-interface SpecialToolCardProps extends Tool {
-  index: number;
-}
+import { getToolTypeConfig } from "@/lib/config/tool-filters";
 
 const SpecialToolCard = ({
-  nameKey,
-  descriptionKey,
+  textKey,
   image,
   icon,
   type,
@@ -28,18 +23,11 @@ const SpecialToolCard = ({
   link,
   starred,
   id,
-  index,
-}: SpecialToolCardProps) => {
-  const t = useTranslations();
-  const isEven = index % 2 === 0;
+}: Tool) => {
+  const t = useTranslations("tools");
+  const isEven = id % 2 === 0;
 
-  const translateType = (type: string) => {
-    const key = type.replace(/\s+/g, "_").toLowerCase();
-    const translated = t(`tools.types.${key}` as any);
-    return translated === `tools.types.${key}` ? type : translated;
-  };
-
-  const typeConfig = getTypeConfig(type);
+  const typeConfig = getToolTypeConfig(type);
 
   return (
     <SlideInMotion
@@ -64,7 +52,7 @@ const SpecialToolCard = ({
           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent z-10" />
           <Image
             src={image || "/placeholder.svg"}
-            alt={String(t(nameKey as any))}
+            alt={t(`${textKey}.name` as any)}
             className="object-cover transition-transform duration-700 group-hover:scale-110"
             fill
             priority
@@ -74,7 +62,7 @@ const SpecialToolCard = ({
             <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-background/90 backdrop-blur-sm border-2 border-primary/30 shadow-2xl">
               <Image
                 src={icon || "/placeholder.svg"}
-                alt={`${String(t(nameKey as any))} icon`}
+                alt={`${t(`${textKey}.name` as any)} icon`}
                 className="object-cover p-2"
                 fill
               />
@@ -97,7 +85,7 @@ const SpecialToolCard = ({
           <div className="space-y-4">
             <ScrollRevealMotion delay={0.2}>
               <h3 className="text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">
-                {String(t(nameKey as any))}
+                {t(`${textKey}.name` as any)}
               </h3>
             </ScrollRevealMotion>
 
@@ -111,7 +99,7 @@ const SpecialToolCard = ({
                   typeConfig.bgColor,
                   typeConfig.borderColor
                 )}>
-                {translateType(type)}
+                {t(`types.${type}` as any)}
               </Badge>
               <Badge
                 variant="outline"
@@ -129,13 +117,13 @@ const SpecialToolCard = ({
           {/* Description */}
           <ScrollRevealMotion delay={0.4}>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              {String(t(descriptionKey as any))}
+              {t(`${textKey}.description` as any)}
             </p>
           </ScrollRevealMotion>
 
           {/* Action Buttons */}
           <ScrollRevealMotion delay={0.5} className="flex flex-wrap gap-4 pt-4">
-            <a
+            <Link
               href={link}
               target="_blank"
               rel="noopener noreferrer"
@@ -146,8 +134,8 @@ const SpecialToolCard = ({
                 "transition-all duration-300 hover:scale-105 active:scale-95"
               )}>
               <ExternalLink className="w-5 h-5 transition-transform group-hover/btn:rotate-12" />
-              {t("tools.visit")}
-            </a>
+              {t("visit")}
+            </Link>
             <Link
               href={`/tools/${id}`}
               className={cn(
@@ -156,7 +144,7 @@ const SpecialToolCard = ({
                 "font-semibold text-lg hover:border-primary/60",
                 "transition-all duration-300 hover:scale-105 active:scale-95"
               )}>
-              {t("tools.details")}
+              {t("details")}
               <ArrowRight className="w-5 h-5 transition-transform group-hover/btn:translate-x-1" />
             </Link>
           </ScrollRevealMotion>

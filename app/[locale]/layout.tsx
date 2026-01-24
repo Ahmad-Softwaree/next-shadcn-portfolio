@@ -10,6 +10,10 @@ import { routing } from "@/i18n/routing";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -50,7 +54,7 @@ export default async function LocaleLayout({
             : locale == "ar"
               ? "arabic_font"
               : "kurdish_font"
-        } relative antialiased min-h-screen flex flex-col overflow-x-hidden`}>
+        }  antialiased min-h-screen flex flex-col overflow-x-hidden`}>
         <NextIntlClientProvider>
           <Providers>
             <Header />
