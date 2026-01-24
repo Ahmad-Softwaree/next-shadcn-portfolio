@@ -10,15 +10,15 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty";
 export default function NoData() {
-  const t = useTranslations();
+  const t = useTranslations("common");
   return (
     <Empty>
       <EmptyHeader>
         <EmptyMedia variant="icon">
           <FileQuestion />
         </EmptyMedia>
-        <EmptyTitle>{t("common.no_data")}</EmptyTitle>
-        <EmptyDescription>{t("common.no_data_found")}</EmptyDescription>
+        <EmptyTitle>{t("no_data")}</EmptyTitle>
+        <EmptyDescription>{t("no_data_found")}</EmptyDescription>
       </EmptyHeader>
     </Empty>
   );
