@@ -1,9 +1,9 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { Home, Search, BookOpen } from "lucide-react";
+import { Home, Search } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import Link from "next/link";
 const NotFoundComponent = () => {
   const t = useTranslations("notFound");
   const locale = useLocale();
