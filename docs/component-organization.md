@@ -23,39 +23,73 @@ components/
 │   ├── card.tsx
 │   └── ...
 │
-├── cards/                 # Card components
-│   ├── link-card.tsx
-│   ├── stats-card.tsx
-│   └── feature-card.tsx
+├── cards/                 # Card components for different entities
+│   ├── certification-card.tsx
+│   ├── experience-card.tsx
+│   ├── project-card.tsx
+│   ├── service-card.tsx
+│   ├── skill-card.tsx
+│   ├── special-tool-card.tsx
+│   └── tool-card.tsx
 │
-├── forms/                 # Form components
-│   ├── link-form.tsx
-│   ├── edit-link-form.tsx
-│   └── settings-form.tsx
+├── btn/                   # Button components for filters and actions
+│   ├── certification-type-btn.tsx
+│   ├── project-tag-btn.tsx
+│   ├── project-tech-btn.tsx
+│   ├── project-type-btn.tsx
+│   ├── skill-level-btn.tsx
+│   ├── skill-type-btn.tsx
+│   └── tool-type-btn.tsx
 │
-├── layouts/               # Layout components
+├── layout/                # Layout components
 │   ├── header.tsx
 │   ├── footer.tsx
-│   ├── sidebar.tsx
-│   └── dashboard-layout.tsx
+│   ├── logo.tsx
+│   ├── nav-menu.tsx
+│   └── mobile-navigation.tsx
 │
-├── sections/              # Page sections (hero, features, etc.)
-│   ├── hero-section.tsx
-│   ├── features-section.tsx
-│   ├── pricing-section.tsx
-│   └── stats-section.tsx
+├── sections/              # Page sections (hero, about, services, etc.)
+│   ├── hero.tsx
+│   ├── about.tsx
+│   ├── services.tsx
+│   ├── experiences.tsx
+│   ├── skills.tsx
+│   ├── projects.tsx
+│   ├── certifications.tsx
+│   ├── tools.tsx
+│   └── contact.tsx
 │
-├── dashboard/             # Dashboard-specific components
-│   ├── link-list.tsx
-│   ├── link-table.tsx
-│   ├── analytics-chart.tsx
-│   └── recent-links.tsx
+├── shared/                # Globally shared components
+│   ├── animate.tsx        # Animation wrapper (framer-motion)
+│   ├── Loading.tsx
+│   ├── NoData.tsx
+│   ├── Search.tsx
+│   └── scroll-to-top.tsx
 │
-└── shared/                # Globally shared components
-    ├── loading-spinner.tsx
-    ├── error-message.tsx
-    ├── empty-state.tsx
-    └── confirmation-dialog.tsx
+├── certifications/        # Certification page specific components
+│   ├── CertificationsHeader.tsx
+│   ├── CertificationsContent.tsx
+│   └── CertificationGrid.tsx
+│
+├── projects/              # Projects page specific components
+│   ├── ProjectsHeader.tsx
+│   ├── ProjectsContent.tsx
+│   └── ProjectsGrid.tsx
+│
+├── skills/                # Skills page specific components
+│   ├── SkillsHeader.tsx
+│   ├── SkillsFilter.tsx
+│   └── SkillsGrid.tsx
+│
+├── tools/                 # Tools page specific components
+│   ├── ToolsHeader.tsx
+│   ├── ToolsContent.tsx
+│   ├── ToolsGrid.tsx
+│   └── ContactHeader.tsx
+│
+├── lang-toggle.tsx        # Language switcher
+├── theme-toggle.tsx       # Dark/light mode toggle
+└── NotFound.tsx           # 404 component
 ```
 
 ## When to Extract a Component
@@ -88,39 +122,32 @@ npx shadcn@latest add card
 
 ### 2. Cards (`/components/cards`)
 
-Reusable card components that display structured data.
+Reusable card components that display portfolio content (projects, skills, certifications, etc.).
 
 ```tsx
-// components/cards/link-card.tsx
+// components/cards/project-card.tsx
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import type { Link } from "@/db/schema";
+import { Badge } from "@/components/ui/badge";
+import type { Project } from "@/types/types";
 
-interface LinkCardProps {
-  link: Link;
-  onDelete?: (id: number) => void;
+interface ProjectCardProps {
+  project: Project;
 }
 
-export function LinkCard({ link, onDelete }: LinkCardProps) {
+export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{link.shortCode}</CardTitle>
+        <CardTitle>{project.name}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-muted-foreground truncate">
-          {link.originalUrl}
-        </p>
-        <div className="flex gap-2 mt-4">
-          <Button size="sm">Copy</Button>
-          {onDelete && (
-            <Button
-              size="sm"
-              variant="destructive"
-              onClick={() => onDelete(link.id)}>
-              Delete
-            </Button>
-          )}
+        <p className="text-sm text-muted-foreground">{project.description}</p>
+        <div className="flex gap-2 mt-4 flex-wrap">
+          {project.technologies.map((tech) => (
+            <Badge key={tech} variant="secondary">
+              {tech}
+            </Badge>
+          ))}
         </div>
       </CardContent>
     </Card>
@@ -128,75 +155,61 @@ export function LinkCard({ link, onDelete }: LinkCardProps) {
 }
 ```
 
-### 3. Forms (`/components/forms`)
+### 3. Filter Buttons (`/components/btn`)
 
-Form components with validation and submission logic.
+Custom button components for filtering and actions.
 
 ```tsx
-// components/forms/link-form.tsx
+// components/btn/skill-type-btn.tsx
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { createLink } from "@/actions/links";
+import { cn } from "@/lib/utils";
 
-export function LinkForm() {
-  const [url, setUrl] = useState("");
-  const [shortCode, setShortCode] = useState("");
-  const [loading, setLoading] = useState(false);
+interface SkillTypeButtonProps {
+  type: string;
+  isActive: boolean;
+  onClick: () => void;
+}
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-
-    const result = await createLink({ originalUrl: url, shortCode });
-
-    if (result.success) {
-      setUrl("");
-      setShortCode("");
-    }
-
-    setLoading(false);
-  }
-
+export function SkillTypeButton({
+  type,
+  isActive,
+  onClick,
+}: SkillTypeButtonProps) {
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <Input
-        placeholder="Enter URL"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-      />
-      <Input
-        placeholder="Custom short code"
-        value={shortCode}
-        onChange={(e) => setShortCode(e.target.value)}
-      />
-      <Button type="submit" disabled={loading}>
-        {loading ? "Creating..." : "Create Link"}
-      </Button>
-    </form>
+    <Button
+      variant={isActive ? "default" : "outline"}
+      size="sm"
+      onClick={onClick}
+      className={cn("rounded-full", isActive && "bg-primary")}>
+      {type}
+    </Button>
   );
 }
 ```
 
-### 4. Layouts (`/components/layouts`)
+### 4. Layout Components (`/components/layout`)
 
-Structural components for page layouts.
+Structural components for page layouts (header, footer, navigation).
 
 ```tsx
-// components/layouts/header.tsx
-import { UserButton } from "@clerk/nextjs";
-import { Link } from "@/i18n/navigation";
+// components/layout/header.tsx
+import { Logo } from "./logo";
+import { NavMenu } from "./nav-menu";
+import { LangToggle } from "@/components/lang-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Header() {
   return (
-    <header className="border-b">
-      <div className=" mx-auto px-4 py-4 flex justify-between items-center">
-        <Link href="/" className="text-xl font-bold">
-          LinkShortener
-        </Link>
-        <UserButton />
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <Logo />
+        <NavMenu />
+        <div className="flex items-center gap-2">
+          <LangToggle />
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );
@@ -205,62 +218,44 @@ export function Header() {
 
 ### 5. Sections (`/components/sections`)
 
-Large page sections (hero, features, pricing, etc.).
+Page section components for the home page (hero, about, services, etc.).
 
 ```tsx
-// components/sections/hero-section.tsx
+// components/sections/hero.tsx
+import { useTranslations } from "next-intl";
+import { AnimateOnScroll } from "@/components/shared/animate";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Sparkles } from "lucide-react";
 
-export function HeroSection() {
+export function Hero() {
+  const t = useTranslations("home.hero");
+
   return (
-    <section className=" mx-auto px-4 py-20 md:py-32">
-      <div className="flex flex-col items-center text-center space-y-8">
-        <Badge variant="secondary" className="text-sm">
-          <Sparkles className="mr-2 h-3 w-3" />
-          Fast, Simple, Powerful
-        </Badge>
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight max-w-4xl">
-          Shorten Your Links,
-          <br />
-          <span className="text-primary">Amplify Your Reach</span>
-        </h1>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
-          Transform long, complex URLs into short, memorable links.
-        </p>
-        <Button size="lg" className="text-lg px-8">
-          Get Started Free
-        </Button>
-      </div>
+    <section className="container mx-auto px-4 py-20">
+      <AnimateOnScroll animation="fade-up">
+        <h1 className="text-4xl md:text-6xl font-bold mb-4">{t("title")}</h1>
+        <p className="text-xl text-muted-foreground mb-8">{t("description")}</p>
+        <Button size="lg">{t("cta")}</Button>
+      </AnimateOnScroll>
     </section>
   );
 }
 ```
 
-### 6. Feature-Specific (`/components/dashboard`, `/components/[feature]`)
+### 6. Page-Specific Components
 
-Components specific to a feature or route.
+Components organized by page feature (`/components/certifications`, `/components/projects`, `/components/skills`, `/components/tools`).
 
 ```tsx
-// components/dashboard/link-list.tsx
-import { LinkCard } from "@/components/cards/link-card";
-import type { Link } from "@/db/schema";
+// components/projects/ProjectsHeader.tsx
+import { useTranslations } from "next-intl";
 
-interface LinkListProps {
-  links: Link[];
-}
-
-export function LinkList({ links }: LinkListProps) {
-  if (links.length === 0) {
-    return <p className="text-muted-foreground">No links yet.</p>;
-  }
+export function ProjectsHeader() {
+  const t = useTranslations("projects");
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {links.map((link) => (
-        <LinkCard key={link.id} link={link} />
-      ))}
+    <div className="mb-8">
+      <h1 className="text-3xl font-bold mb-2">{t("title")}</h1>
+      <p className="text-muted-foreground">{t("description")}</p>
     </div>
   );
 }
@@ -270,7 +265,7 @@ export function LinkList({ links }: LinkListProps) {
 
 Globally reusable utility components.
 
-```tsx
+````tsx
 // components/shared/loading-spinner.tsx
 export function LoadingSpinner() {
   return (
@@ -280,70 +275,129 @@ export function LoadingSpinner() {
   );
 }
 
-// components/shared/empty-state.tsx
-import { FileQuestion } from "lucide-react";
+Globally reusable components (loading, no data, search, animations).
 
-interface EmptyStateProps {
-  title: string;
-  description?: string;
+```tsx
+// components/shared/NoData.tsx
+import { useTranslations } from "next-intl";
+
+interface NoDataProps {
+  message?: string;
 }
 
-export function EmptyState({ title, description }: EmptyStateProps) {
+export function NoData({ message }: NoDataProps) {
+  const t = useTranslations("common");
+
   return (
-    <div className="flex flex-col items-center justify-center p-8 text-center">
-      <FileQuestion className="h-12 w-12 text-muted-foreground mb-4" />
-      <h3 className="text-lg font-semibold">{title}</h3>
-      {description && (
-        <p className="text-sm text-muted-foreground mt-2">{description}</p>
-      )}
+    <div className="flex flex-col items-center justify-center py-12">
+      <p className="text-muted-foreground">
+        {message || t("no_data")}
+      </p>
     </div>
   );
+}
+````
+
+## Data & Static Content
+
+### Static Data Pattern
+
+This portfolio uses static data instead of API calls. Data is stored in `/lib/data/`.
+
+```tsx
+// lib/data/projects.ts
+import type { Project } from "@/types/types";
+
+export const projects: Project[] = [
+  {
+    id: 1,
+    name: "Portfolio Website",
+    description: "Personal portfolio built with Next.js 15",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
+    image: "/projects/portfolio.png",
+    url: "https://example.com",
+    github: "https://github.com/user/portfolio",
+  },
+  // More projects...
+];
+```
+
+### Custom Hooks for Data
+
+Create hooks in `/hooks/` for data filtering and search logic.
+
+```tsx
+// hooks/useProjectQueries.tsx
+"use client";
+
+import { parseAsArrayOf, parseAsString, useQueryStates } from "nuqs";
+
+export function useProjectQueries() {
+  const [queries, setQueries] = useQueryStates({
+    type: parseAsString,
+    tags: parseAsArrayOf(parseAsString),
+    tech: parseAsArrayOf(parseAsString),
+  });
+
+  return { queries, setQueries };
 }
 ```
 
 ## Page File Pattern
 
-Pages should be **thin** - focused on data fetching and composition.
+Pages should be **thin** - focused on layout and composition.
 
-### ❌ Bad - Bloated Page (241 lines)
+### ❌ Bad - Bloated Page (500+ lines)
 
 ```tsx
-// app/page.tsx - TOO MUCH CODE
-export default async function Home() {
+// app/[locale]/projects/page.tsx - TOO MUCH CODE
+export default function ProjectsPage() {
   return (
     <div>
-      <section>{/* 50 lines of hero JSX */}</section>
-      <section>{/* 60 lines of features JSX */}</section>
-      <section>{/* 50 lines of pricing JSX */}</section>
-      <section>{/* 40 lines of CTA JSX */}</section>
-      <footer>{/* 41 lines of footer JSX */}</footer>
+      {/* 100 lines of header JSX */}
+      {/* 200 lines of filter JSX */}
+      {/* 200 lines of grid JSX */}
     </div>
   );
 }
 ```
 
-### ✅ Good - Clean Page (~20 lines)
+### ✅ Good - Clean Page (~30 lines)
 
 ```tsx
-// app/page.tsx - CLEAN
-import { HeroSection } from "@/components/sections/hero-section";
-import { FeaturesSection } from "@/components/sections/features-section";
-import { PricingSection } from "@/components/sections/pricing-section";
-import { CTASection } from "@/components/sections/cta-section";
-import { Footer } from "@/components/layouts/footer";
+// app/[locale]/projects/page.tsx - CLEAN
+import { ProjectsHeader } from "@/components/projects/ProjectsHeader";
+import { ProjectsContent } from "@/components/projects/ProjectsContent";
 
-export default function Home() {
+export default function ProjectsPage() {
   return (
-    <div>
-      <HeroSection />
-      <FeaturesSection />
-      <PricingSection />
-      <CTASection />
-      <Footer />
+    <div className="container mx-auto px-4 py-8">
+      <ProjectsHeader />
+      <ProjectsContent />
     </div>
   );
 }
+
+// components/projects/ProjectsContent.tsx
+export function ProjectsContent() {
+  const { queries } = useProjectQueries();
+  const { search } = useSearchQuery();
+
+  // Filter logic here
+
+  return (
+    <>
+      {/* Filter buttons */}
+      <ProjectsGrid projects={filteredProjects} />
+    </>
+  );
+}
 ```
+
+);
+}
+
+````
 
 ## Naming Conventions
 
@@ -386,7 +440,7 @@ export function LinkList({ links }: { links: Link[] }) {
     </div>
   );
 }
-```
+````
 
 ### Client Components
 

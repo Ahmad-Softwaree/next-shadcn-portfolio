@@ -11,15 +11,14 @@ This document defines the folder structure and file naming conventions used thro
 ├── .github/              # GitHub-specific configs and workflows
 ├── app/                  # Next.js App Router pages
 ├── components/           # React components
-├── containers/           # Page-level container components
 ├── docs/                 # Documentation files (⚠️ NEVER create .md in root)
 ├── hooks/                # Custom React hooks
-├── i18n/                 # Internationalization configs and translations
+├── i18n/                 # Internationalization configs
 ├── lib/                  # Core utilities, configs, and business logic
-├── providers/            # React context providers
+├── messages/             # Translation files (en.json, ar.json, ckb.json)
 ├── public/               # Static assets
 ├── types/                # TypeScript type definitions
-├── validation/           # Zod validation schemas
+├── project.inlang/       # Inlang i18n configuration
 └── [config files]        # Root-level config files only
 ```
 
@@ -32,14 +31,22 @@ This document defines the folder structure and file naming conventions used thro
 ```
 app/
 ├── layout.tsx           # Root layout
-├── page.tsx             # Home page
-├── globals.css          # Global styles
-├── [route]/
-│   ├── page.tsx         # Route page component
-│   └── layout.tsx       # Route layout (optional)
-└── l/
-    └── [code]/
-        └── route.ts     # API route handler
+├── page.tsx             # Root page redirect
+├── not-found.tsx        # Global 404 page
+├── [locale]/
+│   ├── page.tsx         # Home page
+│   ├── layout.tsx       # Locale layout
+│   ├── globals.css      # Global styles
+│   ├── providers.tsx    # Context providers
+│   ├── loading.tsx      # Loading state
+│   ├── error.tsx        # Error boundary
+│   ├── not-found.tsx    # Locale 404 page
+│   ├── certifications/  # Certifications page
+│   ├── projects/        # Projects page
+│   ├── skills/          # Skills page
+│   └── tools/           # Tools page
+└── api/
+    └── contact/         # Contact form API
 ```
 
 **Rules**:
@@ -56,42 +63,81 @@ app/
 
 ```
 components/
-├── ui/                  # shadcn/ui components
+├── ui/                     # shadcn/ui components
 │   ├── button.tsx
 │   ├── card.tsx
 │   └── [component].tsx
-├── shared/              # Shared/reusable components
+├── cards/                  # Card components
+│   ├── certification-card.tsx
+│   ├── experience-card.tsx
+│   ├── project-card.tsx
+│   ├── service-card.tsx
+│   ├── skill-card.tsx
+│   ├── special-tool-card.tsx
+│   └── tool-card.tsx
+├── btn/                    # Button components
+│   ├── certification-type-btn.tsx
+│   ├── project-tag-btn.tsx
+│   ├── project-tech-btn.tsx
+│   ├── project-type-btn.tsx
+│   ├── skill-level-btn.tsx
+│   ├── skill-type-btn.tsx
+│   └── tool-type-btn.tsx
+├── layout/                 # Layout components
 │   ├── header.tsx
-│   ├── Modal.tsx
-│   └── Search.tsx
-├── forms/               # Form components
-│   ├── LinkForm.tsx
-│   └── [Entity]Form.tsx
-├── cards/               # Card components
-│   ├── LinkCard.tsx
-│   ├── LinkCard.Simple.tsx
-│   └── [Entity]Card.tsx
-├── table/               # Table-related components
-│   └── data-box.tsx
-├── home/                # Page-specific components
-│   ├── hero-section.tsx
-│   ├── cta-section.tsx
-│   └── [section].tsx
-├── mode-toggle.tsx      # Top-level utility components
-└── lang-toggle.tsx
+│   ├── footer.tsx
+│   ├── logo.tsx
+│   ├── nav-menu.tsx
+│   └── mobile-navigation.tsx
+├── sections/               # Page sections
+│   ├── hero.tsx
+│   ├── about.tsx
+│   ├── services.tsx
+│   ├── experiences.tsx
+│   ├── skills.tsx
+│   ├── projects.tsx
+│   ├── certifications.tsx
+│   ├── tools.tsx
+│   └── contact.tsx
+├── shared/                 # Shared/reusable components
+│   ├── animate.tsx
+│   ├── Loading.tsx
+│   ├── NoData.tsx
+│   ├── Search.tsx
+│   └── scroll-to-top.tsx
+├── certifications/         # Certification page components
+│   ├── CertificationsHeader.tsx
+│   ├── CertificationsContent.tsx
+│   └── CertificationGrid.tsx
+├── projects/               # Projects page components
+│   ├── ProjectsHeader.tsx
+│   ├── ProjectsContent.tsx
+│   └── ProjectsGrid.tsx
+├── skills/                 # Skills page components
+│   ├── SkillsHeader.tsx
+│   ├── SkillsFilter.tsx
+│   └── SkillsGrid.tsx
+├── tools/                  # Tools page components
+│   ├── ToolsHeader.tsx
+│   ├── ToolsContent.tsx
+│   ├── ToolsGrid.tsx
+│   └── ContactHeader.tsx
+├── lang-toggle.tsx         # Language switcher
+├── theme-toggle.tsx        # Dark/light mode toggle
+└── NotFound.tsx            # 404 component
 ```
 
 **Naming Rules**:
 
-| Type              | Pattern                      | Example                               |
-| ----------------- | ---------------------------- | ------------------------------------- |
-| UI Components     | `lowercase-kebab.tsx`        | `button.tsx`, `card.tsx`              |
-| Shared Components | `PascalCase.tsx`             | `Modal.tsx`, `AddButton.tsx`          |
-| Forms             | `[Entity]Form.tsx`           | `LinkForm.tsx`, `UserForm.tsx`        |
-| Cards             | `[Entity]Card.tsx`           | `LinkCard.tsx`                        |
-| Card Variants     | `[Entity]Card.[Variant].tsx` | `LinkCard.Simple.tsx`                 |
-| Sections          | `[name]-section.tsx`         | `hero-section.tsx`, `cta-section.tsx` |
-| Toggles/Utils     | `[name]-toggle.tsx`          | `mode-toggle.tsx`, `lang-toggle.tsx`  |
+| Type              | Pattern               | Example                               |
+| ----------------- | --------------------- | ------------------------------------- |
+| UI Components     | `lowercase-kebab.tsx` | `button.tsx`, `card.tsx`              |
+| Shared Components | `PascalCase.tsx`      | `Loading.tsx`, `NoData.tsx`           |
+| Cards             | `[entity]-card.tsx`   | `project-card.tsx`, `skill-card.tsx`  |
+| Buttons           | `[name]-btn.tsx`      | `skill-type-btn.tsx`                  |
+| Sections          | `[name].tsx`          | `hero.tsx`, `about.tsx`               |
+| Page Components   | `PascalCase.tsx`      | `ProjectsHeader.tsx`                  |
+| Toggles/Utils     | `[name]-toggle.tsx`   | `theme-toggle.tsx`, `lang-toggle.tsx` |
 
 **Key Principles**:
 
@@ -100,132 +146,109 @@ components/
 - Group by feature/type, not by component type alone
 - Variants use dot notation: `Component.Variant.tsx`
 
-### `/containers` - Page Containers
-
-```
-containers/
-└── Page.tsx             # Reusable page wrapper component
-```
-
-**Pattern**: `PascalCase.tsx`
-
-- Container components that wrap entire pages
-- Handle layout logic, data fetching coordination
-
 ### `/hooks` - Custom React Hooks
 
 ```
 hooks/
-├── use-date.ts          # Date formatting utilities
-└── useAppQuery.tsx      # Query wrapper hook
+├── useCertificationQueries.tsx
+├── useProjectQueries.tsx
+├── useSearchQuery.tsx
+├── useSkillQueries.tsx
+└── useToolsQueries.tsx
 ```
 
 **Naming Rules**:
 
 | Pattern         | When to Use          | Example                      |
 | --------------- | -------------------- | ---------------------------- |
+| `use[Name].tsx` | Hooks with JSX       | `useProjectQueries.tsx`      |
 | `use-[name].ts` | Simple utility hooks | `use-date.ts`, `use-auth.ts` |
-| `use[Name].tsx` | Hooks with JSX       | `useAppQuery.tsx`            |
 
 **Key Principles**:
 
 - Always start with `use` prefix
-- Lowercase with hyphens for `.ts` files
 - camelCase for `.tsx` files with JSX
+- Lowercase with hyphens for `.ts` files
 
 ### `/i18n` - Internationalization
 
 ```
 i18n/
-├── i18n.ts              # i18next configuration
-├── i18next.d.ts         # TypeScript type definitions
-└── locale/
-    ├── en.json          # English translations
-    ├── ar.json          # Arabic translations
-    └── ckb.json         # Kurdish translations
+├── navigation.ts        # i18n navigation
+├── request.ts           # i18n request handler
+└── routing.ts           # i18n routing config
 ```
 
 **Rules**:
 
 - Config files: lowercase with extension `.ts`
-- Type definitions: `[name].d.ts`
+- Powered by next-intl
+- No `.d.ts` files needed
+
+### `/messages` - Translation Files
+
+```
+messages/
+├── en.json              # English translations
+├── ar.json              # Arabic translations
+└── ckb.json             # Kurdish translations
+```
+
+**Rules**:
+
 - Locale files: ISO 639-1 language code + `.json`
+- All files must have identical structure
+- Used by next-intl
 
 ### `/lib` - Core Library Code
 
 ```
 lib/
 ├── config/              # Configuration files
-│   ├── cookie.config.ts
-│   └── pagination.config.ts
-├── db/                  # Database related
-│   ├── index.ts         # Drizzle client export
-│   └── schema.ts        # Database schema
-├── react-query/         # TanStack Query setup
-│   ├── keys.ts          # Query key factories
-│   ├── actions/
-│   │   └── [entity].action.ts
-│   └── queries/
-│       └── [entity].query.ts
-├── store/               # Zustand state management
-│   ├── modal.store.ts
-│   └── [name].store.ts
+│   └── [config-files]
+├── data/                # Static data (projects, skills, etc.)
+│   ├── projects.ts
+│   ├── skills.ts
+│   ├── certifications.ts
+│   └── [entity].ts
+├── fetch/               # Data fetching utilities
+│   └── [fetch-utils]
 ├── enums.ts             # App-wide enums and constants
-├── urls.ts              # Route URL constants
 ├── utils.ts             # General utility functions
 └── functions.ts         # Business logic functions
 ```
 
 **Naming Conventions**:
 
-| File Type | Pattern               | Example                                    |
-| --------- | --------------------- | ------------------------------------------ |
-| Config    | `[name].config.ts`    | `cookie.config.ts`, `pagination.config.ts` |
-| Store     | `[name].store.ts`     | `modal.store.ts`, `filter.store.ts`        |
-| Actions   | `[entity].action.ts`  | `links.action.ts`, `users.action.ts`       |
-| Queries   | `[entity].query.ts`   | `links.query.ts`, `users.query.ts`         |
-| Utils     | `[purpose].ts`        | `utils.ts`, `functions.ts`                 |
-| Constants | `[type]s.ts` (plural) | `urls.ts`, `enums.ts`                      |
-| Keys      | `keys.ts`             | `keys.ts` (for query keys)                 |
+| File Type | Pattern               | Example                    |
+| --------- | --------------------- | -------------------------- |
+| Config    | `[name].config.ts`    | `cookie.config.ts`         |
+| Data      | `[entity].ts`         | `projects.ts`, `skills.ts` |
+| Utils     | `[purpose].ts`        | `utils.ts`, `functions.ts` |
+| Constants | `[type]s.ts` (plural) | `enums.ts`                 |
 
 **Key Principles**:
 
 - Config files get `.config.ts` suffix
-- Store files get `.store.ts` suffix
-- Actions and queries named after entity (plural)
+- Data files named after entity (plural)
 - Use `index.ts` for main exports from a folder
-
-### `/providers` - React Context Providers
-
-```
-providers/
-├── query-provider.tsx
-├── language-provider.tsx
-└── theme-provider.tsx
-```
-
-**Pattern**: `[name]-provider.tsx`
-
-- Always lowercase with hyphens
-- Always end with `-provider`
-- Contains React context setup
 
 ### `/public` - Static Assets
 
 ```
 public/
-├── fonts/
-│   ├── [FontName]/
-│   └── [font-files]
-├── images/
-│   ├── screenshots/
-│   └── [image-files]
+├── certificates/        # Certificate images
+├── fonts/               # Custom fonts
+├── pdf/                 # PDF files
+├── projects/            # Project images
+├── tools/               # Tool images
+├── works/               # Work/experience images
 └── [static-files]
 ```
 
 **Rules**:
 
-- Fonts: Organized by font family name (PascalCase folder)
+- Fonts: Organized by font family name
 - Images: Organized by category (lowercase folders)
 - All static files should be in meaningful subfolders
 
@@ -233,38 +256,20 @@ public/
 
 ```
 types/
-├── global.ts            # Global type definitions
-├── routes.d.ts          # Route type definitions (auto-generated)
-└── cache-life.d.ts      # Cache configuration types
+└── types.ts             # Global type definitions
 ```
 
 **Naming Rules**:
 
-| Type              | Pattern        | Example                          |
-| ----------------- | -------------- | -------------------------------- |
-| Global types      | `global.ts`    | `global.ts`                      |
-| Type declarations | `[name].d.ts`  | `routes.d.ts`, `cache-life.d.ts` |
-| Feature types     | `[feature].ts` | `auth.ts`, `api.ts`              |
+| Type          | Pattern        | Example      |
+| ------------- | -------------- | ------------ |
+| Global types  | `types.ts`     | `types.ts`   |
+| Feature types | `[feature].ts` | `project.ts` |
 
 **Key Principles**:
 
-- Use `.d.ts` for ambient type declarations
 - Use `.ts` for exported types and interfaces
-- Keep global types in `global.ts`
-
-### `/validation` - Zod Schemas
-
-```
-validation/
-├── links.ts             # Link validation schemas
-└── [entity].ts          # Entity validation schemas
-```
-
-**Pattern**: `[entity].ts` (plural form)
-
-- Named after the entity being validated
-- Use plural form matching database table names
-- Export validation schema and inferred types
+- Keep global types in `types.ts`
 
 ### `/docs` - Documentation
 
@@ -284,137 +289,60 @@ docs/
 
 ### TypeScript/JavaScript Files
 
-| File Type                | Extension | Pattern               | Example                    |
-| ------------------------ | --------- | --------------------- | -------------------------- |
-| React Component (shared) | `.tsx`    | `PascalCase.tsx`      | `Modal.tsx`                |
-| React Component (ui)     | `.tsx`    | `lowercase-kebab.tsx` | `button.tsx`               |
-| Hook (utility)           | `.ts`     | `use-[name].ts`       | `use-date.ts`              |
-| Hook (with JSX)          | `.tsx`    | `use[Name].tsx`       | `useAppQuery.tsx`          |
-| Utility function         | `.ts`     | `[purpose].ts`        | `utils.ts`, `functions.ts` |
-| Configuration            | `.ts`     | `[name].config.ts`    | `cookie.config.ts`         |
-| Store                    | `.ts`     | `[name].store.ts`     | `modal.store.ts`           |
-| Action                   | `.ts`     | `[entity].action.ts`  | `links.action.ts`          |
-| Query                    | `.ts`     | `[entity].query.ts`   | `links.query.ts`           |
-| Validation               | `.ts`     | `[entity].ts`         | `links.ts`                 |
-| Types (ambient)          | `.d.ts`   | `[name].d.ts`         | `global.d.ts`              |
-| Constants                | `.ts`     | `[type]s.ts`          | `urls.ts`, `enums.ts`      |
+| File Type                | Extension | Pattern               | Example                     |
+| ------------------------ | --------- | --------------------- | --------------------------- |
+| React Component (shared) | `.tsx`    | `PascalCase.tsx`      | `Loading.tsx`, `NoData.tsx` |
+| React Component (ui)     | `.tsx`    | `lowercase-kebab.tsx` | `button.tsx`                |
+| Hook (with queries)      | `.tsx`    | `use[Name].tsx`       | `useProjectQueries.tsx`     |
+| Hook (utility)           | `.ts`     | `use-[name].ts`       | `use-date.ts`               |
+| Utility function         | `.ts`     | `[purpose].ts`        | `utils.ts`, `functions.ts`  |
+| Configuration            | `.ts`     | `[name].config.ts`    | `cookie.config.ts`          |
+| Data                     | `.ts`     | `[entity].ts`         | `projects.ts`, `skills.ts`  |
+| Types                    | `.ts`     | `types.ts`            | `types.ts`                  |
+| Constants                | `.ts`     | `enums.ts`            | `enums.ts`                  |
 
 ### Special Files
 
-| File           | Purpose                      | Pattern                              |
-| -------------- | ---------------------------- | ------------------------------------ |
-| `enums.ts`     | App-wide constants and enums | Singular, exports `ENUMs` object     |
-| `urls.ts`      | Route URL constants          | Singular, exports `URLs` object      |
-| `keys.ts`      | Query key factories          | Singular, exports key factories      |
-| `utils.ts`     | General utilities            | Singular, mixed utility functions    |
-| `functions.ts` | Business logic               | Singular, domain-specific functions  |
-| `index.ts`     | Barrel exports               | Re-exports from folder               |
-| `schema.ts`    | Database schema              | Singular, Drizzle schema definitions |
+| File           | Purpose                      | Pattern                             |
+| -------------- | ---------------------------- | ----------------------------------- |
+| `enums.ts`     | App-wide constants and enums | Singular, exports constants         |
+| `utils.ts`     | General utilities            | Singular, mixed utility functions   |
+| `functions.ts` | Business logic               | Singular, domain-specific functions |
+| `types.ts`     | Type definitions             | Singular, exports types/interfaces  |
 
 ## 🎯 Content Patterns
 
 ### `enums.ts` Pattern
 
-```typescript
+````typescript
 export const ENUMs = {
   [CATEGORY]: {
-    [CONSTANT_NAME]: "value",
+### `enums.ts` Pattern
+
+```typescript
+export const LOCALES = ["en", "ar", "ckb"] as const;
+export type Locale = typeof LOCALES[number];
+
+export const SKILL_LEVELS = ["beginner", "intermediate", "advanced", "expert"] as const;
+export type SkillLevel = typeof SKILL_LEVELS[number];
+````
+
+### Static Data Pattern
+
+```typescript
+// lib/data/projects.ts
+import type { Project } from "@/types/types";
+
+export const projects: Project[] = [
+  {
+    id: 1,
+    name: "Portfolio",
+    description: "Personal portfolio website",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
+    image: "/projects/portfolio.png",
+    // ... more fields
   },
-} as const;
-```
-
-**Example**:
-
-```typescript
-export const ENUMs = {
-  GLOBAL: {
-    DEFAULT_LANG: "en",
-    LANG_COOKIE: "lang",
-  },
-  PARAMS: {
-    SEARCH: "search",
-    LIMIT: "limit",
-  },
-} as const;
-```
-
-### `urls.ts` Pattern
-
-```typescript
-export const URLs = {
-  [ROUTE_NAME]: "/path",
-} as const;
-```
-
-**Example**:
-
-```typescript
-export const URLs = {
-  HOME: "/",
-  DASHBOARD: "/dashboard",
-  REDIRECT: "/l",
-} as const;
-```
-
-### `keys.ts` Pattern (TanStack Query)
-
-```typescript
-export const [entity] = {
-  all: () => ["[entity]"] as const,
-  lists: () => [...[entity].all(), "list"] as const,
-  list: (filters?: Record<string, any>) =>
-    [...[entity].lists(), filters] as const,
-  details: () => [...[entity].all(), "detail"] as const,
-  detail: (id: number) => [...[entity].details(), id] as const,
-};
-```
-
-**Example**:
-
-```typescript
-export const links = {
-  all: () => ["links"] as const,
-  lists: () => [...links.all(), "list"] as const,
-  list: (filters?: Record<string, any>) => [...links.lists(), filters] as const,
-  details: () => [...links.all(), "detail"] as const,
-  detail: (id: number) => [...links.details(), id] as const,
-};
-```
-
-### Store Pattern (Zustand)
-
-**File**: `[name].store.ts`
-
-```typescript
-import { create } from "zustand";
-
-interface [Name]State {
-  // State properties
-}
-
-interface [Name]Actions {
-  // Action methods
-}
-
-export const use[Name]Store = create<[Name]State & [Name]Actions>((set) => ({
-  // Implementation
-}));
-```
-
-### Validation Pattern (Zod)
-
-**File**: `[entity].ts`
-
-```typescript
-import { z } from "zod";
-import { TFunction } from "i18next";
-
-export const get[Entity]Validation = (t: TFunction) =>
-  z.object({
-    // Schema definition with translations
-  });
-
-export type [Entity]Input = z.infer<ReturnType<typeof get[Entity]Validation>>;
+];
 ```
 
 ## ✅ Best Practices
@@ -424,14 +352,11 @@ export type [Entity]Input = z.infer<ReturnType<typeof get[Entity]Validation>>;
 - ✅ Use lowercase with hyphens for `ui/` components
 - ✅ Use PascalCase for other React components
 - ✅ Use `.config.ts` suffix for configuration files
-- ✅ Use `.store.ts` suffix for Zustand stores
-- ✅ Use `.action.ts` for server actions
-- ✅ Use `.query.ts` for TanStack Query hooks
-- ✅ Use `.d.ts` for ambient type declarations
 - ✅ Group related files in feature folders
-- ✅ Use `index.ts` for barrel exports
-- ✅ Name validation files after entities (plural)
 - ✅ Keep all documentation in `/docs`
+- ✅ Use static data for portfolio content
+- ✅ Create hooks for data filtering logic
+- ✅ Use next-intl for all translations
 
 ### DON'T
 
@@ -450,58 +375,57 @@ export type [Entity]Input = z.infer<ReturnType<typeof get[Entity]Validation>>;
 When creating a new file, ask:
 
 1. ☐ Is it a React component? → `/components/[category]/[Name].tsx`
-2. ☐ Is it a custom hook? → `/hooks/use-[name].ts`
+2. ☐ Is it a custom hook? → `/hooks/use[Name].tsx`
 3. ☐ Is it a utility function? → `/lib/[purpose].ts`
 4. ☐ Is it a configuration? → `/lib/config/[name].config.ts`
-5. ☐ Is it state management? → `/lib/store/[name].store.ts`
-6. ☐ Is it a server action? → `/lib/react-query/actions/[entity].action.ts`
-7. ☐ Is it a TanStack Query hook? → `/lib/react-query/queries/[entity].query.ts`
-8. ☐ Is it validation? → `/validation/[entity].ts`
-9. ☐ Is it a type definition? → `/types/[name].ts` or `/types/[name].d.ts`
-10. ☐ Is it documentation? → `/docs/[topic].md`
+5. ☐ Is it static data? → `/lib/data/[entity].ts`
+6. ☐ Is it a type definition? → `/types/types.ts`
+7. ☐ Is it documentation? → `/docs/[topic].md`
+8. ☐ Is it a translation? → `/messages/[locale].json`
 
 ## 🚀 Examples by Feature
 
-### Adding a New Entity (e.g., "Users")
+### Adding Portfolio Content (e.g., "Projects")
 
 ```
 lib/
-├── react-query/
-│   ├── actions/
-│   │   └── users.action.ts      # Server actions
-│   └── queries/
-│       └── users.query.ts       # Query hooks
-└── db/
-    └── schema.ts                # Add users table
+└── data/
+    └── projects.ts             # Project data
 
 types/
-└── global.ts                    # Add User type
+└── types.ts                    # Add Project type
 
-validation/
-└── users.ts                     # Zod schema
+hooks/
+└── useProjectQueries.tsx       # Filter hooks
 
 components/
-├── forms/
-│   └── UserForm.tsx             # User form component
-└── cards/
-    └── UserCard.tsx             # User card component
-```
-
-### Adding a New Feature Section
-
-```
-components/
-└── [feature-name]/
-    ├── [component]-section.tsx
-    └── [helper-component].tsx
+├── cards/
+│   └── project-card.tsx        # Project card component
+└── projects/
+    ├── ProjectsHeader.tsx
+    ├── ProjectsContent.tsx
+    └── ProjectsGrid.tsx
 
 app/
-└── [feature-name]/
-    ├── page.tsx
-    └── layout.tsx
+└── [locale]/
+    └── projects/
+        └── page.tsx            # Projects page
+```
+
+### Adding a New Page Section
+
+```
+components/
+└── sections/
+    └── [section-name].tsx
+
+messages/
+├── en.json                     # Add section translations
+├── ar.json                     # Add section translations
+└── ckb.json                    # Add section translations
 ```
 
 ---
 
-**Version**: 1.0.0  
-**Last Updated**: January 6, 2026
+**Version**: 2.0.0  
+**Last Updated**: January 24, 2026
