@@ -411,6 +411,16 @@ export const data: Partial<Project>[] = [
           ProjectTech.NextJs,
           ProjectTech.Typescript,
           ProjectTech.ShadcnUI,
+          ProjectTech.I18next,
+        ],
+      },
+      {
+        version: 2,
+        technologies: [
+          ProjectTech.NextJs,
+          ProjectTech.Typescript,
+          ProjectTech.ShadcnUI,
+          ProjectTech.NextIntl,
         ],
       },
     ],
