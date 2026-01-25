@@ -101,6 +101,10 @@
       "game": "Game",
       "telegram_bot": "Telegram Bot"
     },
+    "finance": {
+      "title": "Finance App",
+      "description": "A personal finance management application that helps users track their income, expenses, and savings goals with intuitive charts and reports."
+    },
     "kids_world": {
       "title": "Kids World",
       "description": "An e-commerce platform designed specifically for children's products, featuring a colorful and engaging interface, secure payment options, and a wide range of toys, clothing, and educational materials."

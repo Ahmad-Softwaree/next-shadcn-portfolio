@@ -91,6 +91,7 @@ export type GitName =
   | "shop_backend"
   | "shop_frontend"
   | "quran"
+  | "finance"
   | "kids_world";
 export type GitRepo = {
   name: RepoType;
@@ -187,6 +188,37 @@ export type Project = {
 };
 export const data: Partial<Project>[] = [
   {
+    textKey: "finance",
+    image: "/projects/finance.png",
+    versions: [
+      {
+        version: 1,
+        technologies: [
+          ProjectTech.NextJs,
+          ProjectTech.Typescript,
+          ProjectTech.ShadcnUI,
+          ProjectTech.NextIntl,
+          ProjectTech.Motion,
+          ProjectTech.Clerk,
+          ProjectTech.Prisma,
+          ProjectTech.PostgreSQL,
+        ],
+      },
+    ],
+    liveUrl: "https://finance.ahmad-software.com",
+    gits: [
+      {
+        name: RepoType.Fullstack,
+        url: getGithubLink("finance"),
+      },
+    ],
+    tag: ProjectTag.Production,
+    types: [ProjectType.Web],
+    client_specific: false,
+    starred: true,
+    showInHome: false,
+  },
+  {
     textKey: "kids_world",
     image: "/projects/kids_world.png",
     versions: [
@@ -212,7 +244,7 @@ export const data: Partial<Project>[] = [
     types: [ProjectType.Web],
     client_specific: false,
     starred: true,
-    showInHome: true,
+    showInHome: false,
   },
   {
     textKey: "quran",
