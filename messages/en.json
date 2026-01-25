@@ -101,6 +101,10 @@
       "game": "Game",
       "telegram_bot": "Telegram Bot"
     },
+    "kids_world": {
+      "title": "Kids World",
+      "description": "An e-commerce platform designed specifically for children's products, featuring a colorful and engaging interface, secure payment options, and a wide range of toys, clothing, and educational materials."
+    },
     "quran": {
       "title": "Quran App",
       "description": "A comprehensive Quran application featuring verse-by-verse recitations, translations in multiple languages, and an intuitive user interface for easy navigation and study."

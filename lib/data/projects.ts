@@ -90,7 +90,8 @@ export type GitName =
   | "learning_tracker"
   | "shop_backend"
   | "shop_frontend"
-  | "quran";
+  | "quran"
+  | "kids_world";
 export type GitRepo = {
   name: RepoType;
   url: string;
@@ -185,6 +186,34 @@ export type Project = {
   showInHome: boolean;
 };
 export const data: Partial<Project>[] = [
+  {
+    textKey: "kids_world",
+    image: "/projects/kids_world.png",
+    versions: [
+      {
+        version: 1,
+        technologies: [
+          ProjectTech.NextJs,
+          ProjectTech.Typescript,
+          ProjectTech.ShadcnUI,
+          ProjectTech.NextIntl,
+          ProjectTech.Motion,
+        ],
+      },
+    ],
+    liveUrl: "https://yarimndalan.com",
+    gits: [
+      {
+        name: RepoType.Fullstack,
+        url: getGithubLink("kids_world"),
+      },
+    ],
+    tag: ProjectTag.Production,
+    types: [ProjectType.Web],
+    client_specific: false,
+    starred: true,
+    showInHome: true,
+  },
   {
     textKey: "quran",
     image: "/projects/quran.png",
