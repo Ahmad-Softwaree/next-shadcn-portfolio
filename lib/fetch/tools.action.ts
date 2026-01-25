@@ -1,6 +1,8 @@
 import { SearchQueryParams } from "@/hooks/useSearchQuery";
 import { tools } from "../data/tools";
 import { ToolsQueryParams } from "@/hooks/useToolsQueries";
+import { Locale } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 export const getHomeTools = () => {
   const data = tools.filter((tool) => tool.showInHome);
@@ -12,17 +14,22 @@ export const getToolById = (id: number) => {
   return tool;
 };
 
-export const getToolsPage = (
+export const getToolsPage = async (
   params: ToolsQueryParams,
   search: SearchQueryParams,
-  t: any
+  locale: Locale
 ) => {
   let data = tools;
+  let translations = await getTranslations({ locale, namespace: "tools" });
   if (search.search) {
     const searchLower = search.search.toLowerCase();
     data = data.filter((tool) => {
-      let toolTitle = t(`${tool.textKey}.title` as any).toLowerCase();
-      let toolDesc = t(`${tool.textKey}.description` as any).toLowerCase();
+      let toolTitle = translations(
+        `${tool.textKey}.title` as any
+      ).toLowerCase();
+      let toolDesc = translations(
+        `${tool.textKey}.description` as any
+      ).toLowerCase();
       if (toolTitle.includes(searchLower) || toolDesc.includes(searchLower)) {
         return true;
       }

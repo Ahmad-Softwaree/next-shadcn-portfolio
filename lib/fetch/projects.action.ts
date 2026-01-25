@@ -1,6 +1,8 @@
 import { ProjectQueryParams } from "@/hooks/useProjectQueries";
 import { projects } from "../data/projects";
 import { SearchQueryParams } from "@/hooks/useSearchQuery";
+import { getTranslations } from "next-intl/server";
+import { Locale } from "next-intl";
 
 export const getHomeProjects = () => {
   const data = projects.filter((project) => project.showInHome);
@@ -12,19 +14,20 @@ export const getProjectById = (id: number) => {
   return project;
 };
 
-export const getProjectsPage = (
+export const getProjectsPage = async (
   params: ProjectQueryParams,
   search: SearchQueryParams,
-  t: any
+  locale: Locale
 ) => {
   let data = projects;
+  let translations = await getTranslations({ locale, namespace: "projects" });
   if (search.search) {
     const searchLower = search.search.toLowerCase();
     data = data.filter((project) => {
-      let projectTitle = t(`${project.textKey}.title` as any).toLowerCase();
-      let projectDesc = t(
-        `${project.textKey}.description` as any
-      ).toLowerCase();
+      let projectTitle =
+        `${translations(`${project.textKey}.title` as any)}`.toLowerCase();
+      let projectDesc =
+        `${translations(`${project.textKey}.description` as any)}`.toLowerCase();
       if (
         projectTitle.includes(searchLower) ||
         projectDesc.includes(searchLower)
