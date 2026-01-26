@@ -190,6 +190,13 @@ const data: Partial<Certification>[] = [
     starred: true,
     type: CertificateType.Udemy,
   },
+  {
+    title: "Next.js 15 & PostgreSQL (Udemy)",
+    url: "https://www.udemy.com/course/nextjs-15-postgresql/",
+    image: "/certificates/nextjs_postgresql.jpg",
+    starred: true,
+    type: CertificateType.Udemy,
+  },
 ];
 
 const certifications: Certification[] = data.map(
