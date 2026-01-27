@@ -71,6 +71,42 @@ export const getTypeColor = (type: SkillType) => {
 
 const data: Partial<Skill>[] = [
   {
+    name: "Next Auth",
+    image: "https://avatars.githubusercontent.com/u/61611757?s=200",
+    level: SkillLevel.Advanced,
+    type: SkillType.Library,
+  },
+  {
+    name: "auth0",
+    image: "https://avatars.githubusercontent.com/u/2824157?s=200",
+    level: SkillLevel.Advanced,
+    type: SkillType.Library,
+  },
+  {
+    name: "Better Auth",
+    image: "https://avatars.githubusercontent.com/u/139895814?s=200",
+    level: SkillLevel.Intermediate,
+    type: SkillType.Library,
+  },
+  {
+    name: "Resend",
+    image: "https://avatars.githubusercontent.com/u/126956041?s=200",
+    level: SkillLevel.Intermediate,
+    type: SkillType.Tool,
+  },
+  {
+    name: "EmailJs",
+    image: "https://avatars.githubusercontent.com/u/19236686?s=200",
+    level: SkillLevel.Intermediate,
+    type: SkillType.Tool,
+  },
+  {
+    name: "inlang",
+    image: "https://avatars.githubusercontent.com/u/104540802?s=200",
+    level: SkillLevel.Intermediate,
+    type: SkillType.Tool,
+  },
+  {
     name: "React",
     image:
       "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg",
