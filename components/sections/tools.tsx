@@ -13,7 +13,7 @@ const ToolsPreview = () => {
 
   return (
     <AnimateOnScroll animation="fade-up">
-      <section id="tools" className="relative py-20 px-6 max-w-7xl mx-auto">
+      <section id="tools" className="relative py-20 px-6 max-w-7xl mx-auto ">
         <ToolsHeader />
 
         <ToolsGrid data={data} />

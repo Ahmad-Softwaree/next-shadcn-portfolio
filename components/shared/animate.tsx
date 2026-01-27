@@ -3,6 +3,7 @@
 import { ReactNode } from "react";
 import { motion, Variants } from "motion/react";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface AnimateOnScrollProps {
   children: ReactNode;
@@ -335,9 +336,11 @@ export function SlideInMotion({
   className,
   direction = "left",
 }: SlideInMotionProps) {
+  const isMobile = useIsMobile();
+  let xDir = direction === "left" ? (isMobile ? 0 : -50) : isMobile ? 0 : 50;
   return (
     <motion.div
-      initial={{ opacity: 0, x: direction === "left" ? -50 : 50 }}
+      initial={{ opacity: 0, x: xDir }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
