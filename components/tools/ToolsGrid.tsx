@@ -20,7 +20,7 @@ const ToolsGrid = ({ data }: { data: Tool[] }) => {
 
   if (isToolsPage) {
     return (
-      <div className="space-y-12 ">
+      <div className="space-y-12" key={gridKey}>
         {data.map((tool) => (
           <StaggerItem key={tool.id}>
             <SpecialToolCard {...tool} />

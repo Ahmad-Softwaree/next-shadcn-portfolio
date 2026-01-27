@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import { motion, Variants } from "motion/react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -337,12 +337,35 @@ export function SlideInMotion({
   direction = "left",
 }: SlideInMotionProps) {
   const isMobile = useIsMobile();
-  let xDir = direction === "left" ? (isMobile ? 0 : -50) : isMobile ? 0 : 50;
+
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  const variants = useMemo(
+    () => ({
+      hidden: {
+        opacity: 0,
+        x: isMobile ? 0 : direction === "left" ? -50 : 50,
+      },
+      show: {
+        opacity: 1,
+        x: 0,
+      },
+    }),
+    [isMobile, direction]
+  );
+  if (!hydrated) {
+    return <div className={cn(className)}>{children}</div>;
+  }
+
   return (
     <motion.div
-      initial={{ opacity: 0, x: xDir }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
+      initial="hidden"
+      whileInView="show"
+      variants={variants}
+      viewport={{ once: true, margin: isMobile ? "0px" : "-100px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={cn(className)}>
       {children}
