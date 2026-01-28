@@ -38,6 +38,9 @@ export enum ProjectTech {
   I18next = "i18next",
   NextIntl = "Next-Intl",
   Motion = "Motion",
+  Auth0 = "Auth0",
+  Mongoose = "Mongoose",
+  Drizzle = "Drizzle ORM",
 }
 export const projectTechs = Object.values(ProjectTech);
 
@@ -92,6 +95,7 @@ export type GitName =
   | "shop_frontend"
   | "quran"
   | "finance"
+  | "zhir"
   | "kids_world";
 export type GitRepo = {
   name: RepoType;
@@ -188,6 +192,38 @@ export type Project = {
 };
 export const data: Partial<Project>[] = [
   {
+    textKey: "zhir",
+    image: "/projects/zhir.png",
+    versions: [
+      {
+        version: 1,
+        technologies: [
+          ProjectTech.NextJs,
+          ProjectTech.Typescript,
+          ProjectTech.ShadcnUI,
+          ProjectTech.NextIntl,
+          ProjectTech.Motion,
+          ProjectTech.Auth0,
+          ProjectTech.MongoDB,
+          ProjectTech.Mongoose,
+          ProjectTech.OpenAI,
+        ],
+      },
+    ],
+    liveUrl: "https://zhir.ahmad-software.com",
+    gits: [
+      {
+        name: RepoType.Fullstack,
+        url: getGithubLink("zhir"),
+      },
+    ],
+    tag: ProjectTag.Production,
+    types: [ProjectType.Web],
+    client_specific: false,
+    starred: true,
+    showInHome: false,
+  },
+  {
     textKey: "finance",
     image: "/projects/finance.png",
     versions: [
@@ -200,7 +236,8 @@ export const data: Partial<Project>[] = [
           ProjectTech.NextIntl,
           ProjectTech.Motion,
           ProjectTech.Clerk,
-          ProjectTech.Prisma,
+          ProjectTech.Neon,
+          ProjectTech.Drizzle,
           ProjectTech.PostgreSQL,
         ],
       },

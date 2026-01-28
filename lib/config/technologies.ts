@@ -10,6 +10,27 @@ export type TechnologyConfig = {
 
 // Centralized technology configuration with consistent colors across the app
 export const technologyConfig: Record<ProjectTech, TechnologyConfig> = {
+  Auth0: {
+    name: ProjectTech.Auth0,
+    displayName: "Auth0",
+    color: "text-black dark:text-white",
+    bgColor: "bg-gray-300/10 dark:bg-gray-700/20",
+    borderColor: "border-gray-500/30",
+  },
+  Mongoose: {
+    name: ProjectTech.Mongoose,
+    displayName: "Mongoose",
+    color: "text-green-700 dark:text-green-300",
+    bgColor: "bg-green-600/10 dark:bg-green-600/20",
+    borderColor: "border-green-600/30",
+  },
+  "Drizzle ORM": {
+    name: ProjectTech.Drizzle,
+    displayName: "Drizzle ORM",
+    color: "text-indigo-600 dark:text-indigo-400",
+    bgColor: "bg-indigo-500/10 dark:bg-indigo-500/20",
+    borderColor: "border-indigo-500/30",
+  },
   Motion: {
     name: ProjectTech.Motion,
     displayName: "Motion",
