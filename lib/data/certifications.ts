@@ -197,6 +197,13 @@ const data: Partial<Certification>[] = [
     starred: true,
     type: CertificateType.Udemy,
   },
+  {
+    title: "Next JS ChatGPT clone with Next.JS & OpenAI (Udemy)",
+    url: "https://www.udemy.com/course/nextjs-chatgpt/",
+    image: "/certificates/nextjs-chatgpt.jpg",
+    starred: true,
+    type: CertificateType.Udemy,
+  },
 ];
 
 const certifications: Certification[] = data.map(
