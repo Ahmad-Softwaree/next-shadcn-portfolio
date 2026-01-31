@@ -204,6 +204,13 @@ const data: Partial<Certification>[] = [
     starred: true,
     type: CertificateType.Udemy,
   },
+  {
+    title: "Next JS & Open AI / GPT: Next-generation Next JS & AI apps (Udemy)",
+    url: "https://www.udemy.com/course/next-js-ai/",
+    image: "/certificates/nextjs-chatgpt-openai.jpg",
+    starred: true,
+    type: CertificateType.Udemy,
+  },
 ];
 
 const certifications: Certification[] = data.map(
