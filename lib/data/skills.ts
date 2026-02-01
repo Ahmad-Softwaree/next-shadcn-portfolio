@@ -72,7 +72,7 @@ export const getTypeColor = (type: SkillType) => {
 const data: Partial<Skill>[] = [
   {
     name: "Next Auth",
-    image: "https://avatars.githubusercontent.com/u/61611757?s=200",
+    image: "https://cdn.simpleicons.org/nextdns",
     level: SkillLevel.Advanced,
     type: SkillType.Library,
   },
@@ -90,19 +90,19 @@ const data: Partial<Skill>[] = [
   },
   {
     name: "Resend",
-    image: "https://avatars.githubusercontent.com/u/126956041?s=200",
+    image: "https://cdn.simpleicons.org/resend",
     level: SkillLevel.Intermediate,
     type: SkillType.Tool,
   },
   {
     name: "EmailJs",
-    image: "https://avatars.githubusercontent.com/u/19236686?s=200",
+    image: "https://cdn.simpleicons.org/maildotru",
     level: SkillLevel.Intermediate,
     type: SkillType.Tool,
   },
   {
     name: "inlang",
-    image: "https://avatars.githubusercontent.com/u/104540802?s=200",
+    image: "https://cdn.simpleicons.org/languagetool",
     level: SkillLevel.Intermediate,
     type: SkillType.Tool,
   },
@@ -245,7 +245,7 @@ const data: Partial<Skill>[] = [
   },
   {
     name: "Uploadthing",
-    image: "https://avatars.githubusercontent.com/u/111536768?s=200",
+    image: "https://cdn.simpleicons.org/uplabs",
     level: SkillLevel.Advanced,
     type: SkillType.Library,
   },
@@ -293,6 +293,19 @@ const data: Partial<Skill>[] = [
     image:
       "https://raw.githubusercontent.com/devicons/devicon/master/icons/postman/postman-original.svg",
     level: SkillLevel.Expert,
+    type: SkillType.Tool,
+  },
+
+  {
+    name: "Shopify",
+    image: "https://cdn.simpleicons.org/shopify",
+    level: SkillLevel.Intermediate,
+    type: SkillType.Tool,
+  },
+  {
+    name: "n8n",
+    image: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/n8n.png",
+    level: SkillLevel.Intermediate,
     type: SkillType.Tool,
   },
 
