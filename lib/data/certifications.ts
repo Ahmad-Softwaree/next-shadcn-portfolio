@@ -211,6 +211,14 @@ const data: Partial<Certification>[] = [
     starred: true,
     type: CertificateType.Udemy,
   },
+  {
+    title:
+      "Cursor AI Beginner to Pro: Build Production Web Apps with AI (Udemy)",
+    url: "https://www.udemy.com/course/learn-cursor-ai/",
+    image: "/certificates/cursor-ai.jpg",
+    starred: true,
+    type: CertificateType.Udemy,
+  },
 ];
 
 const certifications: Certification[] = data.map(
