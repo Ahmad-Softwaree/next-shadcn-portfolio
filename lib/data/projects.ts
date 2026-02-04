@@ -96,6 +96,7 @@ export type GitName =
   | "quran"
   | "finance"
   | "zhir"
+  | "flashy_cards"
   | "kids_world";
 export type GitRepo = {
   name: RepoType;
@@ -191,6 +192,38 @@ export type Project = {
   showInHome: boolean;
 };
 export const data: Partial<Project>[] = [
+  {
+    textKey: "flashycards",
+    image: "/projects/flashycards.png",
+    versions: [
+      {
+        version: 1,
+        technologies: [
+          ProjectTech.NextJs,
+          ProjectTech.Typescript,
+          ProjectTech.ShadcnUI,
+          ProjectTech.NextIntl,
+          ProjectTech.Motion,
+          ProjectTech.Clerk,
+          ProjectTech.Neon,
+          ProjectTech.PostgreSQL,
+          ProjectTech.Drizzle,
+        ],
+      },
+    ],
+    liveUrl: "https://flashycards.ahmad-software.com",
+    gits: [
+      {
+        name: RepoType.Fullstack,
+        url: getGithubLink("flashy_cards"),
+      },
+    ],
+    tag: ProjectTag.Production,
+    types: [ProjectType.Web],
+    client_specific: false,
+    starred: true,
+    showInHome: false,
+  },
   {
     textKey: "zhir",
     image: "/projects/zhir.png",
