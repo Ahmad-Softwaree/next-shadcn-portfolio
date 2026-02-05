@@ -219,6 +219,13 @@ const data: Partial<Certification>[] = [
     starred: true,
     type: CertificateType.Udemy,
   },
+  {
+    title: "Claude Code Beginner to Pro: Agentic Coding for Developers (Udemy)",
+    url: "https://www.udemy.com/course/learn-claude-code/",
+    image: "/certificates/claude-ai.jpg",
+    starred: true,
+    type: CertificateType.Udemy,
+  },
 ];
 
 const certifications: Certification[] = data.map(
