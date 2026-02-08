@@ -9,6 +9,26 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "resend.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.worldvectorlogo.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.emailjs.com",
+      },
+      {
+        protocol: "https",
+        hostname: "inlang.com",
+      },
+      {
+        protocol: "https",
+        hostname: "uploadthing.com",
+      },
+      {
+        protocol: "https",
         hostname: "cdn.simpleicons.org",
       },
       {

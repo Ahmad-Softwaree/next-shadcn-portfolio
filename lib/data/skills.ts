@@ -71,12 +71,6 @@ export const getTypeColor = (type: SkillType) => {
 
 const data: Partial<Skill>[] = [
   {
-    name: "Next Auth",
-    image: "https://cdn.simpleicons.org/nextdns",
-    level: SkillLevel.Advanced,
-    type: SkillType.Library,
-  },
-  {
     name: "auth0",
     image: "https://avatars.githubusercontent.com/u/2824157?s=200",
     level: SkillLevel.Advanced,
@@ -89,23 +83,44 @@ const data: Partial<Skill>[] = [
     type: SkillType.Library,
   },
   {
+    name: "Next Auth",
+    image:
+      "https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg",
+    level: SkillLevel.Advanced,
+    type: SkillType.Library,
+  },
+  {
     name: "Resend",
-    image: "https://cdn.simpleicons.org/resend",
+    image:
+      "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/resend.svg",
     level: SkillLevel.Intermediate,
     type: SkillType.Tool,
   },
   {
     name: "EmailJs",
-    image: "https://cdn.simpleicons.org/maildotru",
+    image: "https://www.emailjs.com/logo.png",
     level: SkillLevel.Intermediate,
     type: SkillType.Tool,
   },
   {
     name: "inlang",
-    image: "https://cdn.simpleicons.org/languagetool",
+    image: "https://inlang.com/favicon.ico",
     level: SkillLevel.Intermediate,
     type: SkillType.Tool,
   },
+  {
+    name: "Uploadthing",
+    image: "https://uploadthing.com/favicon.ico",
+    level: SkillLevel.Advanced,
+    type: SkillType.Library,
+  },
+  {
+    name: "Shopify",
+    image: "https://cdn.worldvectorlogo.com/logos/shopify.svg",
+    level: SkillLevel.Intermediate,
+    type: SkillType.Tool,
+  },
+
   {
     name: "React",
     image:
@@ -243,12 +258,7 @@ const data: Partial<Skill>[] = [
     level: SkillLevel.Advanced,
     type: SkillType.Framework,
   },
-  {
-    name: "Uploadthing",
-    image: "https://cdn.simpleicons.org/uplabs",
-    level: SkillLevel.Advanced,
-    type: SkillType.Library,
-  },
+
   {
     name: "Neon Database",
     image: "https://avatars.githubusercontent.com/u/84234201?s=200",
@@ -296,12 +306,6 @@ const data: Partial<Skill>[] = [
     type: SkillType.Tool,
   },
 
-  {
-    name: "Shopify",
-    image: "https://cdn.simpleicons.org/shopify",
-    level: SkillLevel.Intermediate,
-    type: SkillType.Tool,
-  },
   {
     name: "n8n",
     image: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/n8n.png",
